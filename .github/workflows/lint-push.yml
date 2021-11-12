@@ -28,8 +28,8 @@ jobs:
             ./**/*.css
             !node_modules/
         
-  js-ts:
-    name: Lint js/ts
+  ts:
+    name: Lint ts
     runs-on: ubuntu-latest
     steps:
       - name: check out code 🛎
@@ -43,9 +43,9 @@ jobs:
         
       - uses: actions/upload-artifact@v2
         with:
-          name: js-ts-linted
+          name: ts-linted
           path: | 
-            ./**/*.js
+            ./**/*.ts
             !node_modules/
         
   html:
@@ -64,7 +64,7 @@ jobs:
   push:
     name: Push changes
     runs-on: ubuntu-latest
-    needs: [css, js-ts, html]
+    needs: [css, ts, html]
     steps:
       - name: check out code 🛎
         uses: actions/checkout@v2
@@ -75,7 +75,7 @@ jobs:
           
       - uses: actions/download-artifact@v2
         with:
-          name: js-ts-linted
+          name: ts-linted
     
       - name: Commit files
         continue-on-error: true
