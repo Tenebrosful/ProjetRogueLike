@@ -1,0 +1,92 @@
+name: Lint - Push
+
+on:
+  workflow_dispatch:
+  push:
+    branches:
+      - main
+      - 'push-action/**'
+
+jobs:
+  css:
+    name: Lint css
+    runs-on: ubuntu-latest
+    steps:
+      - name: check out code 🛎
+        uses: actions/checkout@v2
+        
+      - name: npm ci
+        run: npm ci
+    
+      - name: Run Stylelint css
+        run: npm run stylelint
+        
+      - uses: actions/upload-artifact@v2
+        with:
+          name: css-linted
+          path: | 
+            ./**/*.css
+            !node_modules/
+        
+  js-ts:
+    name: Lint js/ts
+    runs-on: ubuntu-latest
+    steps:
+      - name: check out code 🛎
+        uses: actions/checkout@v2
+        
+      - name: npm ci
+        run: npm ci
+    
+      - name: Run ESLint
+        run: npm run eslint
+        
+      - uses: actions/upload-artifact@v2
+        with:
+          name: js-ts-linted
+          path: | 
+            ./**/*.js
+            !node_modules/
+        
+  html:
+    name: Lint html
+    runs-on: ubuntu-latest
+    steps:
+      - name: check out code 🛎
+        uses: actions/checkout@v2
+        
+      - name: npm ci
+        run: npm ci
+    
+      - name: Run HTML-Validate
+        run: npm run html-validate
+        
+  push:
+    name: Push changes
+    runs-on: ubuntu-latest
+    needs: [css, js-ts, html]
+    steps:
+      - name: check out code 🛎
+        uses: actions/checkout@v2
+        
+      - uses: actions/download-artifact@v2
+        with:
+          name: css-linted
+          
+      - uses: actions/download-artifact@v2
+        with:
+          name: js-ts-linted
+    
+      - name: Commit files
+        continue-on-error: true
+        run: |
+          git config --local user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git config --local user.name "github-actions[bot]"
+          git commit -m "Auto-lint" -a
+      
+      - name: Pushing
+        continue-on-error: true
+        uses: CasperWA/push-protected@v2
+        with:
+          token: ${{ secrets.PUSH_TO_PROTECTED_BRANCH }}
+          branch: main
