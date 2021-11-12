@@ -22,4 +22,17 @@ jobs:
         with:
           node-version: ${{ matrix.node-version }}
           cache: 'npm'
-      - run: npm ci
+      - run: npm ci*
+
+  tsc:
+    name: Typescript Compile
+    runs-on: ubuntu-latest
+    steps:
+      - name: check out code 🛎
+        uses: actions/checkout@v2
+
+      - name: npm ci
+        run: npm ci
+
+      - name: Compile TypeScript
+        run: tsc
