@@ -9,7 +9,6 @@
     "strictNullChecks": true,
     "noUncheckedIndexedAccess": true,
     "strictPropertyInitialization": false,
-    "rootDir": "src",
     "outDir": "build",
     "emitDecoratorMetadata": true,
     "experimentalDecorators": true,
