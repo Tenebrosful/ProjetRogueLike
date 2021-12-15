@@ -6,8 +6,6 @@ export class Room {
   tiles: Tile[][];
 
   constructor(tiles: tileType[][]) {
-    console.log(tiles, `${tiles.length}x${tiles[0]?.length}`);
-
     this.tiles = [];
 
     for (let posY = 0; posY < tiles.length; posY++) {
