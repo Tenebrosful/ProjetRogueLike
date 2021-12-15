@@ -5,7 +5,7 @@ export class Error extends Tile{
   type = tileType.ERROR;
 
   constructor(params: {posX: number, posY: number}) {
-    super({...params, canFlyOver: true, canWalkThrough: true});
+    super({...params, canFlyOver: true, canWalkThrough: true, textRender: "?"});
   }
   
 }

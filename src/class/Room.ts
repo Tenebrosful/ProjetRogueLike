@@ -16,4 +16,15 @@ export class Room {
         this.tiles[posY].push(new (tileResolver(tiles[posY][posX]))({ posX, posY }));
     }
   }
+
+  renderTextTiles() {
+    let render = "";
+    
+    this.tiles.forEach(row => {
+      row.forEach( tile => render += tile.textRender);
+      render += "\n";
+    });
+
+    return render;
+  }
 }

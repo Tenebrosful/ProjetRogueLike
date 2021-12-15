@@ -5,7 +5,7 @@ export class Floor extends Tile{
   type = tileType.FLOOR;
 
   constructor(params: {posX: number, posY: number}) {
-    super({...params, canFlyOver: true, canWalkThrough: true});
+    super({...params, canFlyOver: true, canWalkThrough: true, textRender: " "});
   }
   
 }

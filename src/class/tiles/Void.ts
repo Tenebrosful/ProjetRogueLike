@@ -5,7 +5,7 @@ export class Void extends Tile{
   type = tileType.VOID;
 
   constructor(params: {posX: number, posY: number}) {
-    super({...params, canFlyOver: true, canWalkThrough: false});
+    super({...params, canFlyOver: true, canWalkThrough: false, textRender: "."});
   }
   
 }
