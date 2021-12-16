@@ -3,7 +3,7 @@
   "types": "build/index.d.js",
   "scripts": {
     "build": "tsc",
-    "eslint": "npx eslint . --ext .ts --fix",
+    "eslint": "npx eslint . --ext .js,.ts --fix",
     "stylelint": "npx stylelint **/*.css --fix",
     "html-validate": "npx html-validate ."
   },
