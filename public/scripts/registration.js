@@ -21,5 +21,10 @@ async function registerUser(event){
             password
         })
     }).then((res) => res.json() )
+    if(result.status === 'ok'){
+        alert('Success')
+    }else{
+        alert(result.error)
+    }
     console.log(result)
 }
