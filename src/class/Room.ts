@@ -13,9 +13,9 @@ export class Room {
     for (let posY = 0; posY < tiles.length; posY++) {
       this.tiles[posY] = [];
       /* @ts-ignore: tiles[posY] can't be undefined */
-      for (let posX = 0; posX < tiles[posY].length; posX++) 
+      for (let posX = 0; posX < tiles[posY].length; posX++)
         /* @ts-ignore: this.tiles[posY] and tiles[posY][posX] can't be undefined */
-        this.tiles[posY].push(new (tileResolver(tiles[posY][posX]))({ posX, posY }));
+        this.tiles[posY].push(tileResolver(tiles[posY][posX], { posX, posY }));
     }
   }
 
@@ -25,9 +25,9 @@ export class Room {
 
   renderTextTiles() {
     let render = "";
-    
+
     this.tiles.forEach(row => {
-      row.forEach( tile => render += tile.textRender);
+      row.forEach(tile => render += tile.textRender);
       render += "\n";
     });
 
