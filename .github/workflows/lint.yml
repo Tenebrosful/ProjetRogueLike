@@ -19,8 +19,8 @@ jobs:
       - name: Run Stylelint css
         run: npm run stylelint
         
-  ts:
-    name: Lint ts
+  js-ts:
+    name: Lint js-ts
     runs-on: ubuntu-latest
     steps:
       - name: check out code 🛎
