@@ -2,9 +2,6 @@ import * as express from "express";
 import * as path from "path";
 import * as bodyParser from "body-parser";
 import * as mongoose from "mongoose";
-import { User } from "./models/User";
-import * as bcrypt from "bcryptjs";
-import * as jwt from "jsonwebtoken";
 
 const app = express();
 const port = 9999;
