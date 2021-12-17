@@ -6,6 +6,9 @@ import { User } from "./models/User";
 import * as bcrypt from "bcryptjs";
 import * as jwt from "jsonwebtoken";
 
+const app = express();
+const port = 9999;
+
 const JWT_SECRET = "La réussite est une fleur qu'on arrose de volonté - Lucas Da Silva";
 
 mongoose.connect('mongodb://localhost:27017/user-db', {
@@ -13,13 +16,8 @@ mongoose.connect('mongodb://localhost:27017/user-db', {
     useUnifiedTopology: true
 })
 
-const app = express()
-
 app.set('view engine', 'ejs')
 
-app.listen(9999, () => {
-    console.log('Serveur up at 9999')
-})
 app.use(bodyParser.json())
 
 app.use('/', express.static(path.join(__dirname, 'public')))
@@ -110,3 +108,7 @@ app.post('/api/change-password', async (req, res) => {
 
 const userRouter = require('./routes/users')
 app.use('/', userRouter)
+
+app.listen(port, () => {
+    console.log(`Server started at port ${port}`);
+});
