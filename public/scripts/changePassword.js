@@ -2,23 +2,22 @@
  * @author : Clément Boulet
  */
 //https://www.youtube.com/watch?v=b91XgdyX-SM 7'40
-const form = document.getElementById("reg-form");
+const changePasswordform = document.getElementById("change-password-form");
 
-form.addEventListener('submit', registerUser)
+changePasswordform.addEventListener('submit', changePassordUser)
 
-async function registerUser(event){
+async function changePassordUser(event){
     event.preventDefault()
-    const username = document.getElementById("input_username").value;
-    const password = document.getElementById("input_password").value;
+    const password = document.getElementById("input_new-password").value;
 
-    const result = await fetch('/api/register',{
+    const result = await fetch('/api/change-password',{
         method: 'POST',
         headers: {
             'Content-Type': 'application/json'
         },
         body: JSON.stringify({
-            username,
-            password
+            newpassword: password,
+            token: localStorage.getItem('token')
         })
     }).then((res) => res.json() )
     if(result.status === 'ok'){

@@ -2,8 +2,11 @@ const express = require('express')
 const path = require('path')
 const bodyParser = require('body-parser')
 const mongoose = require('mongoose')
-const User = require('./src/model/user.js')
+const User = require('./src/models/user.js')
 const bcrypt = require('bcryptjs')
+const jwt = require('jsonwebtoken')
+
+const JWT_SECRET = "La réussite est une fleur qu'on arrose de volonté - Lucas Da Silva"
 
 mongoose.connect('mongodb://localhost:27017/user-db',{
     useNewUrlParser: true,
@@ -11,14 +14,41 @@ mongoose.connect('mongodb://localhost:27017/user-db',{
 })
 
 const app = express()
-app.use('/', express.static(path.join(__dirname, 'public')))
+
+app.set('view engine', 'ejs')
+
+app.listen(9999, () => {
+    console.log('Serveur up at 9999')
+})
 app.use(bodyParser.json())
 
-app.post('/api/login', async(req,res)=>{
-    res.json({status: 'ok' })
+app.use('/', express.static(path.join(__dirname, 'public')))
+
+app.post('/api/signin', async(req,res)=>{
+
+    const { username, password } = req.body
+    const user = await User.findOne({ username }).lean()
+
+    if(!user){
+        return res.json({ status: 'error', error: 'Invalid username or password'})
+    }
+
+    if(await bcrypt.compare(password, user.password)){
+
+        const token = jwt.sign(
+            { 
+                id:user._id, 
+                username: user.username 
+            },
+            JWT_SECRET
+        )
+        return res.json({ status: 'ok', data: token })
+    }
+
+    res.json({status: 'error', error: 'Invalid username or password' })
 })
 
-app.post('/api/register', async(req,res)=>{
+app.post('/api/signup', async(req,res)=>{
 
     const { username, password : plainTextPassword } = req.body;
 
@@ -53,6 +83,30 @@ app.post('/api/register', async(req,res)=>{
     res.json({ status: 'ok' })
 })
 
-app.listen(9999, () => {
-    console.log('Serveur up at 9999')
+app.post('/api/change-password', async(req,res)=>{
+    const { token, newpassword: plainTextPassword } = req.body
+
+    if (!plainTextPassword || typeof plainTextPassword !== 'string'){
+        return res.json({ status: 'error', error: 'Invalid password' })
+    }
+
+    if (plainTextPassword.length < 5){
+        return res.json({ status: 'error', error: 'Password too small. Should be atleast 6 characters' })
+    }
+
+
+    try{
+        const user = jwt.verify(token, JWT_SECRET)
+        const _id = user.id
+        const password = await bcrypt.hash(plainTextPassword,10)
+        await User.updateOne({ _id }, {
+            $set: { password }
+        })
+        res.json({status: 'ok' })
+    }catch(error){
+        res.json({status: 'error', error: ' :) ' })
+    }
 })
+
+const userRouter = require('./routes/users')
+app.use('/',userRouter)
