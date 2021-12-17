@@ -1,11 +1,12 @@
 import { tileType } from "../../enum/tileType";
 import { Tile } from "./Tile";
+import { Coordinates } from "../../../typing/tiles";
 
-export class Void extends Tile{
+export class Void extends Tile {
   type = tileType.VOID;
 
-  constructor(params: {posX: number, posY: number}) {
-    super({...params, canFlyOver: true, canWalkThrough: false, textRender: "."});
+  constructor({ posX, posY }: Coordinates) {
+    super({ canFlyOver: true, canWalkThrough: false, posX, posY, textRender: "." });
   }
-  
+
 }
