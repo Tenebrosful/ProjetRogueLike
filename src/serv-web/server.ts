@@ -18,7 +18,6 @@ mongoose.connect('mongodb://localhost:27017/user-db', {
 
 app.set('view engine', 'ejs')
 
-app.use(bodyParser.json())
 
 app.use('/', express.static(path.join(__dirname, 'public')))
 
@@ -87,10 +86,12 @@ app.post('/api/change-password', async (req, res) => {
     if (!plainTextPassword || typeof plainTextPassword !== 'string') {
         return res.json({ status: 'error', error: 'Invalid password' })
     }
+app.use(bodyParser.urlencoded());
 
     if (plainTextPassword.length < 5) {
         return res.json({ status: 'error', error: 'Password too small. Should be atleast 6 characters' })
     }
+app.use(bodyParser.json());
 
 
     try {
