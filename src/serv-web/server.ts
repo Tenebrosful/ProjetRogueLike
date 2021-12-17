@@ -2,16 +2,15 @@ import * as express from "express";
 import * as path from "path";
 import * as bodyParser from "body-parser";
 import * as mongoose from "mongoose";
+import * as dotenv from "dotenv";
+
+dotenv.config({ path: "config/express.env" });
+dotenv.config({ path: "config/bdd.env" });
 
 const app = express();
-const port = 9999;
+const port = process.env.EXPRESS_PORT || 9999;
 
-const JWT_SECRET = "La réussite est une fleur qu'on arrose de volonté - Lucas Da Silva";
-
-mongoose.connect('mongodb://localhost:27017/user-db', {
-    useNewUrlParser: true,
-    useUnifiedTopology: true
-})
+mongoose.connect(process.env.BDD_URL || "");
 
 app.set('view engine', 'ejs')
 
