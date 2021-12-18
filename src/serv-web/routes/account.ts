@@ -6,7 +6,7 @@ import { User } from "../../database/models/User";
 import { randomBytes } from "crypto";
 import { MongoError } from "mongodb";
 
-dotenv.config({ path: "config/express.env" });
+dotenv.config({ path: "config/serv-web.env" });
 const account = express.Router();
 
 const JWT_SECRET = process.env.JWT_SECRET || randomBytes(10).toString("hex");

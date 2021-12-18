@@ -1,3 +1,9 @@
+# Installation
+
+## Env variables
+
+[Via des fichiers .env](config/README.md)
+
 # Qu'est-ce que le Projet Rogue Like ?
 
 Le Projet Rogue Like est un projet tutoré par l'enseignant [Alexandre Leroux](https://github.com/sherpa1 "Profil Github") et réalisé par [Armand Perigon](https://github.com/HARM-and "Profil Github"), [Clement Boulet](https://github.com/Boulet-Clement "Profil Github"), [Hugo Bernard](https://github.com/Tenebrosful "Profil Github"), [Nathan Laouer](https://github.com/Morphewo "Profil Github") et [Tritan Blot](https://github.com/blot32u "Profil Github").

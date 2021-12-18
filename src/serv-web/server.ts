@@ -4,7 +4,7 @@ import * as bodyParser from "body-parser";
 import * as mongoose from "mongoose";
 import * as dotenv from "dotenv";
 
-dotenv.config({ path: "config/express.env" });
+dotenv.config({ path: "config/serv-web.env" });
 dotenv.config({ path: "config/bdd.env" });
 
 const app = express();
