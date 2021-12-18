@@ -6,7 +6,7 @@
     "eslint": "npx eslint . --ext .js,.ts --fix",
     "stylelint": "npx stylelint **/*.css --fix",
     "html-validate": "npx html-validate .",
-    "devStart": "nodemon serveur.js"
+    "webServer-dev": "nodemon src/serv-web/server.ts"
   },
   "devDependencies": {
     "@types/bcryptjs": "^2.4.2",
