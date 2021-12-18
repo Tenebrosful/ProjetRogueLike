@@ -10,7 +10,7 @@ async function changePassordUser(event){
     event.preventDefault()
     const password = document.getElementById("input_new-password").value;
 
-    const result = await fetch('/api/change-password',{
+    const result = await fetch('/api/account/change-password',{
         method: 'POST',
         headers: {
             'Content-Type': 'application/json'

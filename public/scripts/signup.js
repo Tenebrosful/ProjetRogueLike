@@ -11,7 +11,7 @@ async function signUpUser(event){
     const username = document.getElementById("input_username").value;
     const password = document.getElementById("input_password").value;
 
-    const result = await fetch('/api/signup',{
+    const result = await fetch('/api/account/signup',{
         method: 'POST',
         headers: {
             'Content-Type': 'application/json'
