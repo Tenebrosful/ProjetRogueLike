@@ -6,23 +6,24 @@ const changePasswordform = document.getElementById("change-password-form");
 
 changePasswordform.addEventListener('submit', changePassordUser)
 
-async function changePassordUser(event){
+async function changePassordUser(event) {
     event.preventDefault()
     const password = document.getElementById("input_new-password").value;
 
-    const result = await fetch('/api/account/change-password',{
-        method: 'POST',
-        headers: {
-            'Content-Type': 'application/json'
-        },
+    const result = await fetch('/api/account/change-password', {
         body: JSON.stringify({
             newpassword: password,
             token: localStorage.getItem('token')
-        })
-    }).then((res) => res.json() )
-    if(result.status === 'ok'){
+        }),
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        method: 'POST'
+    }).then((res) => res.json());
+
+    if (result.status === 'ok') {
         alert('Success')
-    }else{
+    } else {
         alert(result.error)
     }
     console.log(result)
