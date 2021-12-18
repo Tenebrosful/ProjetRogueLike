@@ -1,37 +1,37 @@
 /**
  * @author : Clément Boulet
  */
-//https://www.youtube.com/watch?v=b91XgdyX-SM 7'40
+// https://www.youtube.com/watch?v=b91XgdyX-SM 7'40
 const signUpform = document.getElementById("signup-form");
 
 const usernameInput = document.getElementById("input_username");
 const passwordInput = document.getElementById("input_password");
 const confirmPasswordInput = document.getElementById("input_confirm_password");
 
-signUpform.addEventListener('submit', signUpUser)
+signUpform.addEventListener("submit", signUpUser);
 
 async function signUpUser(event) {
-    event.preventDefault()
+    event.preventDefault();
     const username = usernameInput.value;
     const password = passwordInput.value;
 
-    const result = await fetch('/api/account/signup', {
+    const result = await fetch("/api/account/signup", {
         body: JSON.stringify({
             password,
             username
         }),
         headers: {
-            'Content-Type': 'application/json'
+            "Content-Type": "application/json"
         },
-        method: 'POST'
+        method: "POST"
     }).then((res) => res.json());
 
-    if (result.status === 'ok') {
-        alert('Success')
-    } else {
-        alert(result.error)
-    }
-    console.log(result)
+    if (result.status === "ok") 
+        alert("Success");
+     else 
+        alert(result.error);
+    
+    console.log(result);
 }
 
 /**
@@ -39,11 +39,11 @@ async function signUpUser(event) {
  */
 
 function validatePassword() {
-    if (passwordInput.value !== confirmPasswordInput.value) {
+    if (passwordInput.value !== confirmPasswordInput.value) 
         confirmPasswordInput.setCustomValidity("Les mots de passe ne correspondent pas");
-    } else {
-        confirmPasswordInput.setCustomValidity('');
-    }
+     else 
+        confirmPasswordInput.setCustomValidity("");
+    
 }
 
 passwordInput.onchange = validatePassword;

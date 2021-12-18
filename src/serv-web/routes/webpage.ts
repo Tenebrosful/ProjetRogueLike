@@ -5,16 +5,16 @@ webpage.get("/", (req, res) => {
     res.render("index");
 });
 
-webpage.get('/signup',(req,res)=>{
-    res.render('users/signup');
+webpage.get("/signup",(req,res)=>{
+    res.render("users/signup");
 });
 
-webpage.get('/signin',(req,res)=>{
-    res.render('users/signin');
+webpage.get("/signin",(req,res)=>{
+    res.render("users/signin");
 });
 
-webpage.get('/change-password',(req,res)=>{
-    res.render('users/changePassword');
+webpage.get("/change-password",(req,res)=>{
+    res.render("users/changePassword");
 });
 
 /* https://www.youtube.com/watch?v=SccSCuHhOw0 
