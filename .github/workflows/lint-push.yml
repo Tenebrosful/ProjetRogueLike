@@ -61,11 +61,24 @@ jobs:
     
       - name: Run HTML-Validate
         run: npm run html-validate
+
+  ejs:
+    name: Lint ejs templates
+    runs-on: ubuntu-latest
+    steps:
+      - name: check out code 🛎
+        uses: actions/checkout@v2
+        
+      - name: npm ci
+        run: npm ci
+    
+      - name: Run ejs-Validate
+        run: npm run ejs-validate
         
   push:
     name: Push changes
     runs-on: ubuntu-latest
-    needs: [css, js-ts, html]
+    needs: [css, js-ts, html, ejs]
     steps:
       - name: check out code 🛎
         uses: actions/checkout@v2
