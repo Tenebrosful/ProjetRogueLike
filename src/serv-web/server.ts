@@ -19,6 +19,9 @@ app.set("views", path.join(__dirname, "./views"));
 
 app.use(bodyParser.json());
 
+import logger from "./middleware/logger";
+app.use(logger);
+
 app.use("/static", express.static("public"));
 
 import webpage from "./routes/webpage";
