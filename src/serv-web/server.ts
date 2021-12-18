@@ -32,5 +32,5 @@ import account from "./routes/account";
 app.use("/api/account", account);
 
 app.listen(port, () => {
-    console.log(`Server started at port ${port}`);
+    console.log(`Server started at port http://localhost:${port}`);
 });
