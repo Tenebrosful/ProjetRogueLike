@@ -48,7 +48,7 @@ account.post('/signup', async (req, res) => {
   }
 
   //On peut aussi faire des restrictions demandant une majuscule
-  if (plainTextPassword.length < 5) {
+  if (plainTextPassword.length <= 5) {
       return res.json({ status: 'error', error: 'Password too small. Should be atleast 6 characters' })
   }
 
