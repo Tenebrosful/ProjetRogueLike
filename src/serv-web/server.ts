@@ -12,11 +12,12 @@ const port = process.env.EXPRESS_PORT || 9999;
 
 mongoose.connect(process.env.BDD_URL || "");
 
-
-app.use(bodyParser.urlencoded());
 app.set('view engine', 'ejs');
 app.set("views", path.join(__dirname, "./views"));
 
+app.use(bodyParser.urlencoded({
+    extended: true
+}));
 app.use(bodyParser.json());
 
 import logger from "./middleware/logger";
