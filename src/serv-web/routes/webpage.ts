@@ -1,6 +1,10 @@
 import * as express from "express";
 const webpage = express.Router();
 
+webpage.get("/", (req, res) => {
+    res.render("index");
+});
+
 webpage.get('/signup',(req,res)=>{
     res.render('users/signup');
 });
