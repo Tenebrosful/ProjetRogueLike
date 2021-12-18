@@ -3,11 +3,12 @@ import * as bcrypt from "bcryptjs";
 import * as jwt from "jsonwebtoken";
 import * as dotenv from "dotenv";
 import { User } from "../../database/models/User";
+import { randomBytes } from "crypto";
 
 dotenv.config({ path: "config/express.env" });
 const account = express.Router();
 
-const JWT_SECRET = process.env.JWT_SECRET || "La réussite est une fleur qu'on arrose de volonté - Lucas Da Silva";
+const JWT_SECRET = process.env.JWT_SECRET || randomBytes(10).toString("hex");
 
 account.post('/signin', async (req, res) => {
 
