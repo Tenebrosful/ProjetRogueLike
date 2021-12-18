@@ -82,7 +82,7 @@ account.post('/change-password', async (req, res) => {
 
 
   try {
-      const user = jwt.verify(token, JWT_SECRET)
+      const user = jwt.verify(token, JWT_SECRET) as { id: string, username: string };
       const _id = user.id
       const password = await bcrypt.hash(plainTextPassword, 10)
       await User.updateOne({ _id }, {
