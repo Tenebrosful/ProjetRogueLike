@@ -4,6 +4,7 @@ import * as jwt from "jsonwebtoken";
 import * as dotenv from "dotenv";
 import { User } from "../../database/models/User";
 import { randomBytes } from "crypto";
+import { MongoError } from "mongodb";
 
 dotenv.config({ path: "config/express.env" });
 const account = express.Router();
@@ -59,7 +60,7 @@ account.post('/signup', async (req, res) => {
       })
       console.log('User created: ', response)
   } catch (error) {
-      if (error.code === 11000) {
+      if (error instanceof Error && error.name === "MongoError" && (error as MongoError).code === 11000) {
           //duplicate key
           return res.json({ status: 'error', error: 'Username already in use' })
       }
