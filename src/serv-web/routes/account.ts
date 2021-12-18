@@ -16,9 +16,9 @@ account.post('/signin', async (req, res) => {
     const { username, password } = req.body
     const user = await User.findOne({ username }).lean()
 
-    if (!user) { res.status(400).json({ status: 'error', error: 'Invalid username or password' }); return; }
+    if (!user) { res.status(400).json({ error: 'Invalid username or password', status: 'error' }); return; }
 
-    if (!await bcrypt.compare(password, user.password)) { res.status(400).json({ status: 'error', error: 'Invalid username or password' }); return; }
+    if (!await bcrypt.compare(password, user.password)) { res.status(400).json({ error: 'Invalid username or password', status: 'error' }); return; }
 
     const token = jwt.sign(
         {
@@ -28,7 +28,7 @@ account.post('/signin', async (req, res) => {
         JWT_SECRET
     )
 
-    res.status(200).json({ status: 'ok', data: token });
+    res.status(200).json({ data: token, status: 'ok' });
 
 });
 
@@ -36,12 +36,12 @@ account.post('/signup', async (req, res) => {
 
     const { username, password: plainTextPassword } = req.body;
 
-    if (!username || typeof username !== 'string') { res.status(400).json({ status: 'error', error: 'Invalid username' }); return; }
+    if (!username || typeof username !== 'string') { res.status(400).json({ error: 'Invalid username', status: 'error' }); return; }
 
-    if (!plainTextPassword || typeof plainTextPassword !== 'string') { res.status(400).json({ status: 'error', error: 'Invalid password' }); return; }
+    if (!plainTextPassword || typeof plainTextPassword !== 'string') { res.status(400).json({ error: 'Invalid password', status: 'error' }); return; }
 
     //On peut aussi faire des restrictions demandant une majuscule
-    if (plainTextPassword.length <= 5) { res.status(400).json({ status: 'error', error: 'Password too small. Should be atleast 6 characters' }); return; }
+    if (plainTextPassword.length <= 5) { res.status(400).json({ error: 'Password too small. Should be atleast 6 characters', status: 'error' }); return; }
 
     const password = await bcrypt.hash(plainTextPassword, 10)
     try {
@@ -52,7 +52,7 @@ account.post('/signup', async (req, res) => {
         console.log('User created: ', response)
     } catch (error) {
         if (error instanceof Error && error.name === "MongoError" && (error as MongoError).code === 11000)
-            res.status(400).json({ status: 'error', error: 'Username already in use' });
+            res.status(400).json({ error: 'Username already in use', status: 'error' });
         else
             throw error;
     }
@@ -63,9 +63,9 @@ account.post('/signup', async (req, res) => {
 account.post('/change-password', async (req, res) => {
     const { token, newpassword: plainTextPassword } = req.body
 
-    if (!plainTextPassword || typeof plainTextPassword !== 'string') { res.status(400).json({ status: 'error', error: 'Invalid password' }); return; }
+    if (!plainTextPassword || typeof plainTextPassword !== 'string') { res.status(400).json({ error: 'Invalid password', status: 'error' }); return; }
 
-    if (plainTextPassword.length <= 5) { res.json({ status: 'error', error: 'Password too small. Should be atleast 6 characters' }); return; }
+    if (plainTextPassword.length <= 5) { res.json({ error: 'Password too small. Should be atleast 6 characters', status: 'error' }); return; }
 
     try {
         const user = jwt.verify(token, JWT_SECRET) as { id: string, username: string };
@@ -76,7 +76,7 @@ account.post('/change-password', async (req, res) => {
         })
         res.status(200).json({ status: 'ok' });
     } catch (error) {
-        res.status(400).json({ status: 'error', error: ' :) ' });
+        res.status(400).json({ error: ' :) ', status: 'error' });
     }
 });
 
