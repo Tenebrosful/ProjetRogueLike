@@ -75,7 +75,7 @@ account.post("/change-password", async (req, res) => {
             $set: { password }
         });
         res.status(200).json({ status: "ok" });
-    } catch (error) {
+    }catch (error) {
         res.status(400).json({ error: " :) ", status: "error" });
     }
 });
