@@ -7,7 +7,8 @@
     "stylelint": "npx stylelint **/*.css --fix",
     "html-validate": "npx html-validate .",
     "ejs-validate": "npx html-validate . --ext ejs",
-    "webServer-dev": "nodemon src/serv-web/server.ts"
+    "webServer-dev": "nodemon src/serv-web/server.ts",
+    "start": "./scripts/start-serv-web.bash"
   },
   "devDependencies": {
     "@types/bcryptjs": "^2.4.2",
