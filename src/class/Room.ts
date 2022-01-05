@@ -3,9 +3,11 @@ import { tileType } from "../enum/tileType";
 import { tileResolver } from "../resolver/TileResolver";
 import { Tile } from "./tiles/Tile";
 import * as rooms from "../../config/room.json";
+import { Door } from "./tiles/Door";
 
 export class Room {
   tiles: Tile[][];
+  doors: Door[];
 
   constructor(tiles: tileType[][]) {
     this.tiles = [];
@@ -18,7 +20,10 @@ export class Room {
         /* @ts-ignore: this.tiles[posY] and tiles[posY][posX] can't be undefined */
         if(tiles[posY][posX] === tileType.DOOR) {
           /* @ts-ignore: this.tiles[posY] and tiles[posY][posX] can't be undefined */
-          this.tiles[posY].push(tileResolver(tiles[posY][posX], { direction: doorDirection++, posX, posY }));
+          const door = tileResolver(tiles[posY][posX], { direction: doorDirection++, posX, posY }) as Door;
+          /* @ts-ignore: this.tiles[posY] and tiles[posY][posX] can't be undefined */
+          this.tiles[posY].push(door);
+          this.doors.push(door);
           continue;
         }
 
