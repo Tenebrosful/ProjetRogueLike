@@ -9,13 +9,22 @@ export class Room {
 
   constructor(tiles: tileType[][]) {
     this.tiles = [];
+    let doorDirection = 0;
 
     for (let posY = 0; posY < tiles.length; posY++) {
       this.tiles[posY] = [];
       /* @ts-ignore: tiles[posY] can't be undefined */
-      for (let posX = 0; posX < tiles[posY].length; posX++)
+      for (let posX = 0; posX < tiles[posY].length; posX++) {
+        /* @ts-ignore: this.tiles[posY] and tiles[posY][posX] can't be undefined */
+        if(tiles[posY][posX] === tileType.DOOR) {
+          /* @ts-ignore: this.tiles[posY] and tiles[posY][posX] can't be undefined */
+          this.tiles[posY].push(tileResolver(tiles[posY][posX], { direction: doorDirection++, posX, posY }));
+          continue;
+        }
+
         /* @ts-ignore: this.tiles[posY] and tiles[posY][posX] can't be undefined */
         this.tiles[posY].push(tileResolver(tiles[posY][posX], { posX, posY }));
+      }
     }
   }
 
