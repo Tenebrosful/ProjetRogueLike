@@ -4,6 +4,7 @@ import { Floor } from "./Floor";
 import { Void } from "./Void";
 import { Wall } from "./Wall";
 import { Error } from "./Error";
+import { Door } from "./Door";
 
 export abstract class Tile {
   posX: number;
@@ -31,6 +32,10 @@ export abstract class Tile {
 
   isError(): this is Error {
     return this.type === tileType.ERROR || !(this.type in tileType);
+  }
+
+  isDoor(): this is Door {
+    return this.type === tileType.DOOR;
   }
 
 }
