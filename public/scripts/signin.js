@@ -26,6 +26,7 @@ async function signInUser(event) {
         console.log("Got the token: ", result.data);
         localStorage.setItem("token", result.data);
         alert("Success");
+        document.location.href = '/';
     } else 
         alert(result.error);
     
