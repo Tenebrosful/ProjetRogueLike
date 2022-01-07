@@ -4,7 +4,6 @@
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <link rel="stylesheet" href="/static/css/main.css">
-        <script src="/static/scripts/signin.js" defer></script>
         <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.10.2/dist/umd/popper.min.js" integrity="sha384-7+zCNj/IqJ95wo16oMtfsKbZ9ccEh31eOz1HGyDuCQ6wgnyJNSYdrPa03rtR1zdB" crossorigin="anonymous" defer></script>
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.min.js" integrity="sha384-QJHtvGhmr9XOIpI6YVutG+2QOK9T+ZnN4kzFN1RtK3zEFEIsxhlmWl5/YESvpZ13" crossorigin="anonymous" defer></script>
         <title>Présentations</title>
@@ -14,7 +13,27 @@
             <%- include('../partials/navbar.ejs') %>
         </header>
         <main>
-
+            <section class="container mb-4">
+                <h1>Voici toutes nos présentations</h1>
+                <article id="presentation1">
+                    
+                    <h2 class="ms-3">13/12/2021</h2>
+                    <p class="ms-3">
+                        Pendant dix minutes nous devions présenter notre projets (nos différents choix...) à notre tuteur de 
+                        stage ainsi qu'à un autre professeur. 
+                    </p>
+                    <iframe src="/static/presentations/13_12_2021.pdf" width="100%" height="600px"></iframe>
+                </article>
+                <hr>
+                <article id="presentation2">
+                    <h2 class="ms-3">04/01/2022</h2>
+                    <p class="ms-3">
+                        Pendant cinq minutes, nous devions présenter notre projet aux différents membres de la licence pro CIASIE
+                    </p>
+                    <iframe src="/static/presentations/04_01_2020.pdf" width="100%" height="600px"></iframe>
+                </article>
+                
+            </section>
         </main>
         
     </body>
