@@ -13,28 +13,23 @@
             <%- include('../partials/navbar.ejs') %>
         </header>
         <main>
-            <div class="container mt-4">
-                <ol class="list-group list-group-numbered">
-                    <a href="/ressources/documents" style="text-decoration: none;">
-                        <li class="list-group-item d-flex justify-content-between align-items-start">
-                        <div class="ms-2 me-auto">
-                            <div class="fw-bold">Documents</div>
-                            <span class="ms-2 small">Synthèse du projet, rapport de conception</span>
-                        </div>
-                        <span class="badge bg-secondary rounded-pill">2</span>
-                        </li>
-                    </a>
-                    <a href="/ressources/diagrammes" style="text-decoration: none;">
-                        <li class="list-group-item d-flex justify-content-between align-items-start">
-                        <div class="ms-2 me-auto">
-                            <div class="fw-bold">Diagrammes</div>
-                            <span class="ms-2 small"> Diagramme de cas d'utilisations, diagramme d'activité, story mapping</span>
-                        </div>
-                        <span class="badge bg-secondary rounded-pill">3</span>
-                        </li>
-                    </a>
+            <div class="container mt-4 mb-4">
+                <section class="container mt-4 mb-4">
+                    <h1>Ressources</h1>
+
+                    <article id="presentation1">
+                        <h2 class="ms-3">Synthèse du projet</h2>
+                        <iframe src="/static/documents/synthese.pdf" width="100%" height="800"></iframe>
+                    </article>
+
+                    <hr>
+
+                    <article id="presentation2">
+                        <h2 class="ms-3">Rapport de conception</h2>
+                        <iframe src="/static/documents/conception.pdf" width="100%" height="800"></iframe>
+                    </article>
                     
-                </ol>
+                </section>                
             </div>
             
         </main>

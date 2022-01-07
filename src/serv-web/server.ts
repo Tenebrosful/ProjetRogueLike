@@ -28,9 +28,6 @@ app.use("/static", express.static("public"));
 import webpage from "./routes/webpage";
 app.use("/", webpage);
 
-import cmspages from "./routes/cms";
-app.use("/", cmspages);
-
 import account from "./routes/account";
 app.use("/api/account", account);
 
