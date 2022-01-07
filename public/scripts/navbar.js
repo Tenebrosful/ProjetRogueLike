@@ -18,6 +18,7 @@ if(token){
         liParam.appendChild(aParam)
 
     const hr = document.createElement('hr')
+    hr.classList.add("bg-dark")
 
     const liLogout = document.createElement('li')
         const aLogout = document.createElement('a')
@@ -46,6 +47,7 @@ if(token){
         liSignup.appendChild(aSignup)
 
     const hr = document.createElement('hr')
+    hr.classList.add("bg-dark")
 
     const liSignin = document.createElement('li')
         const aSignin = document.createElement('a')
