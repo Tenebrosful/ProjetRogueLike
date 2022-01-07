@@ -4,7 +4,8 @@
   "scripts": {
     "build": "tsc",
     "eslint": "npx eslint . --ext .js,.ts --fix",
-    "stylelint": "npx stylelint **/*.css --fix",
+    "stylelint-css": "npx stylelint **/*.css --fix",
+    "stylelint-scss": "npx stylelint **/*.scss --fix",
     "html-validate": "npx html-validate .",
     "ejs-validate": "npx html-validate . --ext ejs",
     "webServer-dev": "nodemon src/serv-web/server.ts"
