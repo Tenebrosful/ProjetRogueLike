@@ -17,6 +17,10 @@ webpage.get("/change-password",(req,res)=>{
     res.render("users/changePassword");
 });
 
+webpage.get("/presentation",(req,res)=>{
+    res.render("cms/index");
+});
+
 /* https://www.youtube.com/watch?v=SccSCuHhOw0 
 Cette vidéo pourra être utile au moment de faire des routes dynamiques (17eme minute)
 */
