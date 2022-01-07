@@ -26,14 +26,9 @@ async function signInUser(event) {
         console.log("Got the token: ", result.data);
         localStorage.setItem("token", result.data);
         //alert("Success");
-        try{
-            window.document.location.href = '/';
-        }catch (err){
-            console.log("Erreur de redirection ", err);
-        }
-        
-    } else 
+        window.document.location.href = '/';
+    } else {
         alert(result.error);
-    
+    }
     console.log(result);
 }
