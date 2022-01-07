@@ -4,12 +4,15 @@ import { tileResolver } from "../resolver/TileResolver";
 import { Tile } from "./tiles/Tile";
 import * as rooms from "../../config/room.json";
 import { Door } from "./tiles/Door";
+import { Coordinates } from "../../typing/tiles";
 
 export class Room {
+  coords: Coordinates;
   tiles: Tile[][];
   doors: Door[];
 
-  constructor(tiles: tileType[][]) {
+  constructor(tiles: tileType[][], coords: Coordinates = {posX: 0, posY: 0}) {
+    this.coords = coords;
     this.tiles = [];
     let doorDirection = 0;
 
