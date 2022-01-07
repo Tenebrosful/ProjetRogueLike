@@ -27,7 +27,7 @@ async function signInUser(event) {
         localStorage.setItem("token", result.data);
         //alert("Success");
         try{
-            document.location.href = '/';
+            window.document.location.href = '/';
         }catch (err){
             console.log("Erreur de redirection ", err);
         }
