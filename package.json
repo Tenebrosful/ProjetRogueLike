@@ -4,7 +4,8 @@
   "scripts": {
     "build": "tsc",
     "eslint": "npx eslint . --ext .js,.ts --fix",
-    "stylelint": "npx stylelint **/*.css --fix",
+    "stylelint-css": "npx stylelint **/*.css --fix",
+    "stylelint-scss": "npx stylelint **/*.scss --fix",
     "html-validate": "npx html-validate .",
     "ejs-validate": "npx html-validate . --ext ejs",
     "webServer-dev": "nodemon src/serv-web/server.ts",
@@ -32,6 +33,7 @@
   "dependencies": {
     "bcryptjs": "^2.4.3",
     "body-parser": "^1.19.1",
+    "bootstrap": "^5.1.3",
     "dotenv": "^10.0.0",
     "ejs": "^3.1.6",
     "express": "^4.17.1",
