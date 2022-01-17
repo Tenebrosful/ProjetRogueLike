@@ -109,6 +109,17 @@ export class Stage {
     console.log(this.renderTextStage(quadrillage));
 
   }
+  renderTextStage(quadrillage: (number | boolean)[][][]) {
+    let res = "";
+    quadrillage.forEach(ligne => {
+      // console.log(ligne);
+      ligne.forEach(tile => {
+        // console.log(tile);
+        res += tile[0] ? "X" : " ";
+      });
+      res += "\n";
+    });
+    return res;
   }
 
   static generateRandom(seed: RandomSeed) {
