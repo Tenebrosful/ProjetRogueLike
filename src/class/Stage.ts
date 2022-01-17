@@ -54,11 +54,11 @@ export class Stage {
 
   renderTextStage() {
     let res = "";
-    for (let x = 0; x < this.rooms.length; x++) {
-      if (!this.rooms[x]?.length) { res += " \n"; continue; }
+    for (let y = 0; y < this.rooms.length; y++) {
+      if (!this.rooms[y]?.length) { res += " \n"; continue; }
       // @ts-ignore
-      for (let y = 0; y < this.rooms[x].length; y++)
-        res += this.rooms?.[x]?.[y] ? `[${x};${y}]` : "     ";
+      for (let x = 0; x < this.rooms[y].length; x++)
+        res += this.rooms?.[y]?.[x] ? `[${x};${y}]` : "     ";
       res += "\n";
     }
     return res;
