@@ -1,112 +1,50 @@
 import { RandomSeed } from "random-seed";
+import { Coordinates } from "../../typing/tiles";
+import { Direction, InvertDirection } from "../enum/direction";
 import { Room } from "./Room";
 
 export class Stage {
-  private _tailleMap = 15;
+  private _baseRoomNumber = 8;
+  private _maxRoomNumber: number;
+
+  currentRoomNumber = 0;
   floor: number;
-  rooms: Room[][];
+  isXL: boolean;
+  rooms: Room[][] = [];
 
   constructor(params: { floor: number }, random: RandomSeed) {
 
     const start = Date.now();
 
-    let nbpiecedefault = 10;
+    this.floor = Math.abs(params.floor);
 
-    const quadrillage: (number | boolean)[][][] = [];
+    this.isXL = random.intBetween(1, 100) <= 10;
 
-    for (let i = 0; i < this._tailleMap; i++) {
-      quadrillage[i] = [];
-      for (let j = 0; j < this._tailleMap; j++)
-        // @ts-ignore
-        quadrillage[i][j] = [false, 0, 0, 0, 0, 0, false];
-    }
+    this._maxRoomNumber = Math.floor(this._baseRoomNumber * (Math.max(this.floor / 3, 1)) * (this.isXL ? 2 : 1));
 
-    const salleInit = [true, 1, 100, 100, 100, 100, false];
+    console.log(`${this._baseRoomNumber} * ${(Math.max(this.floor / 3, 1))} * ${(this.isXL ? 2 : 1)} = ${this._maxRoomNumber}`);
+    console.log(`Nombre de salle maximum : ${this._maxRoomNumber}${this.isXL ? " (XL)" : ""}`);
 
-    // @ts-ignore
-    quadrillage[Math.floor(this._tailleMap / 2) + 1][Math.floor(this._tailleMap / 2) + 1] = salleInit;
+    const coordsSpawnRoom: Coordinates = {
+      posX: Math.ceil(Math.sqrt(this._maxRoomNumber)),
+      posY: Math.ceil(Math.sqrt(this._maxRoomNumber))
+    };
 
-    for (let i = 0; i < this._tailleMap && nbpiecedefault > 0; i++)
-      for (let j = 0; j < this._tailleMap && nbpiecedefault > 0; j++)
-        // @ts-ignore
-        if (quadrillage[i][j][0] && !quadrillage[i][j][6] && nbpiecedefault > 0) {
+    const baseChanceToGenerate: ChanceToGenerateNextRoom = {
+      down: 50,
+      left: 50,
+      right: 50,
+      up: 50
+    };
 
-          console.log(`Génération pour la salle [${i};${j}]`);
-
-          // @ts-ignore
-          if (quadrillage[i][j][2] >= random.intBetween(1, 100)) {
-            // @ts-ignore
-            quadrillage[i - 1][j] = salleInit;
-            // @ts-ignore
-            quadrillage[i - 1][j][2] -= 25;
-            // @ts-ignore
-            quadrillage[i - 1][j][3] -= 50;
-            // @ts-ignore
-            quadrillage[i - 1][j][4] -= 100;
-            // @ts-ignore
-            quadrillage[i - 1][j][5] -= 50;
-            nbpiecedefault -= 1;
-            console.log(`Nouvelle salle générée en [${i - 1};${j}], ${nbpiecedefault} salles restantes`);
-          }
-
-          // @ts-ignore
-          if (quadrillage[i][j][3] >= random.intBetween(1, 100)) {
-            // @ts-ignore
-            quadrillage[i][j + 1] = salleInit;
-            // @ts-ignore
-            quadrillage[i][j + 1][2] -= 50;
-            // @ts-ignore
-            quadrillage[i][j + 1][3] -= 25;
-            // @ts-ignore
-            quadrillage[i][j + 1][4] -= 50;
-            // @ts-ignore
-            quadrillage[i][j + 1][5] -= 100;
-            nbpiecedefault -= 1;
-            console.log(`Nouvelle salle générée en [${i};${j + 1}], ${nbpiecedefault} salles restantes`);
-          }
-
-          // @ts-ignore
-          if (quadrillage[i][j][4] >= random.intBetween(1, 100)) {
-            // @ts-ignore
-            quadrillage[i + 1][j] = salleInit;
-            // @ts-ignore
-            quadrillage[i + 1][j][2] -= 100;
-            // @ts-ignore
-            quadrillage[i + 1][j][3] -= 50;
-            // @ts-ignore
-            quadrillage[i + 1][j][4] -= 25;
-            // @ts-ignore
-            quadrillage[i + 1][j][5] -= 50;
-            nbpiecedefault -= 1;
-            console.log(`Nouvelle salle générée en [${i + 1};${j}], ${nbpiecedefault} salles restantes`);
-          }
-
-          // @ts-ignore
-          if (quadrillage[i][j][5] >= random.intBetween(1, 100)) {
-            // @ts-ignore
-            quadrillage[i][j - 1] = salleInit;
-            // @ts-ignore
-            quadrillage[i][j - 1][2] -= 50;
-            // @ts-ignore
-            quadrillage[i][j - 1][3] -= 100;
-            // @ts-ignore
-            quadrillage[i][j - 1][4] -= 50;
-            // @ts-ignore
-            quadrillage[i][j - 1][5] -= 25;
-            nbpiecedefault -= 1;
-            console.log(`Nouvelle salle générée en [${i};${j - 1}], ${nbpiecedefault} salles restantes`);
-          }
-
-          // @ts-ignore
-          quadrillage[i][j][6] = true;
-
-        }
+    this.generateRoom(coordsSpawnRoom, null, baseChanceToGenerate, random);
 
     const stop = Date.now();
 
     console.log(stop - start, "ms");
 
-    console.log(this.renderTextStage(quadrillage));
+    // console.log(this.rooms, this.rooms.length);
+    console.log(this.renderTextStage());
 
   }
 
@@ -114,17 +52,97 @@ export class Stage {
     return new Stage(params, seed);
   }
 
-  renderTextStage(quadrillage: (number | boolean)[][][]) {
+  renderTextStage() {
     let res = "";
-    quadrillage.forEach(ligne => {
-      // console.log(ligne);
-      ligne.forEach(tile => {
-        // console.log(tile);
-        res += tile[0] ? "X" : " ";
-      });
+    for (let x = 0; x < this.rooms.length; x++) {
+      if (!this.rooms[x]?.length) { res += " \n"; continue; }
+      // @ts-ignore
+      for (let y = 0; y < this.rooms[x].length; y++)
+        res += this.rooms?.[x]?.[y] ? `[${x};${y}]` : "     ";
       res += "\n";
-    });
+    }
     return res;
   }
 
+  private generateNextRoom(coords: Coordinates, oldDirection: Direction | null, chanceToGenerateNextRoom: ChanceToGenerateNextRoom, rand: RandomSeed) {
+    if (oldDirection && !chanceNotNullToGenerateDirection(oldDirection, chanceToGenerateNextRoom)) return;
+
+    if (oldDirection !== Direction.NORTH && this.canGenerateMoreRoom()) {
+      console.log(`[${coords.posX};${coords.posY}] trying to generate [${coords.posX};${coords.posY + 1}]`);
+      this.generateNextRoomSpeceficDirection({ posX: coords.posX, posY: coords.posY + 1 }, Direction.NORTH, chanceToGenerateNextRoom, rand);
+    }
+    if (oldDirection !== Direction.SOUTH && this.canGenerateMoreRoom() && coords.posY - 1 > 0) {
+      console.log(`[${coords.posX};${coords.posY}] trying to generate [${coords.posX};${coords.posY - 1}]`);
+      this.generateNextRoomSpeceficDirection({ posX: coords.posX, posY: coords.posY - 1 }, Direction.SOUTH, chanceToGenerateNextRoom, rand);
+    }
+    if (oldDirection !== Direction.WEST && this.canGenerateMoreRoom() && coords.posX - 1 > 0) {
+      console.log(`[${coords.posX};${coords.posY}] trying to generate [${coords.posX - 1};${coords.posY}]`);
+      this.generateNextRoomSpeceficDirection({ posX: coords.posX - 1, posY: coords.posY }, Direction.WEST, chanceToGenerateNextRoom, rand);
+    }
+    if (oldDirection !== Direction.EST && this.canGenerateMoreRoom()) {
+      console.log(`[${coords.posX};${coords.posY}] trying to generate [${coords.posX + 1};${coords.posY}]`);
+      this.generateNextRoomSpeceficDirection({ posX: coords.posX + 1, posY: coords.posY }, Direction.EST, chanceToGenerateNextRoom, rand);
+    }
+
+  }
+
+  private generateNextRoomSpeceficDirection(coords: Coordinates, direction: Direction, chanceToGenerateDirection: ChanceToGenerateNextRoom, rand: RandomSeed) {
+    const chanceToGenerate = resolveChanceDirection(direction, chanceToGenerateDirection);
+    if (chanceToGenerate === 0) return;
+    if (this.rooms?.[coords.posX]?.[coords.posY]) return; // Room already exist
+
+    if (rand.intBetween(1, 100) > chanceToGenerate) return;
+
+    this.generateRoom(coords, direction, chanceToGenerateDirection, rand);
+  }
+
+  private generateRoom(coords: Coordinates, direction: Direction | null, chanceToGenerateDirection: ChanceToGenerateNextRoom, rand: RandomSeed) {
+    if (!this.rooms) this.rooms = [];
+
+    if (!this.rooms[coords.posX]) this.rooms[coords.posX] = [];
+
+    console.log(`Generate room [${coords.posX};${coords.posY}]`);
+
+    // @ts-ignore
+    this.rooms[coords.posX][coords.posY] = Room.generateRandom(rand);
+    this.currentRoomNumber++;
+
+    console.log(`Salles restantes à générer : ${this._maxRoomNumber - this.currentRoomNumber} / ${this._maxRoomNumber}`);
+
+    if (this.canGenerateMoreRoom())
+      this.generateNextRoom(coords, direction ? InvertDirection(direction) : null, chanceToGenerateDirection, rand);
+  }
+
+  private canGenerateMoreRoom() {
+    return this.currentRoomNumber < this._maxRoomNumber;
+  }
+
 }
+
+function resolveChanceDirection(direction: Direction, chanceToGenerateNextRoom: ChanceToGenerateNextRoom) {
+  switch (direction) {
+    case Direction.NORTH:
+      return chanceToGenerateNextRoom.up;
+    case Direction.SOUTH:
+      return chanceToGenerateNextRoom.down;
+    case Direction.WEST:
+      return chanceToGenerateNextRoom.left;
+    case Direction.EST:
+      return chanceToGenerateNextRoom.right;
+  }
+}
+
+function chanceNotNullToGenerateDirection(oldDirection: Direction, chanceToGenerateNextRoom: ChanceToGenerateNextRoom) {
+  switch (oldDirection) {
+    case Direction.NORTH:
+      return chanceToGenerateNextRoom.down > 0 || chanceToGenerateNextRoom.left > 0 || chanceToGenerateNextRoom.right > 0;
+    case Direction.SOUTH:
+      return chanceToGenerateNextRoom.up > 0 || chanceToGenerateNextRoom.left > 0 || chanceToGenerateNextRoom.right > 0;
+    case Direction.WEST:
+      return chanceToGenerateNextRoom.right > 0 || chanceToGenerateNextRoom.up > 0 || chanceToGenerateNextRoom.down > 0;
+    case Direction.EST:
+      return chanceToGenerateNextRoom.left > 0 || chanceToGenerateNextRoom.up > 0 || chanceToGenerateNextRoom.down > 0;
+  }
+}
+
+type ChanceToGenerateNextRoom = { left: number, up: number, down: number, right: number };
