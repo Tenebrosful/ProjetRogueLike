@@ -37,8 +37,8 @@ export class Room {
     }
   }
 
-  static generateRandom(random: RandomSeed) {
-    return new Room(rooms[random.intBetween(0, rooms.length - 1)] as tileType[][]);
+  static generateRandom(random: RandomSeed, coords: Coordinates = {posX: 0, posY: 0}) {
+    return new Room(rooms[random.intBetween(0, rooms.length - 1)] as tileType[][], coords);
   }
 
   renderTextTiles() {
