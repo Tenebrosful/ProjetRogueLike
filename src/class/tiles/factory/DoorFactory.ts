@@ -1,4 +1,6 @@
 import { Direction } from "../../../enum/direction";
+import { LogType } from "../../../enum/logType";
+import { Logger } from "../../Logger";
 import { Door } from "../Door";
 import { TileFactory } from "./TileFactory";
 
@@ -9,7 +11,7 @@ export class DoorFactory implements TileFactory {
   createTile(params: {posX: number, posY: number, direction?: Direction}): Door {
     params.direction = params.direction ?? Direction.NORTH;
 
-    console.log(`Creating Door with at [${params.posX};${params.posY}] ${params.direction}`);
+    Logger.log(`Creating Door with at [${params.posX};${params.posY}] ${params.direction}`, LogType.ROOM_GENERATION);
     return new Door({posX: params.posX, posY: params.posY}, params.direction);
   }
 }
