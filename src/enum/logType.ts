@@ -1,0 +1,5 @@
+export enum LogType {
+  STAGE_GENERATION = "STAGE",
+  ROOM_GENERATION = "ROOM",
+  OTHER = "OTHER"
+}
