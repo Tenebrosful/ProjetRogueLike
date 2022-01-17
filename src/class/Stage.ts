@@ -135,31 +135,3 @@ export class Stage {
   }
 
 }
-
-function resolveChanceDirection(direction: Direction, chanceToGenerateNextRoom: ChanceToGenerateNextRoom) {
-  switch (direction) {
-    case Direction.NORTH:
-      return chanceToGenerateNextRoom.up;
-    case Direction.SOUTH:
-      return chanceToGenerateNextRoom.down;
-    case Direction.WEST:
-      return chanceToGenerateNextRoom.left;
-    case Direction.EST:
-      return chanceToGenerateNextRoom.right;
-  }
-}
-
-function chanceNotNullToGenerateDirection(oldDirection: Direction, chanceToGenerateNextRoom: ChanceToGenerateNextRoom) {
-  switch (oldDirection) {
-    case Direction.NORTH:
-      return chanceToGenerateNextRoom.down > 0 || chanceToGenerateNextRoom.left > 0 || chanceToGenerateNextRoom.right > 0;
-    case Direction.SOUTH:
-      return chanceToGenerateNextRoom.up > 0 || chanceToGenerateNextRoom.left > 0 || chanceToGenerateNextRoom.right > 0;
-    case Direction.WEST:
-      return chanceToGenerateNextRoom.right > 0 || chanceToGenerateNextRoom.up > 0 || chanceToGenerateNextRoom.down > 0;
-    case Direction.EST:
-      return chanceToGenerateNextRoom.left > 0 || chanceToGenerateNextRoom.up > 0 || chanceToGenerateNextRoom.down > 0;
-  }
-}
-
-type ChanceToGenerateNextRoom = { left: number, up: number, down: number, right: number };
