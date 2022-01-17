@@ -63,19 +63,19 @@ export class Stage {
   private generateNextRoom(coords: Coordinates, oldDirection: Direction | null, depth: number, rand: RandomSeed) {
 
     if (oldDirection !== Direction.NORTH && this.canGenerateMoreRoom()) {
-      console.log(`[${coords.posX};${coords.posY}] trying to generate [${coords.posX};${coords.posY + 1}] (depth = ${depth}, ${this.getChanceToGenerate(depth)}%)`);
+      console.log(`[${coords.posX};${coords.posY}] trying to generate [${coords.posX};${coords.posY + 1}]`);
       this.generateNextRoomSpeceficDirection({ posX: coords.posX, posY: coords.posY + 1 }, Direction.NORTH, depth, rand);
     }
     if (oldDirection !== Direction.SOUTH && this.canGenerateMoreRoom() && coords.posY - 1 > 0) {
-      console.log(`[${coords.posX};${coords.posY}] trying to generate [${coords.posX};${coords.posY - 1}] (depth = ${depth}, ${this.getChanceToGenerate(depth)}%)`);
+      console.log(`[${coords.posX};${coords.posY}] trying to generate [${coords.posX};${coords.posY - 1}]`);
       this.generateNextRoomSpeceficDirection({ posX: coords.posX, posY: coords.posY - 1 }, Direction.SOUTH, depth, rand);
     }
     if (oldDirection !== Direction.WEST && this.canGenerateMoreRoom() && coords.posX - 1 > 0) {
-      console.log(`[${coords.posX};${coords.posY}] trying to generate [${coords.posX - 1};${coords.posY}] (depth = ${depth}, ${this.getChanceToGenerate(depth)}%)`);
+      console.log(`[${coords.posX};${coords.posY}] trying to generate [${coords.posX - 1};${coords.posY}]`);
       this.generateNextRoomSpeceficDirection({ posX: coords.posX - 1, posY: coords.posY }, Direction.WEST, depth, rand);
     }
     if (oldDirection !== Direction.EST && this.canGenerateMoreRoom()) {
-      console.log(`[${coords.posX};${coords.posY}] trying to generate [${coords.posX + 1};${coords.posY}] (depth = ${depth}, ${this.getChanceToGenerate(depth)}%)`);
+      console.log(`[${coords.posX};${coords.posY}] trying to generate [${coords.posX + 1};${coords.posY}]`);
       this.generateNextRoomSpeceficDirection({ posX: coords.posX + 1, posY: coords.posY }, Direction.EST, depth, rand);
     }
 
