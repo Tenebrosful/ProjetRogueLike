@@ -5,6 +5,9 @@ import { Room } from "./Room";
 
 export class Stage {
   private static _baseRoomNumber = 8;
+  private static _depthChanceInfluence = 1.5;
+  private static _floorChanceInfluence = 0.1;
+
   private _maxRoomNumber: number;
 
   currentRoomNumber = 0;
@@ -30,14 +33,7 @@ export class Stage {
       posY: Math.ceil(Math.sqrt(this._maxRoomNumber))
     };
 
-    const baseChanceToGenerate: ChanceToGenerateNextRoom = {
-      down: 50,
-      left: 50,
-      right: 50,
-      up: 50
-    };
-
-    this.generateRoom(coordsSpawnRoom, null, baseChanceToGenerate, random);
+    this.generateRoom(coordsSpawnRoom, null, 0, random);
 
     const stop = Date.now();
 
@@ -64,39 +60,43 @@ export class Stage {
     return res;
   }
 
-  private generateNextRoom(coords: Coordinates, oldDirection: Direction | null, chanceToGenerateNextRoom: ChanceToGenerateNextRoom, rand: RandomSeed) {
-    if (oldDirection && !chanceNotNullToGenerateDirection(oldDirection, chanceToGenerateNextRoom)) return;
+  private generateNextRoom(coords: Coordinates, oldDirection: Direction | null, depth: number, rand: RandomSeed) {
 
     if (oldDirection !== Direction.NORTH && this.canGenerateMoreRoom()) {
-      console.log(`[${coords.posX};${coords.posY}] trying to generate [${coords.posX};${coords.posY + 1}]`);
-      this.generateNextRoomSpeceficDirection({ posX: coords.posX, posY: coords.posY + 1 }, Direction.NORTH, chanceToGenerateNextRoom, rand);
+      console.log(`[${coords.posX};${coords.posY}] trying to generate [${coords.posX};${coords.posY + 1}] (depth = ${depth}, ${this.getChanceToGenerate(depth)}%)`);
+      this.generateNextRoomSpeceficDirection({ posX: coords.posX, posY: coords.posY + 1 }, Direction.NORTH, depth, rand);
     }
     if (oldDirection !== Direction.SOUTH && this.canGenerateMoreRoom() && coords.posY - 1 > 0) {
-      console.log(`[${coords.posX};${coords.posY}] trying to generate [${coords.posX};${coords.posY - 1}]`);
-      this.generateNextRoomSpeceficDirection({ posX: coords.posX, posY: coords.posY - 1 }, Direction.SOUTH, chanceToGenerateNextRoom, rand);
+      console.log(`[${coords.posX};${coords.posY}] trying to generate [${coords.posX};${coords.posY - 1}] (depth = ${depth}, ${this.getChanceToGenerate(depth)}%)`);
+      this.generateNextRoomSpeceficDirection({ posX: coords.posX, posY: coords.posY - 1 }, Direction.SOUTH, depth, rand);
     }
     if (oldDirection !== Direction.WEST && this.canGenerateMoreRoom() && coords.posX - 1 > 0) {
-      console.log(`[${coords.posX};${coords.posY}] trying to generate [${coords.posX - 1};${coords.posY}]`);
-      this.generateNextRoomSpeceficDirection({ posX: coords.posX - 1, posY: coords.posY }, Direction.WEST, chanceToGenerateNextRoom, rand);
+      console.log(`[${coords.posX};${coords.posY}] trying to generate [${coords.posX - 1};${coords.posY}] (depth = ${depth}, ${this.getChanceToGenerate(depth)}%)`);
+      this.generateNextRoomSpeceficDirection({ posX: coords.posX - 1, posY: coords.posY }, Direction.WEST, depth, rand);
     }
     if (oldDirection !== Direction.EST && this.canGenerateMoreRoom()) {
-      console.log(`[${coords.posX};${coords.posY}] trying to generate [${coords.posX + 1};${coords.posY}]`);
-      this.generateNextRoomSpeceficDirection({ posX: coords.posX + 1, posY: coords.posY }, Direction.EST, chanceToGenerateNextRoom, rand);
+      console.log(`[${coords.posX};${coords.posY}] trying to generate [${coords.posX + 1};${coords.posY}] (depth = ${depth}, ${this.getChanceToGenerate(depth)}%)`);
+      this.generateNextRoomSpeceficDirection({ posX: coords.posX + 1, posY: coords.posY }, Direction.EST, depth, rand);
     }
 
   }
 
-  private generateNextRoomSpeceficDirection(coords: Coordinates, direction: Direction, chanceToGenerateDirection: ChanceToGenerateNextRoom, rand: RandomSeed) {
-    const chanceToGenerate = resolveChanceDirection(direction, chanceToGenerateDirection);
-    if (chanceToGenerate === 0) return;
-    if (this.rooms?.[coords.posX]?.[coords.posY]) return; // Room already exist
+  private generateNextRoomSpeceficDirection(coords: Coordinates, direction: Direction, depth: number, rand: RandomSeed) {
+    if (this.rooms?.[coords.posX]?.[coords.posY]) { console.log(`Room [${coords.posX};${coords.posY}] already exist !`); return; } // Room already exist
 
-    if (rand.intBetween(1, 100) > chanceToGenerate) return;
+    if (rand.intBetween(1, 100) > this.getChanceToGenerate(depth)) return;
 
-    this.generateRoom(coords, direction, chanceToGenerateDirection, rand);
+    this.generateRoom(coords, direction, depth, rand);
   }
 
-  private generateRoom(coords: Coordinates, direction: Direction | null, chanceToGenerateDirection: ChanceToGenerateNextRoom, rand: RandomSeed) {
+  private getChanceToGenerate(depth: number) {
+    if (depth === 1) return 100; // 100% de chance si c'est la première salle
+
+    // console.log(`((1 / (${depth} * ${Stage._depthChanceInfluence})) * (${this.floor} * ${Stage._floorChanceInfluence})) * 100`);
+    return ((Math.exp(-depth * Stage._depthChanceInfluence) * 60) * (Math.log(this.floor) * Stage._floorChanceInfluence + 1)) * 100;
+  }
+
+  private generateRoom(coords: Coordinates, direction: Direction | null, depth: number, rand: RandomSeed) {
     if (!this.rooms) this.rooms = [];
 
     if (!this.rooms[coords.posX]) this.rooms[coords.posX] = [];
@@ -110,7 +110,7 @@ export class Stage {
     console.log(`Salles restantes à générer : ${this._maxRoomNumber - this.currentRoomNumber} / ${this._maxRoomNumber}`);
 
     if (this.canGenerateMoreRoom())
-      this.generateNextRoom(coords, direction ? InvertDirection(direction) : null, chanceToGenerateDirection, rand);
+      this.generateNextRoom(coords, direction ? InvertDirection(direction) : null, depth + 1, rand);
   }
 
   private canGenerateMoreRoom() {
