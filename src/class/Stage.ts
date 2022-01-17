@@ -90,6 +90,10 @@ export class Stage {
     ) * 2);
   }
 
+  private getMissingRoomsFactor() {
+    return Math.max((this._maxRoomNumber - this.currentRoomNumber) * 0.3, 1);
+  }
+
   private generateNextRoomSpeceficDirection(coords: Coordinates, direction: Direction, depth: number, rand: RandomSeed) {
     if (this.rooms?.[coords.posX]?.[coords.posY]) { console.log(`Room [${coords.posX};${coords.posY}] already exist !`); return; } // Room already exist
 
@@ -108,6 +112,7 @@ export class Stage {
       (
         (Math.exp(-depth * Stage._depthChanceInfluence) * 60)
         * (Math.log(this.floor) * Stage._floorChanceInfluence + 1)
+        * this.getMissingRoomsFactor()
         * proximityFactor)
       * 100
       , 100);
