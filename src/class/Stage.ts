@@ -113,10 +113,10 @@ export class Stage {
 
     return Math.min(
       (
-        (Math.exp(-depth * Stage._depthChanceInfluence) * 60)
-        * (Math.log(this.floor) * Stage._floorChanceInfluence + 1)
-        * this.getMissingRoomsFactor()
-        * proximityFactor)
+        (Math.exp(-depth * Stage._depthChanceInfluence) * 60) // It's harder to generate a room when we are far from the spawn
+        * (Math.log(this.floor) * Stage._floorChanceInfluence + 1) // It's easier to generate a room when we are high in floor number (Make larger stages)
+        * this.getMissingRoomsFactor() // It's easier to generate a room when there is a lot more to generate next
+        * proximityFactor) // It's harder to generate a room if there is already rooms near (favorise larger stages)
       * 100
       , 100);
   }
