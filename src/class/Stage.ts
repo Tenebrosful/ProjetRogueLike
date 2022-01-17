@@ -5,6 +5,7 @@ import { Room } from "./Room";
 
 export class Stage {
   private static _baseRoomNumber = 8;
+  private static _chanceToXL = 10;
   private static _depthChanceInfluence = 1.5;
   private static _floorChanceInfluence = 0.1;
 
@@ -21,7 +22,7 @@ export class Stage {
 
     this.floor = Math.abs(params.floor);
 
-    this.isXL = random.intBetween(1, 100) <= 10;
+    this.isXL = random.intBetween(1, 100) <= Stage._chanceToXL;
 
     this._maxRoomNumber = Math.floor(Stage._baseRoomNumber * (Math.max(this.floor / 3, 1)) * (this.isXL ? 2 : 1));
 
