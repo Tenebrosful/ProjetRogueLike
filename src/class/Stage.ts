@@ -81,19 +81,36 @@ export class Stage {
 
   }
 
+  private getProximityFactor(coords: Coordinates) {
+    return 1 / (( // There is always a room next to 
+      (this.rooms?.[coords.posX - 1]?.[coords.posY] ? 1 : 0) +
+      (this.rooms?.[coords.posX + 1]?.[coords.posY] ? 1 : 0) +
+      (this.rooms?.[coords.posX]?.[coords.posY - 1] ? 1 : 0) +
+      (this.rooms?.[coords.posX]?.[coords.posY + 1] ? 1 : 0)
+    ) * 2);
+  }
+
   private generateNextRoomSpeceficDirection(coords: Coordinates, direction: Direction, depth: number, rand: RandomSeed) {
     if (this.rooms?.[coords.posX]?.[coords.posY]) { console.log(`Room [${coords.posX};${coords.posY}] already exist !`); return; } // Room already exist
 
-    if (rand.intBetween(1, 100) > this.getChanceToGenerate(depth)) return;
+    console.log(`(depth: ${depth}, floor: ${this.floor}, proximityFactor: ${this.getProximityFactor(coords)}) ${this.getChanceToGenerate(depth, this.getProximityFactor(coords))}% to generate [${coords.posX};${coords.posY}]`);
+
+    if (rand.intBetween(1, 100) > this.getChanceToGenerate(depth, this.getProximityFactor(coords))) return;
 
     this.generateRoom(coords, direction, depth, rand);
   }
 
-  private getChanceToGenerate(depth: number) {
+  private getChanceToGenerate(depth: number, proximityFactor: number) {
     if (depth === 1) return 100; // 100% de chance si c'est la première salle
 
     // console.log(`((1 / (${depth} * ${Stage._depthChanceInfluence})) * (${this.floor} * ${Stage._floorChanceInfluence})) * 100`);
-    return ((Math.exp(-depth * Stage._depthChanceInfluence) * 60) * (Math.log(this.floor) * Stage._floorChanceInfluence + 1)) * 100;
+    return Math.min(
+      (
+        (Math.exp(-depth * Stage._depthChanceInfluence) * 60)
+        * (Math.log(this.floor) * Stage._floorChanceInfluence + 1)
+        * proximityFactor)
+      * 100
+      , 100);
   }
 
   private generateRoom(coords: Coordinates, direction: Direction | null, depth: number, rand: RandomSeed) {
