@@ -14,6 +14,7 @@ export class Room {
   constructor(tiles: tileType[][], coords: Coordinates = {posX: 0, posY: 0}) {
     this.coords = coords;
     this.tiles = [];
+    this.doors = [];
     let doorDirection = 0;
 
     for (let posY = 0; posY < tiles.length; posY++) {
