@@ -1,21 +1,26 @@
 import * as random_generator from "random-seed";
 import { randomBytes } from "crypto";
 import { Stage } from "../src/class/Stage";
+import { Logger } from "../src/class/Logger";
 
 function run() {
   const seed = randomBytes(10).toString("hex");
   // const seed = "oui";
 
+  // Logger.enable();
+
   const rand: random_generator.RandomSeed = random_generator.create(seed);
 
   console.log("Seed = ", seed);
 
-  for (let i = 1; i <= 10; i++) {
-    console.log(`==== Étage ${i} ====`);
-    new Stage({ floor: i }, rand);
-  }
+  const stages: Stage[] = [];
+
+  for (let i = 1; i <= 10; i++)
+    stages.push(new Stage({ floor: i }, rand));
 
   rand.done();
+
+  stages.forEach(stage => console.log(stage.renderTextStage()));
 }
 
 run();
