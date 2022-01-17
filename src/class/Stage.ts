@@ -50,7 +50,9 @@ export class Stage {
   }
 
   renderTextStage() {
-    let res = "";
+    let res =
+      `==== Étage ${this.floor} ====
+    Rooms: ${this.currentRoomNumber} / ${this._maxRoomNumber}, XL: ${this.isXL}`;
     for (let y = 0; y < this.rooms.length; y++) {
       if (!this.rooms[y]?.length) { res += " \n"; continue; }
       // @ts-ignore
