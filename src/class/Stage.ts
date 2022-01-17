@@ -4,7 +4,7 @@ import { Direction, InvertDirection } from "../enum/direction";
 import { Room } from "./Room";
 
 export class Stage {
-  private _baseRoomNumber = 8;
+  private static _baseRoomNumber = 8;
   private _maxRoomNumber: number;
 
   currentRoomNumber = 0;
@@ -20,9 +20,9 @@ export class Stage {
 
     this.isXL = random.intBetween(1, 100) <= 10;
 
-    this._maxRoomNumber = Math.floor(this._baseRoomNumber * (Math.max(this.floor / 3, 1)) * (this.isXL ? 2 : 1));
+    this._maxRoomNumber = Math.floor(Stage._baseRoomNumber * (Math.max(this.floor / 3, 1)) * (this.isXL ? 2 : 1));
 
-    console.log(`${this._baseRoomNumber} * ${(Math.max(this.floor / 3, 1))} * ${(this.isXL ? 2 : 1)} = ${this._maxRoomNumber}`);
+    console.log(`${Stage._baseRoomNumber} * ${(Math.max(this.floor / 3, 1))} * ${(this.isXL ? 2 : 1)} = ${this._maxRoomNumber}`);
     console.log(`Nombre de salle maximum : ${this._maxRoomNumber}${this.isXL ? " (XL)" : ""}`);
 
     const coordsSpawnRoom: Coordinates = {
