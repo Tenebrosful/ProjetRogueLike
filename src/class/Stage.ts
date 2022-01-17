@@ -2,116 +2,113 @@ import { RandomSeed } from "random-seed";
 import { Room } from "./Room";
 
 export class Stage {
+  private _tailleMap = 15;
+  floor: number;
   rooms: Room[][];
 
-  constructor(seed: RandomSeed) {
-    // @TODO (SCRIPT EN PHP)
-    
-    // $etage = 1;
-// $etagemax = 100;
-// $nbpiecedefault = 10;
-// $nbpiece = 0;
-// $progressionetage = 0;
-// $tailleMap = 15;
+  constructor(params: { floor: number }, random: RandomSeed) {
 
-// function limitmin($int)
-// {
-// 	if ($int<4)
-// 	{
-// 		return 4;
-// 	}
-// 	else
-// 	{
-// 		return $int;
-// 	}
-// }
+    const start = Date.now();
 
-// $quadrillage=[];
+    let nbpiecedefault = 10;
 
-// for ($i=0; $i < $tailleMap; $i++)
-// { 
-// 	for ($j=0; $j < $tailleMap; $j++)
-// 	{	 
-// 		$quadrillage[$i][$j]=[false,0,0,0,0,0,false];
-// 	}
-// }
+    const quadrillage: (number | boolean)[][][] = [];
 
-// $salleInit=[true,1,100,100,100,100,false];
-// $quadrillage[$tailleMap/2][$tailleMap/2]=$salleInit;
+    for (let i = 0; i < this._tailleMap; i++) {
+      quadrillage[i] = [];
+      for (let j = 0; j < this._tailleMap; j++)
+        // @ts-ignore
+        quadrillage[i][j] = [false, 0, 0, 0, 0, 0, false];
+    }
 
-// for ($i=0; $i < $tailleMap; $i++ && $nbpiecedefault>0)
-// { 
-// 	for ($j=0; $j < $tailleMap; $j++ && $nbpiecedefault>0)
-// 	{	 
-// 		if ($quadrillage[$i][$j][0] == true && $quadrillage[$i][$j][6] == false && $nbpiecedefault>0)
-// 		{
-// 			if ($quadrillage[$i][$j][2] >= rand(1,100))
-// 			{
-// 				$quadrillage[$i-1][$j] = $salleInit;
-// 				$quadrillage[$i-1][$j][2] -= 25;
-// 				$quadrillage[$i-1][$j][3] -= 50;
-// 				$quadrillage[$i-1][$j][4] -= 100;
-// 				$quadrillage[$i-1][$j][5] -= 50;
-// 				$nbpiecedefault -= 1;
-// 			}
+    const salleInit = [true, 1, 100, 100, 100, 100, false];
 
-// 			if ($quadrillage[$i][$j][3] >= rand(1,100))
-// 			{
-// 				$quadrillage[$i][$j+1] = $salleInit;
-// 				$quadrillage[$i][$j+1][2] -= 50;
-// 				$quadrillage[$i][$j+1][3] -= 25;
-// 				$quadrillage[$i][$j+1][4] -= 50;
-// 				$quadrillage[$i][$j+1][5] -= 100;
-// 				$nbpiecedefault -= 1;
-// 			}
+    // @ts-ignore
+    quadrillage[Math.floor(this._tailleMap / 2) + 1][Math.floor(this._tailleMap / 2) + 1] = salleInit;
 
-// 			if ($quadrillage[$i][$j][4] >= rand(1,100))
-// 			{
-// 				$quadrillage[$i+1][$j] = $salleInit;
-// 				$quadrillage[$i+1][$j][2] -= 100;
-// 				$quadrillage[$i+1][$j][3] -= 50;
-// 				$quadrillage[$i+1][$j][4] -= 25;
-// 				$quadrillage[$i+1][$j][5] -= 50;
-// 				$nbpiecedefault -= 1;
-// 			}
+    for (let i = 0; i < this._tailleMap && nbpiecedefault > 0; i++)
+      for (let j = 0; j < this._tailleMap && nbpiecedefault > 0; j++)
+        // @ts-ignore
+        if (quadrillage[i][j][0] && !quadrillage[i][j][6] && nbpiecedefault > 0) {
 
-// 			if ($quadrillage[$i][$j][5] >= rand(1,100))
-// 			{
-// 				$quadrillage[$i][$j-1] = $salleInit;
-// 				$quadrillage[$i][$j-1][2] -= 50;
-// 				$quadrillage[$i][$j-1][3] -= 100;
-// 				$quadrillage[$i][$j-1][4] -= 50;
-// 				$quadrillage[$i][$j-1][5] -= 25;
-// 				$nbpiecedefault -= 1;
-// 			}
+          console.log(`Génération pour la salle [${i};${j}]`);
 
-// 			$quadrillage[$i][$j][6] == true;
-// 		}
-// 	}
-// }
+          // @ts-ignore
+          if (quadrillage[i][j][2] >= random.intBetween(1, 100)) {
+            // @ts-ignore
+            quadrillage[i - 1][j] = salleInit;
+            // @ts-ignore
+            quadrillage[i - 1][j][2] -= 25;
+            // @ts-ignore
+            quadrillage[i - 1][j][3] -= 50;
+            // @ts-ignore
+            quadrillage[i - 1][j][4] -= 100;
+            // @ts-ignore
+            quadrillage[i - 1][j][5] -= 50;
+            nbpiecedefault -= 1;
+            console.log(`Nouvelle salle générée en [${i - 1};${j}], ${nbpiecedefault} salles restantes`);
+          }
 
-// //Affichage de la map
-// echo "<table style=\"background-color:black;\">";
-// foreach ($quadrillage as $salles)
-// {
-// 	echo "<tr>";
-// 	foreach ($salles as $salle)
-// 	{
-// 		if ($salle[0])
-// 		{
-// 			echo "<td style=\"color:lime;\">X</td>";
-// 		}
-// 		else
-// 		{
-// 			echo "<td style=\"color:red;\">X</td>";
-// 		}
-		
-// 	}
-// 	echo "</tr>";
-// }
-// echo "</table>";
- 
-    
+          // @ts-ignore
+          if (quadrillage[i][j][3] >= random.intBetween(1, 100)) {
+            // @ts-ignore
+            quadrillage[i][j + 1] = salleInit;
+            // @ts-ignore
+            quadrillage[i][j + 1][2] -= 50;
+            // @ts-ignore
+            quadrillage[i][j + 1][3] -= 25;
+            // @ts-ignore
+            quadrillage[i][j + 1][4] -= 50;
+            // @ts-ignore
+            quadrillage[i][j + 1][5] -= 100;
+            nbpiecedefault -= 1;
+            console.log(`Nouvelle salle générée en [${i};${j + 1}], ${nbpiecedefault} salles restantes`);
+          }
+
+          // @ts-ignore
+          if (quadrillage[i][j][4] >= random.intBetween(1, 100)) {
+            // @ts-ignore
+            quadrillage[i + 1][j] = salleInit;
+            // @ts-ignore
+            quadrillage[i + 1][j][2] -= 100;
+            // @ts-ignore
+            quadrillage[i + 1][j][3] -= 50;
+            // @ts-ignore
+            quadrillage[i + 1][j][4] -= 25;
+            // @ts-ignore
+            quadrillage[i + 1][j][5] -= 50;
+            nbpiecedefault -= 1;
+            console.log(`Nouvelle salle générée en [${i + 1};${j}], ${nbpiecedefault} salles restantes`);
+          }
+
+          // @ts-ignore
+          if (quadrillage[i][j][5] >= random.intBetween(1, 100)) {
+            // @ts-ignore
+            quadrillage[i][j - 1] = salleInit;
+            // @ts-ignore
+            quadrillage[i][j - 1][2] -= 50;
+            // @ts-ignore
+            quadrillage[i][j - 1][3] -= 100;
+            // @ts-ignore
+            quadrillage[i][j - 1][4] -= 50;
+            // @ts-ignore
+            quadrillage[i][j - 1][5] -= 25;
+            nbpiecedefault -= 1;
+            console.log(`Nouvelle salle générée en [${i};${j - 1}], ${nbpiecedefault} salles restantes`);
+          }
+
+          // @ts-ignore
+          quadrillage[i][j][6] = true;
+
+        }
+
+    const stop = Date.now();
+
+    console.log(stop - start, "ms");
+
+    console.log(this.renderTextStage(quadrillage));
+
+  }
   }
 
   static generateRandom(seed: RandomSeed) {
