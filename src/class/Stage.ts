@@ -113,6 +113,7 @@ export class Stage {
   static generateRandom(params: { floor: number }, seed: RandomSeed) {
     return new Stage(params, seed);
   }
+
   renderTextStage(quadrillage: (number | boolean)[][][]) {
     let res = "";
     quadrillage.forEach(ligne => {
@@ -126,5 +127,4 @@ export class Stage {
     return res;
   }
 
-  }
 }
