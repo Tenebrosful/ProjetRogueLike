@@ -10,7 +10,7 @@ function run() {
 
   console.log("Seed = ", seed);
 
-  for (let i = 1; i <= 4; i++) {
+  for (let i = 1; i <= 10; i++) {
     console.log(`==== Étage ${i} ====`);
     new Stage({ floor: i }, rand);
   }
