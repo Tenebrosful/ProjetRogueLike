@@ -1,0 +1,19 @@
+version: '3'
+services:
+  node:
+    image: node
+    restart: always
+    build: .
+    ports:
+      - 9999:9999
+    volumes:
+      - ./:/code
+  mongo:
+    image: mongo
+    ports:
+      - 27017:27017
+    volumes:
+      - ./init-mongo.js:/docker-entrypoint-initdb.d/init-mongo.js:ro
+      - mongodb:/data/db
+volumes:
+ mongodb:

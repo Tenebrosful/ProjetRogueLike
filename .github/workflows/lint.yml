@@ -17,10 +17,23 @@ jobs:
         run: npm ci
     
       - name: Run Stylelint css
-        run: npm run stylelint
+        run: npm run stylelint-css
+
+  scss:
+    name: Lint scss
+    runs-on: ubuntu-latest
+    steps:
+      - name: check out code 🛎
+        uses: actions/checkout@v2
         
-  ts:
-    name: Lint ts
+      - name: npm ci
+        run: npm ci
+    
+      - name: Run Stylelint scss
+        run: npm run stylelint-scss
+        
+  js-ts:
+    name: Lint js-ts
     runs-on: ubuntu-latest
     steps:
       - name: check out code 🛎
@@ -44,3 +57,16 @@ jobs:
     
       - name: Run HTML-Validate
         run: npm run html-validate
+
+  ejs:
+    name: Lint ejs templates
+    runs-on: ubuntu-latest
+    steps:
+      - name: check out code 🛎
+        uses: actions/checkout@v2
+        
+      - name: npm ci
+        run: npm ci
+    
+      - name: Run ejs-Validate
+        run: npm run ejs-validate

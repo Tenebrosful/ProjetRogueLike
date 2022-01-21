@@ -19,7 +19,7 @@ jobs:
         run: npm ci
     
       - name: Run Stylelint css
-        run: npm run stylelint
+        run: npm run stylelint-css
         
       - uses: actions/upload-artifact@v2
         with:
@@ -27,9 +27,29 @@ jobs:
           path: | 
             ./**/*.css
             !node_modules/
+
+  scss:
+    name: Lint scss
+    runs-on: ubuntu-latest
+    steps:
+      - name: check out code 🛎
+        uses: actions/checkout@v2
         
-  ts:
-    name: Lint ts
+      - name: npm ci
+        run: npm ci
+    
+      - name: Run Stylelint scss
+        run: npm run stylelint-scss
+
+      - uses: actions/upload-artifact@v2
+        with:
+          name: scss-linted
+          path: | 
+            ./**/*.scss
+            !node_modules/
+        
+  js-ts:
+    name: Lint js-ts
     runs-on: ubuntu-latest
     steps:
       - name: check out code 🛎
@@ -43,9 +63,10 @@ jobs:
         
       - uses: actions/upload-artifact@v2
         with:
-          name: ts-linted
+          name: js-ts-linted
           path: | 
             ./**/*.ts
+            ./**/*.js
             !node_modules/
         
   html:
@@ -60,11 +81,24 @@ jobs:
     
       - name: Run HTML-Validate
         run: npm run html-validate
+
+  ejs:
+    name: Lint ejs templates
+    runs-on: ubuntu-latest
+    steps:
+      - name: check out code 🛎
+        uses: actions/checkout@v2
+        
+      - name: npm ci
+        run: npm ci
+    
+      - name: Run ejs-Validate
+        run: npm run ejs-validate
         
   push:
     name: Push changes
     runs-on: ubuntu-latest
-    needs: [css, ts, html]
+    needs: [css, scss, js-ts, html, ejs]
     steps:
       - name: check out code 🛎
         uses: actions/checkout@v2
@@ -72,10 +106,14 @@ jobs:
       - uses: actions/download-artifact@v2
         with:
           name: css-linted
+
+      - uses: actions/download-artifact@v2
+        with:
+          name: scss-linted
           
       - uses: actions/download-artifact@v2
         with:
-          name: ts-linted
+          name: js-ts-linted
     
       - name: Commit files
         continue-on-error: true
