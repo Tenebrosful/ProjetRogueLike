@@ -1,6 +1,8 @@
 //Initialisation du canvas
+const decalage_top = 80;
+const taille_image = 64;
 var width = window.innerWidth,
-    height = window.innerHeight - 120,
+    height = window.innerHeight - decalage_top,
     ratio = window.devicePixelRatio;
 
 var canvas = document.getElementById("canvas");
@@ -38,19 +40,31 @@ function generateRoom(roomAsArray){
     for(var indexHauteur=0; indexHauteur < hauteur; indexHauteur++){
         console.log(indexHauteur)
         for (var indexLargeur = 0; indexLargeur < roomAsArray[indexHauteur].length; indexLargeur++){
-            //charToImg((roomAsArray[indexHauteur][indexLargeur]), indexHauteur, indexLargeur)
+            charToImg((roomAsArray[indexHauteur][indexLargeur]), indexHauteur, indexLargeur)
             console.log(roomAsArray[indexHauteur][indexLargeur])
         }
     }
-}/*
-charToImg(char,hauteur, largeur)
-let salle2D = document.getElementById('salle_2d');
-let tuile = document.createElement('div')
-    tuile.style.height = "64px";
-    tuile.style.width = "64px";
-    tuile.style.backgroundImage = "url(/static/img/tiles/default.png)" 
+}
+function charToImg(char, indexHauteur, indexLargeur){
+    let salle2D = document.getElementById('salle_2d');
+    let tuile = document.createElement('div')
+    tuile.style.display = "inline-block";
+        tuile.style.height = "64px";
+        tuile.style.width = "64px";
+        tuile.style.position = "absolute";
+        tuile.style.top = (indexHauteur * taille_image)+"px";
+        tuile.style.left = (indexLargeur * taille_image) + "px"
+        tuile.style.backgroundImage = "url(/static/img/tiles/default.png)"
+    switch (char){
+        case '+':
+            tuile.style.backgroundImage = "url(/static/img/tiles/rouge.png)" 
+            break
+        case 'N':
+            tuile.style.backgroundImage = "url(/static/img/tiles/porte.png)" 
+            break
+    }
     salle2D.appendChild(tuile)
-*/
+}
 /*
 //Background
 var image = new Image();
