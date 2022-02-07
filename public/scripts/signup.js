@@ -27,8 +27,8 @@ async function signUpUser(event) {
     }).then((res) => res.json());
 
     if (result.status === "ok") 
-        alert("Success");
-     else 
+        window.document.location.href = "/signin";
+    else 
         alert(result.error);
     
     console.log(result);
