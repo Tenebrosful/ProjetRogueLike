@@ -13,6 +13,7 @@ export abstract class Tile {
   canWalkThrough: boolean;
   canFlyOver: boolean;
   textRender: string;
+  spriteName = "default.png"; // Should be in public/img/tiles
 
   constructor({ posX, posY, canWalkThrough = true, canFlyOver = true, textRender = "?" }: Coordinates & TileProperties) {
     this.posX = posX; this.posY = posY; this.canWalkThrough = canWalkThrough; this.canFlyOver = canFlyOver; this.textRender = textRender;
