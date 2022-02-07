@@ -50,14 +50,13 @@ account.post("/signup", async (req, res) => {
             username
         });
         console.log("User created: ", response);
+        res.status(200).json({ status: "ok" });
     } catch (error) {
-        if (error instanceof Error && error.name === "MongoError" && (error as MongoError).code === 11000)
+        if (error instanceof Error &&  (error as MongoError).code === 11000)
             res.status(400).json({ error: "Username already in use", status: "error" });
         else
             throw error;
-    }
-
-    res.status(200).json({ status: "ok" });
+    }    
 });
 
 account.post("/change-password", async (req, res) => {
