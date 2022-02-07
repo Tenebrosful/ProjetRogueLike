@@ -25,6 +25,10 @@ webpage.get("/profil",(req,res)=>{
     res.render("users/profil");
 });
 
+webpage.get("/play",(req,res)=>{
+    res.render("game/play");
+});
+
 
 /* https://www.youtube.com/watch?v=SccSCuHhOw0 
 Cette vidéo pourra être utile au moment de faire des routes dynamiques (17eme minute)
