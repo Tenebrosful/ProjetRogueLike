@@ -8,6 +8,7 @@ export class Door extends Tile {
   direction: Direction;
 
   type = tileType.DOOR;
+  spriteName = "door.png";
 
   constructor({ posX, posY }: Coordinates, direction: Direction) {
     super({ posX, posY, textRender: getDirectionTextRender(direction) });
