@@ -13,7 +13,7 @@ if(token){
     const liParam = document.createElement("li");
         const aParam = document.createElement("a");
             aParam.classList.add("dropdown-item");
-            aParam.href="/params";
+            aParam.href="/parameters";
             aParam.innerText="Paramètres";
         liParam.appendChild(aParam);
 

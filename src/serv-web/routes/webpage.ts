@@ -9,6 +9,10 @@ webpage.get("/signup",(req,res)=>{
     res.render("users/signup");
 });
 
+webpage.get("/parameters",(req,res)=>{
+    res.render("users/parameters");
+});
+
 webpage.get("/signin",(req,res)=>{
     res.render("users/signin");
 });
@@ -17,17 +21,10 @@ webpage.get("/change-password",(req,res)=>{
     res.render("users/changePassword");
 });
 
-webpage.get("/presentations",(req,res)=>{
-    res.render("cms/presentations");
+webpage.get("/profil",(req,res)=>{
+    res.render("users/profil");
 });
 
-webpage.get("/ressources",(req,res)=>{
-    res.render("cms/ressources");
-});
-
-webpage.get("/equipe",(req,res)=>{
-    res.render("cms/equipe");
-});
 
 /* https://www.youtube.com/watch?v=SccSCuHhOw0 
 Cette vidéo pourra être utile au moment de faire des routes dynamiques (17eme minute)

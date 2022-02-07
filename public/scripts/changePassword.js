@@ -25,7 +25,7 @@ async function changePassordUser(event) {
     }).then((res) => res.json());
 
     if (result.status === "ok") 
-        alert("Success");
+        window.document.location.href = "/";
      else 
         alert(result.error);
     
