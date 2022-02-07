@@ -9,6 +9,10 @@ webpage.get("/signup",(req,res)=>{
     res.render("users/signup");
 });
 
+webpage.get("/parameters",(req,res)=>{
+    res.render("users/parameters");
+});
+
 webpage.get("/signin",(req,res)=>{
     res.render("users/signin");
 });
