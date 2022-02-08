@@ -38,7 +38,7 @@ export class Stage {
 
     this.generateRoom(coordsSpawnRoom, null, 0, random);
 
-    this.convertAllUnusedDoorsToWalls();
+    this.convertAllUnlinkedDoorsToWalls();
 
     const stop = Date.now();
 
@@ -143,7 +143,7 @@ export class Stage {
     return this.currentRoomNumber < this._maxRoomNumber;
   }
 
-  private convertAllUnusedDoorsToWalls() {
+  private convertAllUnlinkedDoorsToWalls() {
     this.rooms.forEach((line, posY) => {
       line.forEach((room, posX) => {
         Logger.log(`Vérification de la salle [${posX};${posY}] pour la conversion de porte en mur`, "STAGE");
