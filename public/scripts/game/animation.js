@@ -1,47 +1,32 @@
-//Initialisation du canvas
 const decalage_top = 80;
 const taille_image = 64;
-var width = window.innerWidth,
-    height = window.innerHeight - decalage_top,
-    ratio = window.devicePixelRatio;
+const hauteur_heros = 70;
+const largeur_heros = 50;
+const marge_heros = 5;
 
-var canvas = document.getElementById("canvas");
-var ctx = canvas.getContext('2d');
-ctx.scale(ratio, ratio);
-
-canvas.width = width * ratio;
-canvas.height = height * ratio;
-canvas.style.width = width + "px";
-canvas.style.height = height + "px";
-
-console.log(canvas.offsetTop);
-console.log(canvas.offsetWidth);
-
+// Création de la salle 
 let roomAsArray = [
     '+++++N+++++',
     '+*********+',
-    '+*********+',
+    '+******N**+',
     '+*********+',
     '+++++++++++'
 ]
-generateRoom(roomAsArray)
+let hauteur = roomAsArray.length
+let largeur = roomAsArray[0].length
+// Verifions que chaque ligne ait la bonne taille
+roomAsArray.forEach(ligne => {
+    if (ligne.length != largeur){
+        throw 'Erreur dans la génération de la salle' 
+    }
+});
+
+generateRoom(roomAsArray, hauteur, largeur)
+
 function generateRoom(roomAsArray){
-    //Verifications
-    let hauteur = roomAsArray.length;
-    console.log(hauteur)
-    let largeur = roomAsArray[0].length;
-    console.log(largeur);
-    roomAsArray.forEach(ligne => {
-        if (ligne.length != largeur){
-            throw 'Erreur dans la génération de la salle' 
-        }
-    });
-    
     for(var indexHauteur=0; indexHauteur < hauteur; indexHauteur++){
-        console.log(indexHauteur)
         for (var indexLargeur = 0; indexLargeur < roomAsArray[indexHauteur].length; indexLargeur++){
             charToImg((roomAsArray[indexHauteur][indexLargeur]), indexHauteur, indexLargeur)
-            console.log(roomAsArray[indexHauteur][indexLargeur])
         }
     }
 }
@@ -65,6 +50,25 @@ function charToImg(char, indexHauteur, indexLargeur){
     }
     salle2D.appendChild(tuile)
 }
+
+//Initialisation du canvas
+var width = largeur*64,
+    height = hauteur*64,
+    ratio = window.devicePixelRatio;
+
+var canvas = document.getElementById("canvas");
+var ctx = canvas.getContext('2d');
+ctx.scale(ratio, ratio);
+
+canvas.width = width * ratio;
+canvas.height = height * ratio;
+canvas.style.width = width + "px";
+canvas.style.height = height + "px";
+
+console.log(canvas.offsetTop);
+console.log(canvas.offsetWidth);
+
+
 /*
 //Background
 var image = new Image();
@@ -106,40 +110,44 @@ window.onkeyup = function (e) {
 var object = new Image();
 object.src = "/static/img/heros/K_Roi_ssant_gauche.png";
 
-//Position du sprite
-var posX = 0;
-var posY = 0;
+//Position du héros
+var posX = ((largeur-1)*taille_image)/2;
+var posY = ((hauteur-1)*taille_image)/2;
 
 
 
 //Déplacement et vérification des bord du canvas
 function moveCheck() {
     if (Keys.up) {
-        if (canvas.offsetTop -75 <= posY) {
+        if (canvas.offsetTop - hauteur_heros - marge_heros + taille_image <= posY) {
             posY -= 5;
         } else {
-            console.log("contre mur top ? ")
+            console.log("Contre le mur du haut")
         }
     }
     else if (Keys.down) {
-        if (canvas.height - 75 >= posY) {
+        if (canvas.height - hauteur_heros - marge_heros - taille_image >= posY) {
             posY += 5;
         } else {
-            console.log("Contre mur bot")
+            console.log("Contre le mur du bas")
         }
     }
 
     if (Keys.left) {
         object.src = "/static/img/heros/K_Roi_ssant_gauche.png";
-        if (canvas.offsetLeft + 5 <= posX) {
+        if (canvas.offsetLeft + marge_heros + taille_image <= posX) {
             posX -= 5;
+        }else{
+            console.log("Contre le mur de gauche")
         }
 
     }
     else if (Keys.right) {
         object.src = "/static/img/heros/K_Roi_ssant_droite.png";
-        if (canvas.width - 65 >= posX) {
+        if (canvas.width - largeur_heros - marge_heros - taille_image >= posX) {
             posX += 5;
+        }else{
+            console.log("Contre le mur de droite")
         }
     }
 }
