@@ -1,3 +1,5 @@
+import PainMechant from './class/PainMechant.js';
+
 const decalage_top = 80;
 const taille_image = 64;
 const hauteur_heros = 70;
@@ -48,10 +50,13 @@ function charToImg(char, indexHauteur, indexLargeur){
         tuile.style.backgroundImage = "url(/static/img/tiles/default.png)"
     switch (char){
         case '+':
-            tuile.style.backgroundImage = "url(/static/img/tiles/rouge.png)" 
+            tuile.style.backgroundImage = "url(/static/img/tiles/lava.jpg)" 
             break
         case 'N':
             tuile.style.backgroundImage = "url(/static/img/tiles/porte.png)" 
+            break
+        case '*':
+            tuile.style.backgroundImage = "url(/static/img/tiles/sol.png)" 
             break
     }
     salle2D.appendChild(tuile)
@@ -168,10 +173,18 @@ function renderObject() {
     ctx.drawImage(object, posX, posY);
 }
 
+//Fonction pour dessiner et deplacement un ennemi sur le canvas 
+function displayVilain(vilain){
+    vilain.move();
+    ctx.drawImage(vilain.sprite , vilain.posX, vilain.posY); 
+}
+
+var pain = new PainMechant();
 function run() {
     renderCanvas();
     renderObject();
     moveCheck();
+    displayVilain(pain)
 }
 
 setInterval(run, 10);
