@@ -2,9 +2,9 @@ import { RandomSeed } from "random-seed";
 import { tileType } from "../enum/tileType";
 import { tileResolver } from "../resolver/TileResolver";
 import { Tile } from "./tiles/Tile";
-import * as rooms from "../../config/room.json";
+import * as rooms from "../../../config/room.json";
 import { Door } from "./tiles/Door";
-import { Coordinates } from "../../typing/tiles";
+import { Coordinates } from "../../../typing/tiles";
 import { Direction } from "../enum/direction";
 
 export class Room {

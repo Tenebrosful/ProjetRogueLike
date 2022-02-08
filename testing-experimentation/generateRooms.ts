@@ -1,4 +1,4 @@
-import { Room } from "../src/class/Room";
+import { Room } from "../src/game/class/Room";
 import * as random_generator from "random-seed";
 import { randomBytes } from "crypto";
 

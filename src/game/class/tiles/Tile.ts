@@ -1,5 +1,5 @@
 import { tileType } from "../../enum/tileType";
-import { Coordinates, TileProperties } from "../../../typing/tiles";
+import { Coordinates, TileProperties } from "../../../../typing/tiles";
 import { Floor } from "./Floor";
 import { Void } from "./Void";
 import { Wall } from "./Wall";
