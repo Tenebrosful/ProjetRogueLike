@@ -96,10 +96,10 @@ ctx.fillStyle = background;
 
 //Variable de touches
 var Keys = {
-    up: false,
     down: false,
     left: false,
-    right: false
+    right: false,
+    up: false
 };
 
 window.onkeydown = function (e) {
