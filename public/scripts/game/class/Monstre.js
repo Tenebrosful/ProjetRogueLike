@@ -12,21 +12,6 @@ export default class Monstre {
     this.posY = posY;
     this.deplacement = 0;
   }
- 
-  get(name) {
-    if (!this.has(name)) {
-      throw new Error(`Property ${name} not found`);
-    }
-    return this.properties[name];
-  }
- 
-  get(posX) {
-    return posX in this.properties;
-  }
-
-  get(posY) {
-    return posY in this.properties;
-  }
 
   move() {
     throw new Error('You must implement this function');
