@@ -1,4 +1,4 @@
-export abstract class Logger {
+export default abstract class Logger {
   private static _enable = false;
 
   static log(message: any, type: LogType = "OTHER") {

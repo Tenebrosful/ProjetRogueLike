@@ -1,13 +1,13 @@
 import { RandomSeed } from "random-seed";
 import { tileType } from "../enum/tileType";
-import { tileResolver } from "../resolver/TileResolver";
-import { Tile } from "./tiles/Tile";
+import tileResolver from "../resolver/TileResolver";
 import * as rooms from "../../../config/room.json";
-import { Door } from "./tiles/Door";
 import { Coordinates } from "../../../typing/tiles";
 import { Direction } from "../enum/direction";
+import Door from "./tiles/Door";
+import Tile from "./tiles/Tile";
 
-export class Room {
+export default class Room {
   coords: Coordinates;
   tiles: Tile[][];
   doors: Door[];

@@ -1,8 +1,8 @@
 import { tileType } from "../../enum/tileType";
-import { Tile } from "./Tile";
 import { Coordinates } from "../../../../typing/tiles";
+import Tile from "./Tile";
 
-export class Void extends Tile {
+export default class Void extends Tile {
   type = tileType.VOID;
 
   /**
