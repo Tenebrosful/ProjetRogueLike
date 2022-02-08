@@ -1,6 +1,6 @@
 import PainMechant from './class/PainMechant.js';
 
-const decalage_top = 80;
+// const decalage_top = 80;
 const taille_image = 64;
 const hauteur_heros = 70;
 const largeur_heros = 50;

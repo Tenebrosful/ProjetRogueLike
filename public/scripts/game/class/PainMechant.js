@@ -6,7 +6,7 @@ export default class PainMechant extends Monstre {
         super("PainMechant", "/static/img/monsters/PNG/pain.png", 200, 200);
       }
 
-    move(ctx){
+    move(){
         if(this.deplacement <= 200){
             this.posX+= 2;
             this.deplacement+= 2;

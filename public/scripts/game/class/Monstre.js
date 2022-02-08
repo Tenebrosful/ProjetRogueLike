@@ -28,7 +28,7 @@ export default class Monstre {
     return posY in this.properties;
   }
 
-  Move(ctx) {
+  move() {
     throw new Error('You must implement this function');
   }
 
