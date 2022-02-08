@@ -11,7 +11,7 @@ let roomAsArray = [
     '+++++N+++++++++++',
     '+***************+',
     '+***************+',
-    '+************N**+',
+    '+************o**+',
     '+***************+',
     '+***************+',
     '+***************+',
@@ -53,10 +53,13 @@ function charToImg(char, indexHauteur, indexLargeur){
             tuile.style.backgroundImage = "url(/static/img/tiles/lava.jpg)" 
             break
         case 'N':
-            tuile.style.backgroundImage = "url(/static/img/tiles/porte.png)" 
+            tuile.style.backgroundImage = "url(/static/img/tiles/lavabridgeV.jpg)" 
             break
         case '*':
             tuile.style.backgroundImage = "url(/static/img/tiles/sol.png)" 
+            break
+        case 'o':
+            tuile.style.backgroundImage = "url(/static/img/tiles/lava.jpg)" 
             break
     }
     salle2D.appendChild(tuile)
