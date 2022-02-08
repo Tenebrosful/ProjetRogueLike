@@ -123,6 +123,8 @@ function moveCheck() {
             posY -= 5;
         } else {
             console.log("Contre le mur du haut")
+            console.log(posY)
+            console.log(posX)
         }
     }
     else if (Keys.down) {
