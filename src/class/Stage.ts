@@ -16,6 +16,7 @@ export class Stage {
   floor: number;
   isXL: boolean;
   rooms: Room[][] = [];
+  spawn: Room;
 
   constructor(params: { floor: number }, random: RandomSeed) {
 
@@ -37,6 +38,8 @@ export class Stage {
     };
 
     this.generateRoom(coordsSpawnRoom, null, 0, random);
+
+    this.spawn = this.rooms[coordsSpawnRoom.posY]?.[coordsSpawnRoom.posX] as Room;
 
     this.convertAllUnlinkedDoorsToWalls();
 
