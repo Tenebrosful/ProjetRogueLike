@@ -1,4 +1,4 @@
-import { EntitySprites } from "../../../typing/entitySprites";
+import { EntitySprites } from "../../../../typing/entitySprites";
 import { Entity } from "./Entity";
 
 export class Player extends Entity {

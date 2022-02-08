@@ -1,9 +1,9 @@
 import { tileType } from "../../enum/tileType";
 import { Tile } from "./Tile";
-import { Coordinates } from "../../../typing/tiles";
+import { Coordinates } from "../../../../typing/tiles";
 
-export class Floor extends Tile {
-  type = tileType.FLOOR;
+export class Error extends Tile {
+  type = tileType.ERROR;
 
   /**
    * Collision properties
@@ -11,7 +11,7 @@ export class Floor extends Tile {
   canWalkThrough = true;
   canFlyOver = true;
 
-  textRender = " ";
+  textRender = "?";
 
   constructor({ posX, posY }: Coordinates) {
     super({ posX, posY });

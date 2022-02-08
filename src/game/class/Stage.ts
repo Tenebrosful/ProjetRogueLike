@@ -1,5 +1,5 @@
 import { RandomSeed } from "random-seed";
-import { Coordinates } from "../../typing/tiles";
+import { Coordinates } from "../../../typing/tiles";
 import { Direction, InvertDirection } from "../enum/direction";
 import { Logger } from "./Logger";
 import { Room } from "./Room";
@@ -16,6 +16,7 @@ export class Stage {
   floor: number;
   isXL: boolean;
   rooms: Room[][] = [];
+  spawn: Room;
 
   constructor(params: { floor: number }, random: RandomSeed) {
 
@@ -37,6 +38,8 @@ export class Stage {
     };
 
     this.generateRoom(coordsSpawnRoom, null, 0, random);
+
+    this.spawn = this.rooms[coordsSpawnRoom.posY]?.[coordsSpawnRoom.posX] as Room;
 
     this.convertAllUnlinkedDoorsToWalls();
 
@@ -87,10 +90,10 @@ export class Stage {
 
   private getProximityFactor(coords: Coordinates) {
     return 1 / (( // There is always a room next to 
-      (this.rooms?.[coords.posX - 1]?.[coords.posY] ? 1 : 0) +
-      (this.rooms?.[coords.posX + 1]?.[coords.posY] ? 1 : 0) +
-      (this.rooms?.[coords.posX]?.[coords.posY - 1] ? 1 : 0) +
-      (this.rooms?.[coords.posX]?.[coords.posY + 1] ? 1 : 0)
+      (this.rooms?.[coords.posY - 1]?.[coords.posX] ? 1 : 0) +
+      (this.rooms?.[coords.posY + 1]?.[coords.posX] ? 1 : 0) +
+      (this.rooms?.[coords.posY]?.[coords.posX - 1] ? 1 : 0) +
+      (this.rooms?.[coords.posY]?.[coords.posX + 1] ? 1 : 0)
     ) * 2);
   }
 
