@@ -23,7 +23,7 @@ export default class PainMechant extends Monstre {
             this.posY-= 2;
             this.deplacement+=2;
           }
-          if(this.deplacement == 800){
+          if(this.deplacement === 800){
             this.deplacement = 0;
           }
          

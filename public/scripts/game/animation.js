@@ -24,7 +24,7 @@ let hauteur = roomAsArray.length
 let largeur = roomAsArray[0].length
 // Verifions que chaque ligne ait la bonne taille
 roomAsArray.forEach(ligne => {
-    if (ligne.length != largeur){
+    if (ligne.length !== largeur){
         throw 'Erreur dans la génération de la salle' 
     }
 });
