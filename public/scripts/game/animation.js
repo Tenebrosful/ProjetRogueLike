@@ -31,10 +31,10 @@ roomAsArray.forEach(ligne => {
 
 generateRoom(roomAsArray, hauteur, largeur)
 
-function generateRoom(roomAsArray){
+function generateRoom(roomArray){
     for(var indexHauteur=0; indexHauteur < hauteur; indexHauteur++){
-        for (var indexLargeur = 0; indexLargeur < roomAsArray[indexHauteur].length; indexLargeur++){
-            charToImg((roomAsArray[indexHauteur][indexLargeur]), indexHauteur, indexLargeur)
+        for (var indexLargeur = 0; indexLargeur < roomArray[indexHauteur].length; indexLargeur++){
+            charToImg((roomArray[indexHauteur][indexLargeur]), indexHauteur, indexLargeur)
         }
     }
 }
