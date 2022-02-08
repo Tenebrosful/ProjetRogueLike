@@ -1,5 +1,5 @@
 import { RandomSeed } from "random-seed";
-import { Coordinates } from "../../../typing/tiles";
+import { Coordinates } from "../typing/tiles";
 import { Direction, InvertDirection } from "../enum/direction";
 import Logger from "./Logger";
 import Room from "./Room";

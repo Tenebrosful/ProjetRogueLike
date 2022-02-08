@@ -1,5 +1,5 @@
 import { tileType } from "../../enum/tileType";
-import { Coordinates } from "../../../../typing/tiles";
+import { Coordinates } from "../../typing/tiles";
 import Tile from "./Tile";
 
 export default class Error extends Tile {
