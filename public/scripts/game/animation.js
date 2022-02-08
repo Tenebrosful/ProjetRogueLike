@@ -1,4 +1,4 @@
-import PainMechant from './class/PainMechant.js';
+import PainMechant from "./class/PainMechant.js";
 
 // const decalage_top = 80;
 const taille_image = 64;
@@ -8,70 +8,70 @@ const marge_heros = 5;
 
 // Création de la salle 
 let roomAsArray = [
-    '+++++N+++++++++++',
-    '+***************+',
-    '+***************+',
-    '+************o**+',
-    '+***************+',
-    '+***************+',
-    '+***************+',
-    '+***************+',
-    '+***************+',
-    '+***************+',
-    '+++++++++++++++++'
-]
-let hauteur = roomAsArray.length
-let largeur = roomAsArray[0].length
+    "+++++N+++++++++++",
+    "+***************+",
+    "+***************+",
+    "+************o**+",
+    "+***************+",
+    "+***************+",
+    "+***************+",
+    "+***************+",
+    "+***************+",
+    "+***************+",
+    "+++++++++++++++++"
+];
+let hauteur = roomAsArray.length;
+let largeur = roomAsArray[0].length;
 // Verifions que chaque ligne ait la bonne taille
 roomAsArray.forEach(ligne => {
-    if (ligne.length !== largeur){
-        throw 'Erreur dans la génération de la salle' 
-    }
+    if (ligne.length !== largeur)
+        throw "Erreur dans la génération de la salle"; 
+    
 });
 
-generateRoom(roomAsArray, hauteur, largeur)
+generateRoom(roomAsArray, hauteur, largeur);
 
 function generateRoom(roomArray){
-    for(var indexHauteur=0; indexHauteur < hauteur; indexHauteur++){
-        for (var indexLargeur = 0; indexLargeur < roomArray[indexHauteur].length; indexLargeur++){
-            charToImg((roomArray[indexHauteur][indexLargeur]), indexHauteur, indexLargeur)
-        }
-    }
+    for(var indexHauteur=0; indexHauteur < hauteur; indexHauteur++)
+        for (var indexLargeur = 0; indexLargeur < roomArray[indexHauteur].length; indexLargeur++)
+            charToImg((roomArray[indexHauteur][indexLargeur]), indexHauteur, indexLargeur);
+        
+    
 }
 function charToImg(char, indexHauteur, indexLargeur){
-    let salle2D = document.getElementById('salle_2d');
-    let tuile = document.createElement('div')
+    let salle2D = document.getElementById("salle_2d");
+    let tuile = document.createElement("div");
     tuile.style.display = "inline-block";
         tuile.style.height = "64px";
         tuile.style.width = "64px";
         tuile.style.position = "absolute";
         tuile.style.top = (indexHauteur * taille_image)+"px";
-        tuile.style.left = (indexLargeur * taille_image) + "px"
-        tuile.style.backgroundImage = "url(/static/img/tiles/default.png)"
+        tuile.style.left = (indexLargeur * taille_image) + "px";
+        tuile.style.backgroundImage = "url(/static/img/tiles/default.png)";
     switch (char){
-        case '+':
-            tuile.style.backgroundImage = "url(/static/img/tiles/lava.jpg)" 
-            break
-        case 'N':
-            tuile.style.backgroundImage = "url(/static/img/tiles/lavabridgeV.jpg)" 
-            break
-        case '*':
-            tuile.style.backgroundImage = "url(/static/img/tiles/sol.png)" 
-            break
-        case 'o':
-            tuile.style.backgroundImage = "url(/static/img/tiles/lava.jpg)" 
-            break
+        case "+":
+            tuile.style.backgroundImage = "url(/static/img/tiles/lava.jpg)"; 
+            break;
+        case "N":
+            tuile.style.backgroundImage = "url(/static/img/tiles/lavabridgeV.jpg)"; 
+            break;
+        case "*":
+            tuile.style.backgroundImage = "url(/static/img/tiles/sol.png)"; 
+            break;
+        case "o":
+            tuile.style.backgroundImage = "url(/static/img/tiles/lava.jpg)"; 
+            break;
     }
-    salle2D.appendChild(tuile)
+    salle2D.appendChild(tuile);
 }
 
-//Initialisation du canvas
+// Initialisation du canvas
 var width = largeur*64,
     height = hauteur*64,
     ratio = window.devicePixelRatio;
 
 var canvas = document.getElementById("canvas");
-var ctx = canvas.getContext('2d');
+var ctx = canvas.getContext("2d");
 ctx.scale(ratio, ratio);
 
 canvas.width = width * ratio;
@@ -94,7 +94,7 @@ ctx.fillStyle = background;
 }
 */
 
-//Variable de touches
+// Variable de touches
 var Keys = {
     down: false,
     left: false,
@@ -124,47 +124,47 @@ window.onkeyup = function (e) {
 var object = new Image();
 object.src = "/static/img/heros/K_Roi_ssant_gauche.png";
 
-//Position du héros
+// Position du héros
 var posX = ((largeur-1)*taille_image)/2;
 var posY = ((hauteur-1)*taille_image)/2;
 
 
 
-//Déplacement et vérification des bord du canvas
+// Déplacement et vérification des bord du canvas
 function moveCheck() {
-    if (Keys.up) {
-        if (canvas.offsetTop - hauteur_heros - marge_heros + taille_image <= posY) {
+    if (Keys.up) 
+        if (canvas.offsetTop - hauteur_heros - marge_heros + taille_image <= posY) 
             posY -= 5;
-        } else {
-            console.log("Contre le mur du haut")
-            console.log(posY)
-            console.log(posX)
+         else {
+            console.log("Contre le mur du haut");
+            console.log(posY);
+            console.log(posX);
         }
-    }
-    else if (Keys.down) {
-        if (canvas.height - hauteur_heros - marge_heros - taille_image >= posY) {
+    
+    else if (Keys.down) 
+        if (canvas.height - hauteur_heros - marge_heros - taille_image >= posY) 
             posY += 5;
-        } else {
-            console.log("Contre le mur du bas")
-        }
-    }
+         else 
+            console.log("Contre le mur du bas");
+        
+    
 
     if (Keys.left) {
         object.src = "/static/img/heros/K_Roi_ssant_gauche.png";
-        if (canvas.offsetLeft + marge_heros + taille_image <= posX) {
+        if (canvas.offsetLeft + marge_heros + taille_image <= posX) 
             posX -= 5;
-        }else{
-            console.log("Contre le mur de gauche")
-        }
+        else
+            console.log("Contre le mur de gauche");
+        
 
     }
     else if (Keys.right) {
         object.src = "/static/img/heros/K_Roi_ssant_droite.png";
-        if (canvas.width - largeur_heros - marge_heros - taille_image >= posX) {
+        if (canvas.width - largeur_heros - marge_heros - taille_image >= posX) 
             posX += 5;
-        }else{
-            console.log("Contre le mur de droite")
-        }
+        else
+            console.log("Contre le mur de droite");
+        
     }
 }
 
@@ -176,7 +176,7 @@ function renderObject() {
     ctx.drawImage(object, posX, posY);
 }
 
-//Fonction pour dessiner et deplacement un ennemi sur le canvas 
+// Fonction pour dessiner et deplacement un ennemi sur le canvas 
 function displayVilain(vilain){
     vilain.move();
     ctx.drawImage(vilain.sprite , vilain.posX, vilain.posY); 
@@ -187,7 +187,7 @@ function run() {
     renderCanvas();
     renderObject();
     moveCheck();
-    displayVilain(pain)
+    displayVilain(pain);
 }
 
 setInterval(run, 10);

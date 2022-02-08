@@ -2,9 +2,9 @@
 export default class Monstre {
   
   constructor(name, sprite, posX, posY) {
-    if (this.constructor === Monstre) {
-      throw new TypeError('Abstract class "Monstre" cannot be instantiated directly');
-    }
+    if (this.constructor === Monstre) 
+      throw new TypeError("Abstract class \"Monstre\" cannot be instantiated directly");
+    
     this.sprite = new Image();
     this.sprite.src = sprite;
     this.name = name;
@@ -14,7 +14,7 @@ export default class Monstre {
   }
 
   move() {
-    throw new Error('You must implement this function');
+    throw new Error("You must implement this function");
   }
 
 }
