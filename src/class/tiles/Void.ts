@@ -5,8 +5,16 @@ import { Coordinates } from "../../../typing/tiles";
 export class Void extends Tile {
   type = tileType.VOID;
 
+  /**
+  * Collision properties
+  */
+  canWalkThrough = false;
+  canFlyOver = true;
+
+  textRender = ".";
+
   constructor({ posX, posY }: Coordinates) {
-    super({ canFlyOver: true, canWalkThrough: false, posX, posY, textRender: "." });
+    super({ posX, posY });
   }
 
 }

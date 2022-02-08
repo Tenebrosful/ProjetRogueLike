@@ -7,8 +7,16 @@ import { Direction } from "../../enum/direction";
 export class Wall extends Tile {
   type = tileType.WALL;
 
+  /**
+  * Collision properties
+  */
+  canWalkThrough = false;
+  canFlyOver = false;
+
+  textRender = "+";
+
   constructor({ posX, posY }: Coordinates) {
-    super({ canFlyOver: false, canWalkThrough: false, posX, posY, textRender: "+" });
+    super({ posX, posY });
   }
 
   convertToDoor(direction: Direction): Door {

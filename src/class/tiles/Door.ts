@@ -7,11 +7,18 @@ import { Wall } from "./Wall";
 export class Door extends Tile {
   direction: Direction;
 
+  /**
+   * Collision properties
+   */
+  canFlyOver = true;
+  canWalkThrough = true;
+
   type = tileType.DOOR;
 
   constructor({ posX, posY }: Coordinates, direction: Direction) {
-    super({ posX, posY, textRender: getDirectionTextRender(direction) });
+    super({ posX, posY });
     this.direction = direction;
+    this.textRender = getDirectionTextRender(direction);
   }
 
   convertToWall(): Wall {
