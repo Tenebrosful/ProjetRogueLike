@@ -1,7 +1,7 @@
 import * as random_generator from "random-seed";
 import { randomBytes } from "crypto";
-import { Stage } from "../src/game/class/Stage";
-import { Logger } from "../src/game/class/Logger"; // eslint-disable-line @typescript-eslint/no-unused-vars
+import Logger from "../src/game/class/Logger"; // eslint-disable-line @typescript-eslint/no-unused-vars
+import Stage from "../src/game/class/Stage";
 
 function run() {
   const seed = randomBytes(10).toString("hex");

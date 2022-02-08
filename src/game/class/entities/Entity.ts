@@ -1,7 +1,7 @@
 import { EntitySprites } from "../../../../typing/entitySprites";
 import { Coordinates } from "../../../../typing/tiles";
 
-export abstract class Entity {
+export default abstract class Entity {
   coords: Coordinates;
   sprites: EntitySprites;
 

@@ -1,13 +1,13 @@
-import { tileType } from "../enum/tileType";
-import { FloorFactory } from "../class/tiles/factory/FloorFactory";
-import { ErrorFactory } from "../class/tiles/factory/ErrorFactory";
-import { VoidFactory } from "../class/tiles/factory/VoidFactory";
-import { WallFactory } from "../class/tiles/factory/WallFactory";
-import { Tile } from "../class/tiles/Tile";
-import { DoorFactory } from "../class/tiles/factory/DoorFactory";
+import DoorFactory from "../class/tiles/factory/DoorFactory";
+import ErrorFactory from "../class/tiles/factory/ErrorFactory";
+import FloorFactory from "../class/tiles/factory/FloorFactory";
+import VoidFactory from "../class/tiles/factory/VoidFactory";
+import WallFactory from "../class/tiles/factory/WallFactory";
+import Tile from "../class/tiles/Tile";
 import { Direction } from "../enum/direction";
+import { tileType } from "../enum/tileType";
 
-export function tileResolver(type: tileType, params: { posX: number, posY: number, direction?: Direction }): Tile {
+export default function tileResolver(type: tileType, params: { posX: number, posY: number, direction?: Direction }): Tile {
   return getTileFactory(type).createTile(params);
 }
 

@@ -1,10 +1,10 @@
 import { tileType } from "../../enum/tileType";
-import { Tile } from "./Tile";
 import { Coordinates } from "../../../../typing/tiles";
 import { Direction } from "../../enum/direction";
-import { Wall } from "./Wall";
+import Tile from "./Tile";
+import Wall from "./Wall";
 
-export class Door extends Tile {
+export default class Door extends Tile {
   direction: Direction;
 
   /**

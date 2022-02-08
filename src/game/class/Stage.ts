@@ -1,10 +1,10 @@
 import { RandomSeed } from "random-seed";
 import { Coordinates } from "../../../typing/tiles";
 import { Direction, InvertDirection } from "../enum/direction";
-import { Logger } from "./Logger";
-import { Room } from "./Room";
+import Logger from "./Logger";
+import Room from "./Room";
 
-export class Stage {
+export default class Stage {
   private static _baseRoomNumber = 8;
   private static _chanceToXL = 10;
   private static _depthChanceInfluence = 1.5;

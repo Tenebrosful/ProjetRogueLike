@@ -1,12 +1,11 @@
 import { tileType } from "../../enum/tileType";
 import { Coordinates, TileProperties } from "../../../../typing/tiles";
-import { Floor } from "./Floor";
-import { Void } from "./Void";
-import { Wall } from "./Wall";
-import { Error } from "./Error";
-import { Door } from "./Door";
+import Door from "./Door";
+import Floor from "./Floor";
+import Void from "./Void";
+import Wall from "./Wall";
 
-export abstract class Tile {
+export default abstract class Tile {
   posX: number;
   posY: number;
   type: tileType;
