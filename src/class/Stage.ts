@@ -87,10 +87,10 @@ export class Stage {
 
   private getProximityFactor(coords: Coordinates) {
     return 1 / (( // There is always a room next to 
-      (this.rooms?.[coords.posX - 1]?.[coords.posY] ? 1 : 0) +
-      (this.rooms?.[coords.posX + 1]?.[coords.posY] ? 1 : 0) +
-      (this.rooms?.[coords.posX]?.[coords.posY - 1] ? 1 : 0) +
-      (this.rooms?.[coords.posX]?.[coords.posY + 1] ? 1 : 0)
+      (this.rooms?.[coords.posY - 1]?.[coords.posX] ? 1 : 0) +
+      (this.rooms?.[coords.posY + 1]?.[coords.posX] ? 1 : 0) +
+      (this.rooms?.[coords.posY]?.[coords.posX - 1] ? 1 : 0) +
+      (this.rooms?.[coords.posY]?.[coords.posX + 1] ? 1 : 0)
     ) * 2);
   }
 
