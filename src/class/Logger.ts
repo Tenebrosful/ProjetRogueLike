@@ -1,9 +1,7 @@
-import { LogType } from "../enum/logType";
-
 export abstract class Logger {
   private static _enable = false;
 
-  static log(message: any, type: LogType = LogType.OTHER) {
+  static log(message: any, type: LogType = "OTHER") {
     if (!Logger._enable && !process.env.dev) return;
 
     console.log(`[${type}]\t${message}`);
@@ -17,3 +15,5 @@ export abstract class Logger {
     Logger._enable = false;
   }
 }
+
+export type LogType = "STAGE" | "ROOM" | "OTHER";

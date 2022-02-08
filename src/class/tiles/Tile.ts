@@ -10,13 +10,18 @@ export abstract class Tile {
   posX: number;
   posY: number;
   type: tileType;
+
+  /**
+   * Collision properties
+   */
   canWalkThrough: boolean;
   canFlyOver: boolean;
+
   textRender: string;
   spriteName = "default.png"; // Should be in public/img/tiles
 
-  constructor({ posX, posY, canWalkThrough = true, canFlyOver = true, textRender = "?" }: Coordinates & TileProperties) {
-    this.posX = posX; this.posY = posY; this.canWalkThrough = canWalkThrough; this.canFlyOver = canFlyOver; this.textRender = textRender;
+  constructor({ posX, posY }: Coordinates & TileProperties) {
+    this.posX = posX; this.posY = posY;
   }
 
   isFloor(): this is Floor {

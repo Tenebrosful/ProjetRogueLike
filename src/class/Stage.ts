@@ -1,7 +1,6 @@
 import { RandomSeed } from "random-seed";
 import { Coordinates } from "../../typing/tiles";
 import { Direction, InvertDirection } from "../enum/direction";
-import { LogType } from "../enum/logType";
 import { Logger } from "./Logger";
 import { Room } from "./Room";
 
@@ -20,7 +19,7 @@ export class Stage {
 
   constructor(params: { floor: number }, random: RandomSeed) {
 
-    Logger.log(`Generating floor ${params.floor}`, LogType.STAGE_GENERATION);
+    Logger.log(`Generating floor ${params.floor}`, "STAGE");
 
     const start = Date.now();
 
@@ -30,7 +29,7 @@ export class Stage {
 
     this._maxRoomNumber = Math.floor(Stage._baseRoomNumber * (Math.max(this.floor / 3, 1)) * (this.isXL ? random.floatBetween(1.5, 1.5 * ((this.floor + 5) / 5)) : 1));
 
-    Logger.log(`Nombre de salle maximum : ${this._maxRoomNumber}${this.isXL ? " (XL)" : ""}`, LogType.STAGE_GENERATION);
+    Logger.log(`Nombre de salle maximum : ${this._maxRoomNumber}${this.isXL ? " (XL)" : ""}`, "STAGE");
 
     const coordsSpawnRoom: Coordinates = {
       posX: Math.ceil(Math.sqrt(this._maxRoomNumber)),
@@ -39,9 +38,11 @@ export class Stage {
 
     this.generateRoom(coordsSpawnRoom, null, 0, random);
 
+    this.convertAllUnlinkedDoorsToWalls();
+
     const stop = Date.now();
 
-    Logger.log(`${stop - start} ms to generate floor ${this.floor}`, LogType.STAGE_GENERATION);
+    Logger.log(`${stop - start} ms to generate floor ${this.floor}`, "STAGE");
 
   }
 
@@ -66,19 +67,19 @@ export class Stage {
   private generateNextRoom(coords: Coordinates, oldDirection: Direction | null, depth: number, rand: RandomSeed) {
 
     if (oldDirection !== Direction.NORTH && this.canGenerateMoreRoom()) {
-      Logger.log(`[${coords.posX};${coords.posY}] trying to generate [${coords.posX};${coords.posY + 1}]`, LogType.STAGE_GENERATION);
+      Logger.log(`[${coords.posX};${coords.posY}] trying to generate [${coords.posX};${coords.posY + 1}]`, "STAGE");
       this.generateNextRoomSpeceficDirection({ posX: coords.posX, posY: coords.posY + 1 }, Direction.NORTH, depth, rand);
     }
     if (oldDirection !== Direction.SOUTH && this.canGenerateMoreRoom() && coords.posY - 1 > 0) {
-      Logger.log(`[${coords.posX};${coords.posY}] trying to generate [${coords.posX};${coords.posY - 1}]`, LogType.STAGE_GENERATION);
+      Logger.log(`[${coords.posX};${coords.posY}] trying to generate [${coords.posX};${coords.posY - 1}]`, "STAGE");
       this.generateNextRoomSpeceficDirection({ posX: coords.posX, posY: coords.posY - 1 }, Direction.SOUTH, depth, rand);
     }
     if (oldDirection !== Direction.WEST && this.canGenerateMoreRoom() && coords.posX - 1 > 0) {
-      Logger.log(`[${coords.posX};${coords.posY}] trying to generate [${coords.posX - 1};${coords.posY}]`, LogType.STAGE_GENERATION);
+      Logger.log(`[${coords.posX};${coords.posY}] trying to generate [${coords.posX - 1};${coords.posY}]`, "STAGE");
       this.generateNextRoomSpeceficDirection({ posX: coords.posX - 1, posY: coords.posY }, Direction.WEST, depth, rand);
     }
     if (oldDirection !== Direction.EST && this.canGenerateMoreRoom()) {
-      Logger.log(`[${coords.posX};${coords.posY}] trying to generate [${coords.posX + 1};${coords.posY}]`, LogType.STAGE_GENERATION);
+      Logger.log(`[${coords.posX};${coords.posY}] trying to generate [${coords.posX + 1};${coords.posY}]`, "STAGE");
       this.generateNextRoomSpeceficDirection({ posX: coords.posX + 1, posY: coords.posY }, Direction.EST, depth, rand);
     }
 
@@ -98,10 +99,10 @@ export class Stage {
   }
 
   private generateNextRoomSpeceficDirection(coords: Coordinates, direction: Direction, depth: number, rand: RandomSeed) {
-    if (this.rooms?.[coords.posX]?.[coords.posY]) { Logger.log(`Room [${coords.posX};${coords.posY}] already exist !`, LogType.STAGE_GENERATION); return; } // Room already exist
+    if (this.rooms?.[coords.posX]?.[coords.posY]) { Logger.log(`Room [${coords.posX};${coords.posY}] already exist !`, "STAGE"); return; } // Room already exist
 
     Logger.log(`(depth: ${depth}, floor: ${this.floor}, proximityFactor: ${this.getProximityFactor(coords)}, missingRooms: ${this.getMissingRoomsFactor()}) ${this.getChanceToGenerate(depth, this.getProximityFactor(coords))}% to generate [${coords.posX};${coords.posY}]`
-      , LogType.STAGE_GENERATION);
+      , "STAGE");
 
     if (rand.intBetween(1, 100) > this.getChanceToGenerate(depth, this.getProximityFactor(coords))) return;
 
@@ -126,13 +127,13 @@ export class Stage {
 
     if (!this.rooms[coords.posX]) this.rooms[coords.posX] = [];
 
-    Logger.log(`Generate room [${coords.posX};${coords.posY}]`, LogType.STAGE_GENERATION);
+    Logger.log(`Generate room [${coords.posX};${coords.posY}]`, "STAGE");
 
     // @ts-ignore
     this.rooms[coords.posX][coords.posY] = Room.generateRandom(rand);
     this.currentRoomNumber++;
 
-    Logger.log(`Salles restantes à générer : ${this._maxRoomNumber - this.currentRoomNumber} / ${this._maxRoomNumber}`, LogType.STAGE_GENERATION);
+    Logger.log(`Salles restantes à générer : ${this._maxRoomNumber - this.currentRoomNumber} / ${this._maxRoomNumber}`, "STAGE");
 
     if (this.canGenerateMoreRoom())
       this.generateNextRoom(coords, direction ? InvertDirection(direction) : null, depth + 1, rand);
@@ -140,6 +141,19 @@ export class Stage {
 
   private canGenerateMoreRoom() {
     return this.currentRoomNumber < this._maxRoomNumber;
+  }
+
+  private convertAllUnlinkedDoorsToWalls() {
+    this.rooms.forEach((line, posY) => {
+      line.forEach((room, posX) => {
+        Logger.log(`Vérification de la salle [${posX};${posY}] pour la conversion de porte en mur`, "STAGE");
+
+        if (!this.rooms[posY + 1]?.[posX]) room.convertNotLinkedDoor(Direction.NORTH);
+        if (!this.rooms[posY - 1]?.[posX]) room.convertNotLinkedDoor(Direction.SOUTH);
+        if (!this.rooms[posY]?.[posX + 1]) room.convertNotLinkedDoor(Direction.EST);
+        if (!this.rooms[posY]?.[posX - 1]) room.convertNotLinkedDoor(Direction.WEST);
+      });
+    });
   }
 
 }
