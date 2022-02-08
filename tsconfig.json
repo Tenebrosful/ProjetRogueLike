@@ -17,7 +17,8 @@
     "forceConsistentCasingInFileNames": true,
     "lib": [
       "ES2021",
-      "esnext.asynciterable"
+      "esnext.asynciterable",
+      "DOM"
     ],
     "moduleResolution": "node"
   },

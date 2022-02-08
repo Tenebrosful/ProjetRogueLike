@@ -1,0 +1,9 @@
+#gameContainer {
+  overflow: hidden;
+  margin: 0;
+}
+
+#salle_2d canvas {
+  position: absolute;
+  top: 80px;
+}
