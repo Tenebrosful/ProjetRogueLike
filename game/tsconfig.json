@@ -4,6 +4,20 @@
     "noImplicitAny": true,
     "target": "ES5",
     "module": "CommonJS",
-    "sourceMap": true
-  }
+    "sourceMap": true,
+    "lib": [
+      "DOM"
+    ],
+    "strict": true,
+    "strictNullChecks": true,
+    "noUncheckedIndexedAccess": true,
+    "emitDecoratorMetadata": true,
+    "experimentalDecorators": true,
+    "declaration": true,
+    "importHelpers": true,
+    "forceConsistentCasingInFileNames": true,
+  },
+  "exclude": [
+    "node_modules"
+  ]
 }
