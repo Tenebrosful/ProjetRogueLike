@@ -26,7 +26,12 @@ jobs:
           node-version: ${{ matrix.node-version }}
           cache: 'npm'
 
-      - run: npm ci
+      - run: |
+          npm ci
+          cd game
+          npm ci
+          cd ../web-server
+          npm ci
 
   tsc:
     name: Typescript Compile
@@ -36,7 +41,12 @@ jobs:
         uses: actions/checkout@v2
 
       - name: npm ci
-        run: npm ci
+        run: |
+          npm ci
+          cd game
+          npm ci
+          cd ../web-server
+          npm ci
 
       - name: Compile TypeScript
         run: tsc

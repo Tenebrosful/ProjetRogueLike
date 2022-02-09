@@ -1,7 +1,7 @@
 import { RandomSeed } from "random-seed";
 import { tileType } from "../enum/tileType";
 import tileResolver from "../resolver/TileResolver";
-import * as rooms from "../../../config/room.json";
+import * as rooms from "../../config/room.json";
 import { Direction } from "../enum/direction";
 import Door from "./tiles/Door";
 import Tile from "./tiles/Tile";

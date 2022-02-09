@@ -1,7 +1,7 @@
 import * as random_generator from "random-seed";
 import { randomBytes } from "crypto";
-import Logger from "../src/game/class/Logger"; // eslint-disable-line @typescript-eslint/no-unused-vars
-import Room from "../src/game/class/Room";
+import Logger from "../src/class/Logger"; // eslint-disable-line @typescript-eslint/no-unused-vars
+import Room from "../src/class/Room";
 
 const seed = randomBytes(10).toString("hex");
 // const seed = "oui";

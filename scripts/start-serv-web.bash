@@ -12,4 +12,4 @@ fi
 
 timestamp=$(date +%d_%m_%Y_%H_%M_%S)
 
-ts-node src/serv-web/server.ts > logs/serv-web/$timestamp.log 2>&1
+ts-node web-server/src/serv-web/server.ts > logs/serv-web/$timestamp.log 2>&1
