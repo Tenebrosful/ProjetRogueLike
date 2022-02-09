@@ -7,3 +7,5 @@ build
 coverage
 
 webpack.config.js
+
+web-server/public/game
