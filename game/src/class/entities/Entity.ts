@@ -29,7 +29,7 @@ export default abstract class Entity {
   }
 
   move(direction: Direction) {
-    Logger.log(`Je seuis en : ${this.coords.posX} , ${this.coords.posY}`, 'GAME');
+    Logger.log(`Je seuis en : ${this.coords.posX} , ${this.coords.posY}`, "ENTITY");
     let tileX = Math.trunc(this.coords.posX / 64) ;
     let tileY = Math.trunc(this.coords.posY / 64) ;
     Logger.log(`La case correspondante est la ${tileX},${tileY}`);
@@ -58,14 +58,14 @@ export default abstract class Entity {
   }
 
   canMove(coordsDeplacement:Coordinates){
-    Logger.log(`Je tente d'aller en : ${coordsDeplacement.posX} , ${coordsDeplacement.posY}`, 'GAME');
     let tileX = Math.trunc(coordsDeplacement.posX / 64) ;
     let tileY = Math.trunc(coordsDeplacement.posY / 64) ;
+    Logger.log(`Je tente d'aller en : ${coordsDeplacement.posX} , ${coordsDeplacement.posY}`, "ENTITY");
     Logger.log(`La case correspondante est la ${tileX},${tileY}`);
     let tuile = Game.currentRoom.tiles[tileY]?.[tileX];
     if (!tuile) return false;
-    Logger.log(`Le type de case : ${tuile.type}`);
     if (!tuile.canWalkThrough)return false;
+    Logger.log(`Le type de case : ${tuile.type}`, "ENTITY");
 
     return true;
   }
