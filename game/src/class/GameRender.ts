@@ -61,8 +61,10 @@ export default class GameRender {
     entitySprite.src = `/static/img/${entity.currentSprite}`;
 
     if (Game.debug) {
-      this._ctx.fillRect(entity.coords.posX + entity.hitbox.offset.x, entity.coords.posY + entity.hitbox.offset.y, entity.hitbox.size.width, entity.hitbox.size.height);
-      this._ctx.fillText(`[${entity.coords.posX};${entity.coords.posY}]`, entity.coords.posX , entity.coords.posY - 20);
+      this._ctx.fillRect(entity.coords.posX + entity.hitbox.offset.x,
+        entity.coords.posY + entity.hitbox.offset.y, 
+        entity.hitbox.size.width - entity.hitbox.offset.x, 
+        entity.hitbox.size.height - entity.hitbox.offset.y);
     }
 
     this._ctx.drawImage(entitySprite, entity.coords.posX, entity.coords.posY);
