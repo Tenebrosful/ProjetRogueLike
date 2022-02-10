@@ -52,6 +52,7 @@ export default abstract class Game {
 
   static gameLoop() {
     Controls.handlePlayerMove();
+    Game.currentRoom.moveAllEntities();
     GameRender.renderAllDynamic();
   }
 

@@ -7,6 +7,7 @@ import Door from "./tiles/Door";
 import Tile from "./tiles/Tile";
 import { Coordinates } from "../typing/tiles";
 import Entity from "./entities/Entity";
+import ThinkingEntity from "./entities/ThinkingEntity";
 
 export default class Room {
   coords: Coordinates;
@@ -78,5 +79,10 @@ export default class Room {
 
     /* @ts-ignore: this.tiles[wallConvertedFromDoor.posY] and tiles[wallConvertedFromDoor.posY][wallConvertedFromDoor.posX] shouldn't be undefined */
     this.tiles[wallConvertedFromDoor.posY][wallConvertedFromDoor.posX] = wallConvertedFromDoor;
+  }
+
+  moveAllEntities() {
+    (this.entities.filter(entity => entity instanceof ThinkingEntity) as ThinkingEntity[])
+    .forEach(entity => entity.iaMovement.think(entity));
   }
 }
