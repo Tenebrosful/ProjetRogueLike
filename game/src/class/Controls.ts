@@ -1,10 +1,10 @@
 export default class Controls {
   static controls = {
     walking: {
-      down: "KeyS",
-      left: "KeyQ",
-      right: "KeyD",
-      up: "KeyZ"
+      down: "ArrowDown",
+      left: "ArrowLeft",
+      right: "ArrowRight",
+      up: "ArrowUp"
     }
   };
 
