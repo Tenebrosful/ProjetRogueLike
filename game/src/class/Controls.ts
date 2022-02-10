@@ -3,12 +3,13 @@ import Game from "./Game";
 
 export default class Controls {
   static controls = {
+    debug: "KeyR",
     walking: {
       down: "ArrowDown",
       left: "ArrowLeft",
       right: "ArrowRight",
       up: "ArrowUp"
-    }
+    },
   };
 
   static currentState = {
@@ -46,13 +47,15 @@ export default class Controls {
         this.currentState.walking.left = false;
       else if (e.code === this.controls.walking.right)
         this.currentState.walking.right = false;
+      else if (e.code === this.controls.debug)
+        Game.debug = !Game.debug;
     };
   }
 
   static handlePlayerMove() {
-    if(this.currentState.walking.up) Game.playerEntity.move(Direction.NORTH);
-    if(this.currentState.walking.down) Game.playerEntity.move(Direction.SOUTH);
-    if(this.currentState.walking.left) Game.playerEntity.move(Direction.WEST);
-    if(this.currentState.walking.right) Game.playerEntity.move(Direction.EST);
+    if (this.currentState.walking.up) Game.playerEntity.move(Direction.NORTH);
+    if (this.currentState.walking.down) Game.playerEntity.move(Direction.SOUTH);
+    if (this.currentState.walking.left) Game.playerEntity.move(Direction.WEST);
+    if (this.currentState.walking.right) Game.playerEntity.move(Direction.EST);
   }
 }

@@ -21,6 +21,8 @@ export default abstract class Game {
   static seed: string;
   static randomGenerator: random_seed.RandomSeed;
 
+  static debug = false;
+
   static newGame(seed: string = randomBytes(10).toString("hex")) {
     this.randomGenerator = random_seed.create(seed);
 
