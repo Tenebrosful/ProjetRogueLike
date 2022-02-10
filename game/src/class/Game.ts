@@ -42,7 +42,7 @@ export default abstract class Game {
     this.currentRoom.entities.push(this.playerEntity);
     Logger.log(JSON.stringify(this.playerEntity), "GAME");
 
-    this.currentRoom.entities.push(new PainMechant({ posX: 100, posY: 100 }));
+    this.currentRoom.entities.push(new PainMechant({ posX: 300, posY: 300 }));
 
     Controls.setup();
     GameRender.renderAll();
