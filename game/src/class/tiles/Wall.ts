@@ -14,6 +14,7 @@ export default class Wall extends Tile {
   canFlyOver = false;
 
   textRender = "+";
+  spriteName = "wall.png";
 
   constructor({ posX, posY }: Coordinates) {
     super({ posX, posY });

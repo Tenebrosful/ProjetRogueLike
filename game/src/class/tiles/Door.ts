@@ -14,12 +14,12 @@ export default class Door extends Tile {
   canWalkThrough = true;
 
   type = tileType.DOOR;
-  spriteName = "door.png";
 
   constructor({ posX, posY }: Coordinates, direction: Direction) {
     super({ posX, posY });
     this.direction = direction;
     this.textRender = getDirectionTextRender(direction);
+    this.spriteName = getDirectionSpriteName(direction);
   }
 
   convertToWall(): Wall {
@@ -29,8 +29,8 @@ export default class Door extends Tile {
 
 }
 
-function getDirectionTextRender(direction: Direction){
-  switch(direction){
+function getDirectionTextRender(direction: Direction) {
+  switch (direction) {
     case Direction.NORTH:
       return "N";
     case Direction.WEST:
@@ -39,5 +39,18 @@ function getDirectionTextRender(direction: Direction){
       return "E";
     case Direction.SOUTH:
       return "S";
+  }
+}
+
+function getDirectionSpriteName(direction: Direction) {
+  switch(direction) {
+    case Direction.NORTH:
+      return "doorN.png";
+    case Direction.WEST:
+      return "doorW.png";
+    case Direction.EST:
+      return "doorE.png";
+    case Direction.SOUTH:
+      return "doorS.png";
   }
 }

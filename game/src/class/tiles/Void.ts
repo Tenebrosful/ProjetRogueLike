@@ -12,6 +12,7 @@ export default class Void extends Tile {
   canFlyOver = true;
 
   textRender = ".";
+  spriteName = "void.png";
 
   constructor({ posX, posY }: Coordinates) {
     super({ posX, posY });

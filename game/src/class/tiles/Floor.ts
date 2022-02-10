@@ -12,6 +12,7 @@ export default class Floor extends Tile {
   canFlyOver = true;
 
   textRender = " ";
+  spriteName = "floor.png";
 
   constructor({ posX, posY }: Coordinates) {
     super({ posX, posY });
