@@ -27,6 +27,7 @@ export default class GameRender {
     this._canvas.style.height = `${this._canvasHeight}px`;
 
     this._ctx.fillStyle = "red";
+    this._ctx.font = "20px Arial";
   }
 
   static renderTile(tile: Tile) {
@@ -59,7 +60,10 @@ export default class GameRender {
     const entitySprite = new Image();
     entitySprite.src = `/static/img/${entity.currentSprite}`;
 
-    if (Game.debug) this._ctx.fillRect(entity.coords.posX + entity.hitbox.offset.x, entity.coords.posY + entity.hitbox.offset.y, entity.hitbox.size.width, entity.hitbox.size.height);
+    if (Game.debug) {
+      this._ctx.fillRect(entity.coords.posX + entity.hitbox.offset.x, entity.coords.posY + entity.hitbox.offset.y, entity.hitbox.size.width, entity.hitbox.size.height);
+      this._ctx.fillText(`[${entity.coords.posX};${entity.coords.posY}]`, entity.coords.posX , entity.coords.posY - 20);
+    }
 
     this._ctx.drawImage(entitySprite, entity.coords.posX, entity.coords.posY);
   }
