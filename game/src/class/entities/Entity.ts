@@ -30,45 +30,71 @@ export default abstract class Entity {
   }
 
   move(direction: Direction) {
-    Logger.log(`Je seuis en : ${this.coords.posX} , ${this.coords.posY}`, "ENTITY");
-    let tileX = Math.trunc(this.coords.posX / 64) ;
-    let tileY = Math.trunc(this.coords.posY / 64) ;
-    Logger.log(`La case correspondante est la ${tileX},${tileY}`);
+    // Top - Left
+    let coordsHitboxTopLeft = {
+      x : this.coords.posX,
+      y : this.coords.posY + this.hitbox.offset.y
+    }
+    // Top - Right
+    let coordsHitboxTopRight = {
+      x : this.coords.posX + this.hitbox.size.width - this.hitbox.offset.x, 
+      y : this.coords.posY + this.hitbox.offset.y
+    }
+    // Bot - Left 
+    let coordsHitboxBotLeft = {
+      x : this.coords.posX,
+      y : this.coords.posY + this.hitbox.size.height
+    }
+    // Bot - Right
+    let coordsHitboxBotRight = {
+      x : this.coords.posX + this.hitbox.size.width - this.hitbox.offset.x,
+      y : this.coords.posY + this.hitbox.size.height
+    }
     switch (direction) {
       case Direction.NORTH:
-        if(!this.canMove({posX:this.coords.posX, posY:this.coords.posY - this.movementSpeed}))return;
+        if(!this.canMove({posX: coordsHitboxTopLeft.x,posY: coordsHitboxTopLeft.y - this.movementSpeed},
+          {posX: coordsHitboxTopRight.x,posY: coordsHitboxTopRight.y - this.movementSpeed}))return;
         this.coords.posY -= this.movementSpeed;
         this.currentSprite = this.sprites.walking?.up || Entity.DEFAULT_SPRITE;
         break;
       case Direction.SOUTH:
-        if(!this.canMove({posX:this.coords.posX, posY:this.coords.posY + this.movementSpeed}))return;
+        if(!this.canMove({posX: coordsHitboxBotLeft.x,posY: coordsHitboxBotLeft.y + this.movementSpeed},
+          {posX: coordsHitboxBotRight.x,posY: coordsHitboxBotRight.y + this.movementSpeed}))return;
         this.coords.posY += this.movementSpeed;
         this.currentSprite = this.sprites.walking?.down || Entity.DEFAULT_SPRITE;
         break;
       case Direction.WEST:
-        if(!this.canMove({posX:this.coords.posX - this.movementSpeed, posY:this.coords.posY}))return;
+        if(!this.canMove({posX: coordsHitboxTopLeft.x - this.movementSpeed,posY: coordsHitboxTopLeft.y},
+          {posX: coordsHitboxBotLeft.x - this.movementSpeed,posY: coordsHitboxBotLeft.y}))return;
         this.coords.posX -= this.movementSpeed;
         this.currentSprite = this.sprites.walking?.left || Entity.DEFAULT_SPRITE;
         break;
       case Direction.EST:
-        if(!this.canMove({posX:this.coords.posX + this.movementSpeed, posY:this.coords.posY}))return;
+        if(!this.canMove({posX: coordsHitboxTopRight.x + this.movementSpeed,posY: coordsHitboxTopRight.y},
+          {posX: coordsHitboxBotRight.x + this.movementSpeed,posY: coordsHitboxBotRight.y}))return;
         this.coords.posX += this.movementSpeed;
         this.currentSprite = this.sprites.walking?.right || Entity.DEFAULT_SPRITE;
         break;
     }
   }
 
-  canMove(coordsDeplacement:Coordinates){
-    Logger.log(`Je tente d'aller en : ${coordsDeplacement.posX} , ${coordsDeplacement.posY}`, "ENTITY");
+  canMove(coordsDeplacementOne: Coordinates, coordsDeplacementDeux: Coordinates){
+    //Premier coin
+    let tileOneX = Math.trunc(coordsDeplacementOne.posX / GameRender.TILE_SIZE) ;
+    let tileOneY = Math.trunc(coordsDeplacementOne.posY / GameRender.TILE_SIZE) ;
 
-    let tileX = Math.trunc(coordsDeplacement.posX / GameRender.TILE_SIZE) ;
-    let tileY = Math.trunc(coordsDeplacement.posY / GameRender.TILE_SIZE) ;
-    Logger.log(`La case correspondante est la ${tileX},${tileY}`);
-    let tuile = Game.currentRoom.tiles[tileY]?.[tileX];
-    if (!tuile) return false;
-    if (!tuile.canWalkThrough)return false;
-    Logger.log(`Le type de case : ${tuile.type}`, "ENTITY");
+    let tuileOne = Game.currentRoom.tiles[tileOneY]?.[tileOneX];
+    if (!tuileOne) return false;
+    if (!tuileOne.canWalkThrough)return false;
 
+    //Deuxieme coin
+    let tileTwoX = Math.trunc(coordsDeplacementDeux.posX / GameRender.TILE_SIZE) ;
+    let tileTwoY = Math.trunc(coordsDeplacementDeux.posY / GameRender.TILE_SIZE) ;
+
+    let tuileTwo = Game.currentRoom.tiles[tileTwoY]?.[tileTwoX];
+    if (!tuileTwo) return false;
+    if (!tuileTwo.canWalkThrough)return false;
+   
     return true;
   }
 
