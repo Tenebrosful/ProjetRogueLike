@@ -25,6 +25,8 @@ export default class GameRender {
     this._canvas.height = this._canvasHeight * 1;
     this._canvas.style.width = `${this._canvasWidth}px`;
     this._canvas.style.height = `${this._canvasHeight}px`;
+
+    this._ctx.fillStyle = "red";
   }
 
   static renderTile(tile: Tile) {
@@ -56,6 +58,8 @@ export default class GameRender {
 
     const entitySprite = new Image();
     entitySprite.src = `/static/img/${entity.currentSprite}`;
+
+    if (Game.debug) this._ctx.fillRect(entity.coords.posX + entity.hitbox.offset.x, entity.coords.posY + entity.hitbox.offset.y, entity.hitbox.size.width, entity.hitbox.size.height);
 
     this._ctx.drawImage(entitySprite, entity.coords.posX, entity.coords.posY);
   }
