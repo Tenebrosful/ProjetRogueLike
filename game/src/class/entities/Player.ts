@@ -4,17 +4,17 @@ import Entity from "./Entity";
 export default class Player extends Entity {
   sprites: EntitySprites = {
     walking: {
-      //down: "player/playerL.png",
+      down: "player/playerL.png",
       left: "player/playerL.png",
       right: "player/playerR.png",
-      //up: "player/playerR.png"
+      up: "player/playerR.png"
     }
   };
 
   hitbox = {
     offset: {
       x: 0,
-      y: 0
+      y: 30 // On positionne la hitbox au niveau des pieds du personnage
     },
     size: {
       height: 64,
