@@ -102,7 +102,7 @@ export default class Stage {
   }
 
   private generateNextRoomSpeceficDirection(coords: Coordinates, direction: Direction, depth: number, rand: RandomSeed) {
-    if (this.rooms?.[coords.posX]?.[coords.posY]) { Logger.log(`Room [${coords.posX};${coords.posY}] already exist !`, "STAGE"); return; } // Room already exist
+    if (this.rooms?.[coords.posY]?.[coords.posX]) { Logger.log(`Room [${coords.posX};${coords.posY}] already exist !`, "STAGE"); return; } // Room already exist
 
     Logger.log(`(depth: ${depth}, floor: ${this.floor}, proximityFactor: ${this.getProximityFactor(coords)}, missingRooms: ${this.getMissingRoomsFactor()}) ${this.getChanceToGenerate(depth, this.getProximityFactor(coords))}% to generate [${coords.posX};${coords.posY}]`
       , "STAGE");
@@ -128,12 +128,12 @@ export default class Stage {
   private generateRoom(coords: Coordinates, direction: Direction | null, depth: number, rand: RandomSeed) {
     if (!this.rooms) this.rooms = [];
 
-    if (!this.rooms[coords.posX]) this.rooms[coords.posX] = [];
+    if (!this.rooms[coords.posY]) this.rooms[coords.posY] = [];
 
     Logger.log(`Generate room [${coords.posX};${coords.posY}]`, "STAGE");
 
     // @ts-ignore
-    this.rooms[coords.posX][coords.posY] = Room.generateRandom(rand);
+    this.rooms[coords.posY][coords.posX] = Room.generateRandom(rand);
     this.currentRoomNumber++;
 
     Logger.log(`Salles restantes à générer : ${this._maxRoomNumber - this.currentRoomNumber} / ${this._maxRoomNumber}`, "STAGE");
