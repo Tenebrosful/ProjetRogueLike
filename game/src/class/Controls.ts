@@ -19,7 +19,7 @@ export default class Controls {
 
   static async setup() {
 
-    window.onkeyup = (e) => {
+    window.onkeydown = (e) => {
       e.preventDefault();
 
       if (e.code === this.controls.walking.up)
@@ -32,7 +32,7 @@ export default class Controls {
         this.currentState.walking.right = true;
     };
 
-    window.onkeydown = (e) => {
+    window.onkeyup = (e) => {
       e.preventDefault();
 
       if (e.code === this.controls.walking.up)
