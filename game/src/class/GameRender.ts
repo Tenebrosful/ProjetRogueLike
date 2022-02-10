@@ -19,10 +19,10 @@ export default class GameRender {
   static setupCanvas() {
     this._canvasWidth = Game.currentRoom.width * this.TILE_SIZE;
     this._canvasHeight = Game.currentRoom.height * this.TILE_SIZE;
-    this._canvasRatio = window.devicePixelRatio;
+    this._canvasRatio = 1;
 
-    this._canvas.width = this._canvasWidth * this._canvasRatio;
-    this._canvas.height = this._canvasHeight * this._canvasRatio;
+    this._canvas.width = this._canvasWidth * 1;
+    this._canvas.height = this._canvasHeight * 1;
     this._canvas.style.width = `${this._canvasWidth}px`;
     this._canvas.style.height = `${this._canvasHeight}px`;
   }
