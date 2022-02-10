@@ -5,12 +5,12 @@ export default class PainMechant extends ThinkingEntity {
   iaMovement = new IAMovementSquare;
 
   sprites = {
-    idle: "enemies/painMechantIdle.ping",
+    idle: "enemies/painMechant/painMechantIdle.png",
     walking: {
-      down: "enemies/painMechantD.png",
-      left: "enemies/painMechantL.png",
-      right: "enemies/painMechantR.png",
-      up: "enemies/painMechantU.png"
+      down: "enemies/painMechant/painMechantD.png",
+      left: "enemies/painMechant/painMechantL.png",
+      right: "enemies/painMechant/painMechantR.png",
+      up: "enemies/painMechant/painMechantU.png"
     }
   };
 
