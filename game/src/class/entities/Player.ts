@@ -12,15 +12,15 @@ export default class Player extends Entity {
   };
 
   hitbox = {
-    offset : {
+    offset: {
       x: 0,
       y: 0
     },
-    size : {
-      width : 47,
-      height : 64
+    size: {
+      height: 64,
+      width: 47
     }
-  }
+  };
 
   currentSprite = this.sprites.walking?.left || Entity.DEFAULT_SPRITE;
   movementSpeed = 2;

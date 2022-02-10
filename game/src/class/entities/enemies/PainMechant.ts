@@ -3,7 +3,7 @@ import ThinkingEntity from "../ThinkingEntity";
 
 export default class PainMechant extends ThinkingEntity {
   iaMovement = new IAMovementSquare;
-  
+
   sprites = {
     idle: "enemies/painMechant/painMechantIdle.png",
     walking: {
@@ -15,15 +15,15 @@ export default class PainMechant extends ThinkingEntity {
   };
 
   hitbox = {
-    offset : {
+    offset: {
       x: 0,
       y: 0
     },
-    size : {
-      width : 64,
-      height : 64
+    size: {
+      height: 46,
+      width: 64
     }
-  }
+  };
 
   currentSprite = this.sprites.idle;
   movementSpeed = 1;
