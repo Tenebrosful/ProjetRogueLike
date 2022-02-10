@@ -23,4 +23,4 @@ export default abstract class Logger {
   }
 }
 
-export type LogType = "STAGE" | "ROOM" | "OTHER";
+export type LogType = "GAME" | "STAGE" | "ROOM" | "RENDER" | "OTHER";
