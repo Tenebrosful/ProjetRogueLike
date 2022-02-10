@@ -4,5 +4,6 @@ export type EntitySprites = {
     left?: string,
     right?: string,
     up?: string
-  }
+  },
+  idle?: string
 };
