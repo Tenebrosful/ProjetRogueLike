@@ -26,5 +26,5 @@ export default class PainMechant extends ThinkingEntity {
   }
 
   currentSprite = this.sprites.idle;
-  movementSpeed = 2;
+  movementSpeed = 1;
 }
