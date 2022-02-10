@@ -31,7 +31,7 @@ export default abstract class Entity {
         break;
       case Direction.EST:
         this.coords.posX += this.movementSpeed;
-        this.currentSprite = this.sprites.walking?.up || Entity.DEFAULT_SPRITE;
+        this.currentSprite = this.sprites.walking?.right || Entity.DEFAULT_SPRITE;
         break;
     }
   }
