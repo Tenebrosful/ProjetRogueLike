@@ -13,9 +13,9 @@
     "noUncheckedIndexedAccess": true,
     "emitDecoratorMetadata": true,
     "experimentalDecorators": true,
-    "declaration": true,
     "importHelpers": true,
     "forceConsistentCasingInFileNames": true,
+    "strictPropertyInitialization": false,
   },
   "exclude": [
     "node_modules"
