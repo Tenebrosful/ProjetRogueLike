@@ -3,6 +3,7 @@ import { Coordinates } from "../../typing/tiles";
 import { Direction } from "../../enum/direction";
 import Door from "./Door";
 import Tile from "./Tile";
+import Logger from "../Logger";
 
 export default class Wall extends Tile {
   type = tileType.WALL;
@@ -21,7 +22,7 @@ export default class Wall extends Tile {
   }
 
   convertToDoor(direction: Direction): Door {
-    console.log(`Convert Wall to Door at [${this.posX};${this.posY}] ${direction}`);
+    Logger.log(`Convert Wall to Door at [${this.posX};${this.posY}]`, "ROOM");
     return new Door({ posX: this.posX, posY: this.posY }, direction);
   }
 
