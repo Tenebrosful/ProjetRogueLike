@@ -16,7 +16,7 @@ export default class PainMechant extends ThinkingEntity {
 
   hitbox = {
     offset: {
-      x: 0,
+      x: 4, // Réduction de 4px pour pas qu'il soit bloqué dans les couloir de 1 case de large
       y: 0
     },
     size: {
