@@ -67,12 +67,12 @@ export default class GameRender {
 
   static renderAll() {
     this.setupCanvas();
-    this.renderCanvas();
     this.renderRoom(Game.currentRoom);
     this.renderAllDynamic();
   }
 
   static renderAllDynamic() {
+    this.renderCanvas();
     this.renderRoomEntities(Game.currentRoom);
   }
 
