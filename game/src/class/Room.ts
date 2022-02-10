@@ -85,4 +85,8 @@ export default class Room {
     (this.entities.filter(entity => entity instanceof ThinkingEntity) as ThinkingEntity[])
     .forEach(entity => entity.iaMovement.think(entity));
   }
+
+  getTile(coords: Coordinates) {
+    return this.tiles[coords.posY]?.[coords.posX];
+  }
 }
