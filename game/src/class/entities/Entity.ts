@@ -2,6 +2,7 @@ import { Direction } from "../../enum/direction";
 import { EntitySprites } from "../../typing/entitySprites";
 import { Coordinates } from "../../typing/tiles";
 import Game from "../Game";
+import GameRender from "../GameRender";
 import Logger from "../Logger";
 
 export default abstract class Entity {
@@ -58,9 +59,10 @@ export default abstract class Entity {
   }
 
   canMove(coordsDeplacement:Coordinates){
-    let tileX = Math.trunc(coordsDeplacement.posX / 64) ;
-    let tileY = Math.trunc(coordsDeplacement.posY / 64) ;
     Logger.log(`Je tente d'aller en : ${coordsDeplacement.posX} , ${coordsDeplacement.posY}`, "ENTITY");
+
+    let tileX = Math.trunc(coordsDeplacement.posX / GameRender.TILE_SIZE) ;
+    let tileY = Math.trunc(coordsDeplacement.posY / GameRender.TILE_SIZE) ;
     Logger.log(`La case correspondante est la ${tileX},${tileY}`);
     let tuile = Game.currentRoom.tiles[tileY]?.[tileX];
     if (!tuile) return false;
