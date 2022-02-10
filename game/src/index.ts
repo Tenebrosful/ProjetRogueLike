@@ -1,12 +1,6 @@
-import { randomBytes } from "crypto";
-import * as random_generator from "random-seed";
-import GameRender from "./class/GameRender";
-import Room from "./class/Room";
+import Game from "./class/Game";
+import Logger from "./class/Logger";
 
-const seed = randomBytes(10).toString("hex");
+Logger.enable(["STAGE", "GAME", "OTHER", "RENDER"]);
 
-const rand: random_generator.RandomSeed = random_generator.create(seed);
-
-const room = Room.generateRandom(rand);
-
-GameRender.renderRoom(room);
+Game.newGame();
