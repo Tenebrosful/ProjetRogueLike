@@ -1,9 +1,13 @@
 import { Direction } from "../enum/direction";
+import PainMechant from "./entities/enemies/PainMechant";
 import Game from "./Game";
 
 export default class Controls {
   static controls = {
     debug: "KeyR",
+    debugKeys: {
+      spawnPain: "KeyU"
+    },
     walking: {
       down: "ArrowDown",
       left: "ArrowLeft",
@@ -49,6 +53,8 @@ export default class Controls {
         this.currentState.walking.right = false;
       else if (e.code === this.controls.debug)
         Game.debug = !Game.debug;
+      else if (Game.debug && e.code === this.controls.debugKeys.spawnPain )
+        Game.currentRoom.entities.push(new PainMechant({posX: Game.playerEntity.coords.posX, posY: Game.playerEntity.coords.posY}));
     };
   }
 
