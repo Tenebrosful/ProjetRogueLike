@@ -6,16 +6,26 @@ import { Direction } from "../enum/direction";
 import Door from "./tiles/Door";
 import Tile from "./tiles/Tile";
 import { Coordinates } from "../typing/tiles";
+import Entity from "./entities/Entity";
 
 export default class Room {
   coords: Coordinates;
   tiles: Tile[][];
   doors: Door[];
+  entities: Entity[];
+
+  width: number;
+  height: number;
 
   constructor(tiles: tileType[][], coords: Coordinates = { posX: 0, posY: 0 }) {
     this.coords = coords;
     this.tiles = [];
     this.doors = [];
+    this.entities = [];
+
+    this.width = tiles[0]?.length as number;
+    this.height = tiles.length;
+
     let doorDirection = 0;
 
     for (let posY = 0; posY < tiles.length; posY++) {
