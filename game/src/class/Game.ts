@@ -1,9 +1,8 @@
 import { randomBytes } from "crypto";
 import * as random_seed from "random-seed";
+import Controls from "./Controls";
 import PainMechant from "./entities/enemies/PainMechant";
-import Entity from "./entities/Entity";
 import Player from "./entities/Player";
-import ThinkingEntity from "./entities/ThinkingEntity";
 import GameRender from "./GameRender";
 import Logger from "./Logger";
 import Room from "./Room";
@@ -45,12 +44,14 @@ export default abstract class Game {
 
     this.currentRoom.entities.push(new PainMechant({ posX: 100, posY: 100 }));
 
+    Controls.setup();
     GameRender.renderAll();
     setInterval(Game.gameLoop, 1 / this._fps);
 
   }
 
   static gameLoop() {
+    Controls.handlePlayerMove();
     GameRender.renderAllDynamic();
   }
 
