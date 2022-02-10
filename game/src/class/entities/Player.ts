@@ -4,8 +4,13 @@ import Entity from "./Entity";
 export default class Player extends Entity {
   sprites: EntitySprites = {
     walking: {
-      left: "player/K_Roi_ssant_gauche.png",
-      right: "player/K_Roi_ssant_droite.png"
+      down: "player/playerD.png",
+      left: "player/playerL.png",
+      right: "player/playerR.png",
+      up: "player/playerU.png"
     }
   };
+
+  currentSprite = this.sprites.walking?.left || Entity.DEFAULT_SPRITE;
+  movementSpeed = 5;
 }
