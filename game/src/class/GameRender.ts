@@ -1,7 +1,7 @@
 import Room from "./Room";
 import Tile from "./tiles/Tile";
 
-export default class GameCanvas {
+export default class GameRender {
   static TILE_SIZE = 64;
   static TILE_ROOT_PATH = "/static/img/tiles/";
 
