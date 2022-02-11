@@ -3,8 +3,6 @@ import { entityType } from "../../enum/entityType";
 import { EntitySprites, Hitbox } from "../../typing/entity";
 import { Coordinates } from "../../typing/tiles";
 import Game from "../Game";
-import GameRender from "../GameRender";
-import Logger from "../Logger";
 import Tile from "../tiles/Tile";
 import Enemy from "./enemies/Enemy";
 import Player from "./Player";

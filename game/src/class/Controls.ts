@@ -4,7 +4,6 @@ import PainMechantVolant from "./entities/enemies/PainMechantVolant";
 import Player from "./entities/Player";
 import Game from "./Game";
 import GameRender from "./GameRender";
-import Logger from "./Logger";
 import Floor from "./tiles/Floor";
 
 export default abstract class Controls {
