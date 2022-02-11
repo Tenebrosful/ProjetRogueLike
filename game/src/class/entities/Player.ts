@@ -38,21 +38,17 @@ export default class Player extends Entity {
   move(direction: Direction){
     super.move(direction);
     this.handleDoorCollision();
-    Logger.log('HandleDoorCollision','ENTITY')
   }
   handleDoorCollision(){
     const tileX = Math.trunc(this.coords.posX / GameRender.TILE_SIZE);
     const tileY = Math.trunc(this.coords.posY / GameRender.TILE_SIZE);
-    const playerCoords: Coordinates = { posX: tileX, posY: tileY }
+    const playerCoords: Coordinates = { posX: tileX, posY: tileY } // point en haut à gauche 
     const tile = Game.currentRoom.getTile(playerCoords);
-    Logger.logObject(tile,'GAME');
     if(! tile?.isDoor())return;
-    Logger.log('on passe apres','ENTITY')
     let newRoom;
     switch (tile.direction){
       case Direction.NORTH:
         newRoom = Game.currentStage.rooms[Game.currentRoom.coords.posY + 1 ]?.[Game.currentRoom.coords.posX]
-        Logger.logObject(Game.currentStage.rooms,'GAME');
         break;
       case Direction.SOUTH:
         newRoom = Game.currentStage.rooms[Game.currentRoom.coords.posY - 1 ]?.[Game.currentRoom.coords.posX]
@@ -65,7 +61,6 @@ export default class Player extends Entity {
         newRoom = Game.currentStage.rooms[Game.currentRoom.coords.posY ]?.[Game.currentRoom.coords.posX - 1]
         break;
     }
-    Logger.logObject(newRoom,'GAME');
     if (!newRoom) throw new Error;
     Game.changeRoom(newRoom, InvertDirection(tile.direction))
     //changer de salle
