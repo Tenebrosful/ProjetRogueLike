@@ -104,10 +104,12 @@ export default class Stage {
   private generateNextRoomSpeceficDirection(coords: Coordinates, direction: Direction, depth: number, rand: RandomSeed) {
     if (this.rooms?.[coords.posY]?.[coords.posX]) { Logger.log(`Room [${coords.posX};${coords.posY}] already exist !`, "STAGE"); return; } // Room already exist
 
-    Logger.log(`(depth: ${depth}, floor: ${this.floor}, proximityFactor: ${this.getProximityFactor(coords)}, missingRooms: ${this.getMissingRoomsFactor()}) ${this.getChanceToGenerate(depth, this.getProximityFactor(coords))}% to generate [${coords.posX};${coords.posY}]`
+    const chanceToGenerate =  this.getChanceToGenerate(depth, this.getProximityFactor(coords));
+
+    Logger.log(`(depth: ${depth}, floor: ${this.floor}, missingRooms: ${this.getMissingRoomsFactor()}, proximityFactor: ${this.getProximityFactor(coords)}) ${chanceToGenerate}% to generate [${coords.posX};${coords.posY}]`
       , "STAGE");
 
-    if (rand.intBetween(1, 100) > this.getChanceToGenerate(depth, this.getProximityFactor(coords))) return;
+    if (rand.intBetween(1, 100) > chanceToGenerate) return;
 
     this.generateRoom(coords, direction, depth, rand);
   }
