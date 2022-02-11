@@ -2,6 +2,7 @@ import { randomBytes } from "crypto";
 import * as random_seed from "random-seed";
 import Controls from "./Controls";
 import PainMechant from "./entities/enemies/PainMechant";
+import PainMechantVolant from "./entities/enemies/PainMechantVolant";
 import Player from "./entities/Player";
 import GameRender from "./GameRender";
 import Logger from "./Logger";
@@ -45,6 +46,7 @@ export default abstract class Game {
     Logger.logObject(this.playerEntity, "GAME");
 
     this.currentRoom.entities.push(new PainMechant({ posX: 300, posY: 300 }));
+    this.currentRoom.entities.push(new PainMechantVolant({ posX: 700, posY: 250 }));
 
     Controls.setup();
     GameRender.renderAll();
