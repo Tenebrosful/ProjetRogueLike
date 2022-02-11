@@ -27,8 +27,8 @@ export default class Player extends Entity {
   currentSprite = this.sprites.walking?.left || Entity.DEFAULT_SPRITE;
   movementSpeed = 2;
   
-  canMove(coordsDeplacementOne: Coordinates, coordsDeplacementDeux: Coordinates): boolean {
+  canMoveTo(coordsDeplacementOne: Coordinates, coordsDeplacementDeux: Coordinates): boolean {
     if (Game.debug && Game.debug_player_noclip) return true;
-    return super.canMove(coordsDeplacementOne,  coordsDeplacementDeux);
+    return super.canMoveTo(coordsDeplacementOne,  coordsDeplacementDeux);
   }
 }

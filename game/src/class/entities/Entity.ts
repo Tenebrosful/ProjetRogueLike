@@ -52,25 +52,25 @@ export default abstract class Entity {
     }
     switch (direction) {
       case Direction.NORTH:
-        if(!this.canMove({posX: coordsHitboxTopLeft.x,posY: coordsHitboxTopLeft.y - this.movementSpeed},
+        if(!this.canMoveTo({posX: coordsHitboxTopLeft.x,posY: coordsHitboxTopLeft.y - this.movementSpeed},
           {posX: coordsHitboxTopRight.x,posY: coordsHitboxTopRight.y - this.movementSpeed}))return;
         this.coords.posY -= this.movementSpeed;
         this.currentSprite = this.sprites.walking?.up || Entity.DEFAULT_SPRITE;
         break;
       case Direction.SOUTH:
-        if(!this.canMove({posX: coordsHitboxBotLeft.x,posY: coordsHitboxBotLeft.y + this.movementSpeed},
+        if(!this.canMoveTo({posX: coordsHitboxBotLeft.x,posY: coordsHitboxBotLeft.y + this.movementSpeed},
           {posX: coordsHitboxBotRight.x,posY: coordsHitboxBotRight.y + this.movementSpeed}))return;
         this.coords.posY += this.movementSpeed;
         this.currentSprite = this.sprites.walking?.down || Entity.DEFAULT_SPRITE;
         break;
       case Direction.WEST:
-        if(!this.canMove({posX: coordsHitboxTopLeft.x - this.movementSpeed,posY: coordsHitboxTopLeft.y},
+        if(!this.canMoveTo({posX: coordsHitboxTopLeft.x - this.movementSpeed,posY: coordsHitboxTopLeft.y},
           {posX: coordsHitboxBotLeft.x - this.movementSpeed,posY: coordsHitboxBotLeft.y}))return;
         this.coords.posX -= this.movementSpeed;
         this.currentSprite = this.sprites.walking?.left || Entity.DEFAULT_SPRITE;
         break;
       case Direction.EST:
-        if(!this.canMove({posX: coordsHitboxTopRight.x + this.movementSpeed,posY: coordsHitboxTopRight.y},
+        if(!this.canMoveTo({posX: coordsHitboxTopRight.x + this.movementSpeed,posY: coordsHitboxTopRight.y},
           {posX: coordsHitboxBotRight.x + this.movementSpeed,posY: coordsHitboxBotRight.y}))return;
         this.coords.posX += this.movementSpeed;
         this.currentSprite = this.sprites.walking?.right || Entity.DEFAULT_SPRITE;
@@ -78,7 +78,7 @@ export default abstract class Entity {
     }
   }
 
-  canMove(coordsDeplacementOne: Coordinates, coordsDeplacementDeux: Coordinates){
+  canMoveTo(coordsDeplacementOne: Coordinates, coordsDeplacementDeux: Coordinates){
     //Premier coin
     let tileOneX = Math.trunc(coordsDeplacementOne.posX / GameRender.TILE_SIZE) ;
     let tileOneY = Math.trunc(coordsDeplacementOne.posY / GameRender.TILE_SIZE) ;
