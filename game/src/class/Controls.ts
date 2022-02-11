@@ -8,7 +8,8 @@ export default class Controls {
     debug: "KeyR",
     debugKeys: {
       noclip: "KeyV",
-      spawnPain: "KeyU"
+      spawnPain: "KeyU",
+      nextStage: "KeyN"
     },
     walking: {
       down: "ArrowDown",
@@ -53,6 +54,8 @@ export default class Controls {
         this.currentState.walking.left = false;
       else if (e.code === this.controls.walking.right)
         this.currentState.walking.right = false;
+      else if (e.code === "F5")
+        location.reload();
       else if (e.code === this.controls.debug)
         Game.debug = !Game.debug;
       else if (Game.debug && e.code === this.controls.debugKeys.spawnPain)
@@ -62,8 +65,8 @@ export default class Controls {
           Game.currentRoom.entities.push(new PainMechant({ posX: Game.playerEntity.coords.posX, posY: Game.playerEntity.coords.posY }));
       else if (Game.debug && e.code === this.controls.debugKeys.noclip)
         Game.debug_player_noclip = !Game.debug_player_noclip;
-      else if (e.code === "F5")
-        location.reload();
+      else if (Game.debug && e.code === this.controls.debugKeys.nextStage)
+        Game.newStage();
     };
   }
 
