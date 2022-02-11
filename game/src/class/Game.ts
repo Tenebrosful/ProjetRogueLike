@@ -34,16 +34,16 @@ export default abstract class Game {
 
     this.currentStage = this.newStage();
 
-    Logger.log(this.currentStage.renderTextStage(), "GAME");
-
     this.currentRoom = this.currentStage.spawn;
 
+    Logger.logObject(this.currentRoom, "GAME");
     Logger.log(this.currentRoom.renderTextTiles(), "GAME");
 
     this.playerEntity.coords.posX = this.currentRoom.width * GameRender.TILE_SIZE / 2;
     this.playerEntity.coords.posY = this.currentRoom.height * GameRender.TILE_SIZE / 2;
     this.currentRoom.entities.push(this.playerEntity);
-    Logger.log(JSON.stringify(this.playerEntity), "GAME");
+
+    Logger.logObject(this.playerEntity, "GAME");
 
     this.currentRoom.entities.push(new PainMechant({ posX: 300, posY: 300 }));
 
@@ -62,6 +62,8 @@ export default abstract class Game {
   static newStage() {
     const stage = Stage.generateRandom({ floor: this.currentFloor }, this.randomGenerator);
     this.currentFloor++;
+    Logger.log(`New Stage !\n${stage.renderTextStage()}`, "GAME");
+    Logger.logObject(stage, "GAME");
     return stage;
   }
 }
