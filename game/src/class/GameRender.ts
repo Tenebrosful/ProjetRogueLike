@@ -93,7 +93,7 @@ export default abstract class GameRender {
         entity.coords.posY + entity.hitbox.offset.y,
         entity.hitbox.size.width - entity.hitbox.offset.x,
         entity.hitbox.size.height - entity.hitbox.offset.y);
-      this._ctx.fillText(`[${entity.coords.posX.toFixed(0)};${entity.coords.posY.toFixed(0)}]`, entity.coords.posX, entity.coords.posY - 20);
+      this._ctx.fillText(`[${entity.coords.posX.toFixed(0)};${entity.coords.posY.toFixed(0)}] / [${Math.trunc(entity.coords.posX / this.TILE_SIZE)};${Math.trunc(entity.coords.posY / this.TILE_SIZE)}]`, entity.coords.posX, entity.coords.posY - 20);
     });
   }
 
