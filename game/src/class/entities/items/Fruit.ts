@@ -1,5 +1,5 @@
 import Item from "./Item";
-import IAOnPlayerContact from "../../ia/movement/IAOnePlayerContact";
+import IAOnPlayerContact from "../../ia/movement/IAOnPlayerContact";
 
 export default class Fruit extends Item {
   iaMovement = new IAOnPlayerContact(10);

@@ -1,8 +1,11 @@
+import IAInteract from "../../ia/movement/IAInteract";
 import IAMovementFollowPlayer from "../../ia/movement/IAMovementFollowPlayer";
+import IAOnPlayerContact from "../../ia/movement/IAOnPlayerContact";
 import Enemy from "./Enemy";
 
 export default class PainMechantVolant extends Enemy {
   iaMovement = new IAMovementFollowPlayer(5);
+  iaInteract = new IAOnPlayerContact(5);
 
   sprites = {
     idle: "enemies/painMechantVolant/painMechantVolantIdle.png",
@@ -24,6 +27,10 @@ export default class PainMechantVolant extends Enemy {
       width: 64
     }
   };
+
+  onContact(){
+    console.log("COMBAT !");
+  }
 
   canFly = true;
 

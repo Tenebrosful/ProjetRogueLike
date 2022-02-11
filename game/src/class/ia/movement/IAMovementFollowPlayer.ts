@@ -18,6 +18,7 @@ export default class IAMovementFollowPlayer extends IAMovement {
       Math.pow(self.coords.posY - Game.playerEntity.coords.posY, 2));
 
     if (this.distanceFromPlayer >= currentDistanceFromPlayer) { self.idle(); return; }
+    if (this.distanceFromPlayer >= currentDistanceFromPlayer) { self.onContact(); return; }
 
     const deltaX = self.coords.posX - Game.playerEntity.coords.posX;
     const deltaY = self.coords.posY - Game.playerEntity.coords.posY;

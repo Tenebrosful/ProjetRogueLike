@@ -1,8 +1,8 @@
 import Entity from "../../entities/Entity";
 import Game from "../../Game";
-import IAMovement from "./IAMovement";
+import IAInteract from "./IAInteract";
 
-export default class IAOnPlayerContact extends IAMovement {
+export default class IAOnPlayerContact extends IAInteract {
 
   distanceFromPlayer: number;
 
