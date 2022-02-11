@@ -29,7 +29,7 @@ export default abstract class Entity {
       width: number,
       height: number
     }
-  }
+  };
 
   constructor(coords: Coordinates = { posX: 0, posY: 0 }) {
     this.coords = coords;
@@ -37,22 +37,22 @@ export default abstract class Entity {
 
   move(direction: Direction) {
     // Top - Left
-    let coordsHitboxTopLeft = {
+    const coordsHitboxTopLeft = {
       x: this.coords.posX,
       y: this.coords.posY + this.hitbox.offset.y
-    }
+    };
     // Top - Right
-    let coordsHitboxTopRight = {
+    const coordsHitboxTopRight = {
       x: this.coords.posX + this.hitbox.size.width - this.hitbox.offset.x,
       y: this.coords.posY + this.hitbox.offset.y
-    }
+    };
     // Bot - Left 
-    let coordsHitboxBotLeft = {
+    const coordsHitboxBotLeft = {
       x: this.coords.posX,
       y: this.coords.posY + this.hitbox.size.height
-    }
+    };
     // Bot - Right
-    let coordsHitboxBotRight = {
+    const coordsHitboxBotRight = {
       x: this.coords.posX + this.hitbox.size.width - this.hitbox.offset.x,
       y: this.coords.posY + this.hitbox.size.height
     };
@@ -114,19 +114,19 @@ export default abstract class Entity {
   }
 
   canMoveTo(coordsDeplacementOne: Coordinates, coordsDeplacementDeux: Coordinates) {
-    //Premier coin
-    let tileOneX = Math.trunc(coordsDeplacementOne.posX / GameRender.TILE_SIZE);
-    let tileOneY = Math.trunc(coordsDeplacementOne.posY / GameRender.TILE_SIZE);
+    // Premier coin
+    const tileOneX = Math.trunc(coordsDeplacementOne.posX / GameRender.TILE_SIZE);
+    const tileOneY = Math.trunc(coordsDeplacementOne.posY / GameRender.TILE_SIZE);
 
-    let tuileOne = Game.currentRoom.tiles[tileOneY]?.[tileOneX];
+    const tuileOne = Game.currentRoom.tiles[tileOneY]?.[tileOneX];
     if (!tuileOne) return false;
     if (!tuileOne.canWalkThrough && !(tuileOne.canFlyOver && this.canFly)) return false;
 
-    //Deuxieme coin
-    let tileTwoX = Math.trunc(coordsDeplacementDeux.posX / GameRender.TILE_SIZE);
-    let tileTwoY = Math.trunc(coordsDeplacementDeux.posY / GameRender.TILE_SIZE);
+    // Deuxieme coin
+    const tileTwoX = Math.trunc(coordsDeplacementDeux.posX / GameRender.TILE_SIZE);
+    const tileTwoY = Math.trunc(coordsDeplacementDeux.posY / GameRender.TILE_SIZE);
 
-    let tuileTwo = Game.currentRoom.tiles[tileTwoY]?.[tileTwoX];
+    const tuileTwo = Game.currentRoom.tiles[tileTwoY]?.[tileTwoX];
     if (!tuileTwo) return false;
     if (!tuileTwo.canWalkThrough && !(tuileTwo.canFlyOver && this.canFly)) return false;
 
