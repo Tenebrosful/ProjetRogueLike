@@ -1,5 +1,6 @@
 import { randomBytes } from "crypto";
 import * as random_seed from "random-seed";
+import { Direction } from "../enum/direction";
 import Controls from "./Controls";
 import PainMechant from "./entities/enemies/PainMechant";
 import PainMechantVolant from "./entities/enemies/PainMechantVolant";
@@ -8,6 +9,7 @@ import GameRender from "./GameRender";
 import Logger from "./Logger";
 import Room from "./Room";
 import Stage from "./Stage";
+import Door from "./tiles/Door";
 
 export default abstract class Game {
   private static _fps = 60;
@@ -41,7 +43,8 @@ export default abstract class Game {
 
     this.playerEntity.coords.posX = this.currentRoom.width * GameRender.TILE_SIZE / 2;
     this.playerEntity.coords.posY = this.currentRoom.height * GameRender.TILE_SIZE / 2;
-    this.currentRoom.entities.push(this.playerEntity);
+    this.currentRoom.addPlayer()
+    //this.currentRoom.entities.push(this.playerEntity);
 
     Logger.logObject(this.playerEntity, "GAME");
 
@@ -52,6 +55,35 @@ export default abstract class Game {
     GameRender.renderAll();
     setInterval(Game.gameLoop, 1000 / this._fps);
 
+  }
+
+  static changeRoom(newRoom: Room,direction: Direction){
+    this.currentRoom.removePlayer()
+    this.currentRoom = newRoom;
+    const coordsDoor = this.currentRoom.doors.find(door => door.direction === direction)
+    if (!coordsDoor)throw new Error;
+    
+    switch (direction){
+      case Direction.NORTH: 
+        this.playerEntity.coords.posX = coordsDoor.posX;
+        this.playerEntity.coords.posY = coordsDoor.posY + 1;
+        break;
+
+      case Direction.EST: 
+        this.playerEntity.coords.posX = coordsDoor.posX - 1;
+        this.playerEntity.coords.posY = coordsDoor.posY;
+        break;
+      case Direction.SOUTH: 
+        this.playerEntity.coords.posX = coordsDoor.posX;
+        this.playerEntity.coords.posY = coordsDoor.posY - 1 ;
+        break;
+      case Direction.WEST: 
+        this.playerEntity.coords.posX = coordsDoor.posX + 1 ;
+        this.playerEntity.coords.posY = coordsDoor.posY;
+        break;
+    }
+    this.currentRoom.addPlayer();
+    GameRender.renderAll();
   }
 
   static gameLoop() {
