@@ -3,6 +3,9 @@ import PainMechant from "./entities/enemies/PainMechant";
 import PainMechantVolant from "./entities/enemies/PainMechantVolant";
 import Player from "./entities/Player";
 import Game from "./Game";
+import GameRender from "./GameRender";
+import Logger from "./Logger";
+import Floor from "./tiles/Floor";
 
 export default abstract class Controls {
   static controls = {
@@ -10,7 +13,9 @@ export default abstract class Controls {
     debugKeys: {
       nextStage: "KeyN",
       noclip: "KeyV",
+      openPortail: "KeyO",
       spawnPain: "KeyU",
+      spawnPortailMiddle: "KeyP"
     },
     walking: {
       down: "ArrowDown",
@@ -70,6 +75,14 @@ export default abstract class Controls {
       }
       else if (Game.debug && e.code === this.controls.debugKeys.nextStage)
         Game.newStage();
+      else if (Game.debug && e.code === this.controls.debugKeys.spawnPortailMiddle) {
+        const middleTile = Game.currentRoom.getTile(Game.currentRoom.middle) as Floor;
+        Game.currentRoom.replaceTile(middleTile.convertToPortail());
+        GameRender.renderRoom(Game.currentRoom);
+      }
+      else if (Game.debug && e.code === this.controls.debugKeys.openPortail)
+        Game.currentRoom.tiles.forEach(line => line.forEach(tile => { if (tile.isPortail()) tile.open(); }));
+        GameRender.renderRoom(Game.currentRoom);
     };
   }
 

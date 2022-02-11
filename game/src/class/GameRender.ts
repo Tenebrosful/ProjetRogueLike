@@ -82,8 +82,8 @@ export default abstract class GameRender {
       `Seed: ${Game.seed} Étage: ${Game.currentFloor} Salle: [${Game.currentRoom.coords.posX};${Game.currentRoom.coords.posY}]`, 0, 25);
 
     this._ctx.fillText(
-      `Debug: NextStage = ${Controls.controls.debugKeys.nextStage} | Noclip = ${Controls.controls.debugKeys.noclip} | Spawn Pain = ${Controls.controls.debugKeys.spawnPain} (+ AltG flying ver.)`,
-      0, this._canvasHeight - 10, 600);
+      `Debug: NextStage = ${Controls.controls.debugKeys.nextStage} | Noclip = ${Controls.controls.debugKeys.noclip} | Spawn Pain = ${Controls.controls.debugKeys.spawnPain} (+ AltG flying ver.) | Spawn Portail = ${Controls.controls.debugKeys.spawnPortailMiddle} | Open Portail = ${Controls.controls.debugKeys.openPortail}`,
+      0, this._canvasHeight - 10);
 
     if (Game.debug_player_noclip)
       this._ctx.fillText("Noclip ON", this._canvasWidth - 100, 25, 95);
