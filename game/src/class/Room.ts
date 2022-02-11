@@ -115,6 +115,6 @@ export default class Room {
   }
 
   removePlayer() {
-    this.entities.slice(this.entities.findIndex(entite => entite.isPlayer()), 1)
+    this.entities.slice(this.entities.findIndex(entite => entite.isPlayer()), 1);
   }
 }

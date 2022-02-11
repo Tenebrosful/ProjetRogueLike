@@ -46,9 +46,9 @@ export default abstract class Game {
   }
 
   static changeRoom(newRoom: Room,direction: Direction){
-    this.currentRoom.removePlayer()
+    this.currentRoom.removePlayer();
     this.currentRoom = newRoom;
-    const coordsDoor = this.currentRoom.doors.find(door => door.direction === direction)
+    const coordsDoor = this.currentRoom.doors.find(door => door.direction === direction);
     if (!coordsDoor)throw new Error;
     
     switch (direction){
@@ -96,8 +96,8 @@ export default abstract class Game {
 
     this.playerEntity.coords.posX = this.currentRoom.width * GameRender.TILE_SIZE / 2;
     this.playerEntity.coords.posY = this.currentRoom.height * GameRender.TILE_SIZE / 2;
-    this.currentRoom.addPlayer()
-    //this.currentRoom.entities.push(this.playerEntity);
+    this.currentRoom.addPlayer();
+    // this.currentRoom.entities.push(this.playerEntity);
 
     Logger.logObject(this.playerEntity, "GAME");
 
