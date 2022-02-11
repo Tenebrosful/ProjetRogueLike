@@ -97,6 +97,9 @@ export default abstract class Game {
 
     Logger.logObject(this.playerEntity, "GAME");
 
+    /**
+     * TEMPORARY
+     */
     this.currentRoom.entities.push(new PainMechant({ posX: 300, posY: 300 }));
     this.currentRoom.entities.push(new PainMechantVolant({ posX: 700, posY: 250 }));
 
