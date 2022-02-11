@@ -8,6 +8,7 @@ import Tile from "./tiles/Tile";
 import { Coordinates } from "../typing/tiles";
 import Entity from "./entities/Entity";
 import ThinkingEntity from "./entities/ThinkingEntity";
+import Game from "./Game";
 
 export default class Room {
   coords: Coordinates;
@@ -88,5 +89,11 @@ export default class Room {
 
   getTile(coords: Coordinates) {
     return this.tiles[coords.posY]?.[coords.posX];
+  }
+  addPlayer(){
+    this.entities.push(Game.playerEntity);
+  }
+  removePlayer(){
+    this.entities.slice(this.entities.findIndex(entite => entite.isPlayer()),1)
   }
 }
