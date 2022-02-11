@@ -1,9 +1,12 @@
+import { entityType } from "../../enum/entityType";
 import { EntitySprites } from "../../typing/entitySprites";
 import { Coordinates } from "../../typing/tiles";
 import Game from "../Game";
 import Entity from "./Entity";
 
 export default class Player extends Entity {
+  type = entityType.PLAYER;
+
   sprites: EntitySprites = {
     walking: {
       down: "player/playerL.png",

@@ -2,7 +2,6 @@ import IAMovementFollowPlayer from "../../ia/movement/IAMovementFollowPlayer";
 import Enemy from "./Enemy";
 
 export default class PainMechantVolant extends Enemy {
-
   iaMovement = new IAMovementFollowPlayer(5);
 
   sprites = {

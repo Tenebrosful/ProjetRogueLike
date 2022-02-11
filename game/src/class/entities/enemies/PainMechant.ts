@@ -2,7 +2,6 @@ import IAMovementSquare from "../../ia/movement/IAMovementSquare";
 import Enemy from "./Enemy";
 
 export default class PainMechant extends Enemy {
-
   iaMovement = new IAMovementSquare;
 
   sprites = {

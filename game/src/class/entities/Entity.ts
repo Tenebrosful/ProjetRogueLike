@@ -1,12 +1,15 @@
 import { Direction } from "../../enum/direction";
+import { entityType } from "../../enum/entityType";
 import { EntitySprites } from "../../typing/entitySprites";
 import { Coordinates } from "../../typing/tiles";
 import Game from "../Game";
 import GameRender from "../GameRender";
-import Logger from "../Logger";
+import Enemy from "./enemies/Enemy";
 
 export default abstract class Entity {
   static DEFAULT_SPRITE = "entity_default.png";
+
+  type: entityType;
 
   coords: Coordinates;
   sprites: EntitySprites;
