@@ -6,6 +6,8 @@ import Game from "../Game";
 import GameRender from "../GameRender";
 import Logger from "../Logger";
 import Stage from "../Stage";
+import Door from "../tiles/Door";
+import Tile from "../tiles/Tile";
 import Entity from "./Entity";
 
 export default class Player extends Entity {
@@ -42,29 +44,41 @@ export default class Player extends Entity {
   }
 
   handleDoorCollision(){
-    const tileX = Math.trunc(this.coords.posX / GameRender.TILE_SIZE);
-    const tileY = Math.trunc(this.coords.posY / GameRender.TILE_SIZE);
-    const playerCoords: Coordinates = { posX: tileX, posY: tileY } // point en haut à gauche 
-    const tile = Game.currentRoom.getTile(playerCoords);
-    if(! tile?.isDoor())return;
+    const tileOneX = Math.trunc(this.coords.posX / GameRender.TILE_SIZE);
+    const tileOneY = Math.trunc(this.coords.posY / GameRender.TILE_SIZE);
+    const tileTwoX = Math.trunc((this.coords.posX + this.hitbox.size.width ) / GameRender.TILE_SIZE);
+    const tileTwoY = Math.trunc((this.coords.posY + this.hitbox.size.height)/ GameRender.TILE_SIZE);
+    const playerTopLeftCoords: Coordinates = { posX: tileOneX, posY: tileOneY } // point en haut à gauche 
+    const playerBottomRightCoords: Coordinates = { posX: tileTwoX, posY: tileTwoY } // point en bas à droite (bien penser a changer le tileX et y selon la taille du perso)
+    const tileOne = Game.currentRoom.getTile(playerTopLeftCoords);
+    const tileTwo = Game.currentRoom.getTile(playerBottomRightCoords);
+    if( tileOne?.isDoor()){
+      this.callChangeRoom(tileOne)
+      return;
+    }
+    if( tileTwo?.isDoor()){
+      this.callChangeRoom(tileTwo)
+      return;
+    }
+  }
+  callChangeRoom(door :Door){
     let newRoom;
-    switch (tile.direction){
+    switch (door.direction){
       case Direction.NORTH:
-        newRoom = Game.currentStage.rooms[Game.currentRoom.coords.posY - 1 ]?.[Game.currentRoom.coords.posX]
+        newRoom = Game.currentStage.rooms[Game.currentRoom.coords.posY - 1 ]?.[Game.currentRoom.coords.posX];
         break;
       case Direction.SOUTH:
-        newRoom = Game.currentStage.rooms[Game.currentRoom.coords.posY + 1 ]?.[Game.currentRoom.coords.posX]
+        newRoom = Game.currentStage.rooms[Game.currentRoom.coords.posY + 1 ]?.[Game.currentRoom.coords.posX];
         break;
       case Direction.EST:
-        newRoom = Game.currentStage.rooms[Game.currentRoom.coords.posY ]?.[Game.currentRoom.coords.posX + 1]
+        newRoom = Game.currentStage.rooms[Game.currentRoom.coords.posY ]?.[Game.currentRoom.coords.posX + 1];
         break;
       case Direction.WEST:
-        newRoom = Game.currentStage.rooms[Game.currentRoom.coords.posY ]?.[Game.currentRoom.coords.posX - 1]
+        newRoom = Game.currentStage.rooms[Game.currentRoom.coords.posY ]?.[Game.currentRoom.coords.posX - 1];
         break;
     }
     if (!newRoom) throw new Error;
-    Game.changeRoom(newRoom, InvertDirection(tile.direction))
-    //changer de salle
+    Game.changeRoom(newRoom, InvertDirection(door.direction));
   }
   canMoveTo(coordsDeplacementOne: Coordinates, coordsDeplacementDeux: Coordinates): boolean {
     if (Game.debug && Game.debug_player_noclip) return true;
