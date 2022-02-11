@@ -114,7 +114,7 @@ export default abstract class GameRender {
     replayLink.innerText="Rejouer";
     
     const resultH1 = document.createElement("h1");
-    resultH1.innerText = "Vous êtes morts"
+    resultH1.innerText = "Vous êtes morts";
     
     const resultUl = document.createElement("ul");
     const liKilledMonster = document.createElement("li");

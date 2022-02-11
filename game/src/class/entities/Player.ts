@@ -48,10 +48,10 @@ export default class Player extends Entity implements iLifeEntity {
   }
   getHurt(damage: number): void {
     this.life -= damage;
-    Logger.log(`Points de vie : ${this.life}`,"GAME")
-    if(!this.isStillALive()){
+    Logger.log(`Points de vie : ${this.life}`,"GAME");
+    if(!this.isStillALive())
       Game.end()
-    }; 
+    ; 
   }
   isStillALive(): boolean {
     return this.life > 0;
