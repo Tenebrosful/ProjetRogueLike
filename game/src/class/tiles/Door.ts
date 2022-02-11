@@ -1,9 +1,12 @@
 import { tileType } from "../../enum/tileType";
 import { Coordinates } from "../../typing/tiles";
-import { Direction } from "../../enum/direction";
+import { Direction, InvertDirection } from "../../enum/direction";
 import Tile from "./Tile";
 import Wall from "./Wall";
 import Logger from "../Logger";
+import Entity from "../entities/Entity";
+import Player from "../entities/Player";
+import Game from "../Game";
 
 export default class Door extends Tile {
   direction: Direction;
@@ -21,6 +24,29 @@ export default class Door extends Tile {
     this.direction = direction;
     this.textRender = getDirectionTextRender(direction);
     this.spriteName = getDirectionSpriteName(direction);
+  }
+
+  walkOn(entity: Entity): void {
+    if (!(entity instanceof Player)) return;
+
+    let newRoom;
+    switch (this.direction) {
+      case Direction.NORTH:
+        newRoom = Game.currentStage.getRoom({ posX: Game.currentRoom.coords.posX, posY: Game.currentRoom.coords.posY - 1 });
+        break;
+      case Direction.SOUTH:
+        newRoom = Game.currentStage.getRoom({ posX: Game.currentRoom.coords.posX, posY: Game.currentRoom.coords.posY + 1 });
+        break;
+      case Direction.EST:
+        newRoom = Game.currentStage.getRoom({ posX: Game.currentRoom.coords.posX + 1, posY: Game.currentRoom.coords.posY });
+        break;
+      case Direction.WEST:
+        newRoom = Game.currentStage.getRoom({ posX: Game.currentRoom.coords.posX - 1, posY: Game.currentRoom.coords.posY });
+    }
+
+    if (!newRoom) throw new Error;
+
+    Game.changeRoom(newRoom, InvertDirection(this.direction));
   }
 
   convertToWall(): Wall {

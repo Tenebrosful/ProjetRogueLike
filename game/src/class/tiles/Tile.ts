@@ -1,5 +1,6 @@
 import { tileType } from "../../enum/tileType";
 import { Coordinates } from "../../typing/tiles";
+import Entity from "../entities/Entity";
 import Door from "./Door";
 import Floor from "./Floor";
 import Void from "./Void";
@@ -20,6 +21,11 @@ export default abstract class Tile {
 
   constructor(coords: Coordinates) {
     this.coords = coords;
+  }
+
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  walkOn(entity: Entity) {
+    return;
   }
 
   isFloor(): this is Floor {
