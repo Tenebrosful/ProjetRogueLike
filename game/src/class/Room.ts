@@ -17,6 +17,8 @@ export default class Room {
   doors: Door[];
   entities: Entity[];
 
+  middle: Coordinates;
+
   width: number;
   height: number;
 
@@ -28,6 +30,11 @@ export default class Room {
 
     this.width = tiles[0]?.length as number;
     this.height = tiles.length;
+
+    this.middle = {
+      posX: Math.floor(this.width / 2),
+      posY: Math.floor(this.height / 2)
+    };
 
     let doorDirection = 0;
 
