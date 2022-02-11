@@ -14,6 +14,7 @@ export default abstract class Entity {
   type: entityType;
 
   coords: Coordinates;
+  name: string;
   sprites: EntitySprites;
 
   canFly: boolean;
@@ -143,6 +144,8 @@ export default abstract class Entity {
       Game.currentRoom.getTilePixelCoords(hitbox.botRight)
     ]);
 
+    Logger.log(`${this.name} walking on`, "ENTITY");
+    Logger.logObject(tilesIn, "ENTITY");
 
     tilesIn.forEach(tile => {
       if (!tile) return;

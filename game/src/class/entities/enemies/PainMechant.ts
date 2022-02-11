@@ -4,6 +4,7 @@ import Enemy from "./Enemy";
 export default class PainMechant extends Enemy {
   iaMovement = new IAMovementSquare;
 
+  name = "PainMechant";
   sprites = {
     idle: "enemies/painMechant/painMechantIdle.png",
     walking: {

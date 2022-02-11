@@ -11,6 +11,7 @@ export default class Player extends Entity {
 
   type = entityType.PLAYER;
 
+  name = "Joueur";
   sprites: EntitySprites = {
     walking: {
       down: "player/playerL.png",
