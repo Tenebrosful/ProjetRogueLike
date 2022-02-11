@@ -11,6 +11,13 @@ export default abstract class Logger {
       console.log(`[${type}]\t${message}`);
   }
 
+  static logObject(object: object, type: LogType = "OTHER"){
+    if (!Logger._enable) return;
+    if (!this._enableAll && !this._enabledLogs.includes(type)) return;
+
+    console.log(`[${type}]`, object);
+  }
+
   static enable(logsToEnable?: LogType[] | "ALL") {
     Logger._enable = true;
 
