@@ -84,8 +84,9 @@ export default class Player extends Entity {
     
     Game.changeRoom(newRoom, InvertDirection(door.direction));
   }
-  canMoveTo(coordsDeplacementOne: Coordinates, coordsDeplacementDeux: Coordinates): boolean {
+  
+  canMoveTo(coordsDeplacementOne: Coordinates): boolean {
     if (Game.debug && Game.debug_player_noclip) return true;
-    return super.canMoveTo(coordsDeplacementOne, coordsDeplacementDeux);
+    return super.canMoveTo(coordsDeplacementOne);
   }
 }
