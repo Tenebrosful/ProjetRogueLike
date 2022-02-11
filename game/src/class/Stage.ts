@@ -133,7 +133,7 @@ export default class Stage {
     Logger.log(`Generate room [${coords.posX};${coords.posY}]`, "STAGE");
 
     // @ts-ignore
-    this.rooms[coords.posY][coords.posX] = Room.generateRandom(rand);
+    this.rooms[coords.posY][coords.posX] = Room.generateRandom(rand, { posX: coords.posX, posY: coords.posY });
     this.currentRoomNumber++;
 
     Logger.log(`Salles restantes à générer : ${this._maxRoomNumber - this.currentRoomNumber} / ${this._maxRoomNumber}`, "STAGE");
