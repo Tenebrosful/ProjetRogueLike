@@ -25,6 +25,8 @@ export default abstract class Game {
   static debug = false;
   static debug_player_noclip = false;
 
+  static gameLoopInterval : NodeJS.Timer;
+
   static newGame(seed: string = randomBytes(10).toString("hex")) {
     this.randomGenerator = random_seed.create(seed);
 
@@ -50,7 +52,7 @@ export default abstract class Game {
 
     Controls.setup();
     GameRender.renderAll();
-    setInterval(Game.gameLoop, 1000 / this._fps);
+    this.gameLoopInterval = setInterval(Game.gameLoop, 1000 / this._fps);
 
   }
 
@@ -68,5 +70,13 @@ export default abstract class Game {
     Logger.logObject(stage, "GAME");
     
     return stage;
+  }
+  static end(){
+    clearInterval(this.gameLoopInterval);
+    // Recuperer les data de la partie
+    // Les enregistrer en bdd
+    GameRender.clearGameContainer();
+    GameRender.displayEndGame();
+    return;
   }
 }
