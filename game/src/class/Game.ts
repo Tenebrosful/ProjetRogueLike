@@ -1,6 +1,7 @@
 import { randomBytes } from "crypto";
 import * as random_seed from "random-seed";
 import Controls from "./Controls";
+import broncoliHache from "./entities/enemies/BroncoliHache";
 import PainMechant from "./entities/enemies/PainMechant";
 import PainMechantVolant from "./entities/enemies/PainMechantVolant";
 import Player from "./entities/Player";
@@ -8,6 +9,7 @@ import GameRender from "./GameRender";
 import Logger from "./Logger";
 import Room from "./Room";
 import Stage from "./Stage";
+import GenerateEntity from "./entities/GenerateEntity";
 
 export default abstract class Game {
   private static _fps = 60;
@@ -26,6 +28,7 @@ export default abstract class Game {
   static debug_player_noclip = false;
 
   static newGame(seed: string = randomBytes(10).toString("hex")) {
+   
     this.randomGenerator = random_seed.create(seed);
 
     this.playerEntity = new Player();
@@ -44,10 +47,14 @@ export default abstract class Game {
     this.currentRoom.entities.push(this.playerEntity);
 
     Logger.logObject(this.playerEntity, "GAME");
+ 
+    let entity = new GenerateEntity();
+    entity.monsters.forEach(element =>{
+      this.currentRoom.entities.push(element);
+    });
 
-    this.currentRoom.entities.push(new PainMechant({ posX: 300, posY: 300 }));
-    this.currentRoom.entities.push(new PainMechantVolant({ posX: 700, posY: 250 }));
 
+  
     Controls.setup();
     GameRender.renderAll();
     setInterval(Game.gameLoop, 1000 / this._fps);
