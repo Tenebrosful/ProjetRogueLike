@@ -79,7 +79,7 @@ export default abstract class GameRender {
     if (!Game.debug) return;
 
     this._ctx.fillText(
-      `Étage: ${Game.currentFloor} Salle: [${Game.currentRoom.coords.posX};${Game.currentRoom.coords.posY}]`, 0, 25);
+      `Seed: ${Game.seed} Étage: ${Game.currentFloor} Salle: [${Game.currentRoom.coords.posX};${Game.currentRoom.coords.posY}]`, 0, 25);
 
     this._ctx.fillText(
       `Debug: NextStage = ${Controls.controls.debugKeys.nextStage} | Noclip = ${Controls.controls.debugKeys.noclip} | Spawn Pain = ${Controls.controls.debugKeys.spawnPain} (+ AltG flying ver.)`,

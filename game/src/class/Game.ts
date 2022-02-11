@@ -27,6 +27,8 @@ export default abstract class Game {
   static debug_player_noclip = false;
 
   static newGame(seed: string = randomBytes(10).toString("hex")) {
+    this.seed = seed;
+
     this.randomGenerator = random_seed.create(seed);
 
     this.playerEntity = new Player();
