@@ -37,8 +37,8 @@ export default abstract class GameRender {
     renderTile.style.height = `${this.TILE_SIZE}px`;
     renderTile.style.width = `${this.TILE_SIZE}px`;
     renderTile.style.position = "absolute";
-    renderTile.style.top = `${tile.posY * this.TILE_SIZE}px`;
-    renderTile.style.left = `${tile.posX * this.TILE_SIZE}px`;
+    renderTile.style.top = `${tile.coords.posY * this.TILE_SIZE}px`;
+    renderTile.style.left = `${tile.coords.posX * this.TILE_SIZE}px`;
     renderTile.style.backgroundImage = `url(${this.TILE_ROOT_PATH}${tile.spriteName})`;
 
     this._salle2D.appendChild(renderTile);
