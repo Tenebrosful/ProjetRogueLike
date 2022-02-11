@@ -1,6 +1,7 @@
 import { Direction } from "../enum/direction";
 import PainMechant from "./entities/enemies/PainMechant";
 import PainMechantVolant from "./entities/enemies/PainMechantVolant";
+import Player from "./entities/Player";
 import Game from "./Game";
 
 export default abstract class Controls {
@@ -63,8 +64,10 @@ export default abstract class Controls {
           Game.currentRoom.entities.push(new PainMechantVolant({ posX: Game.playerEntity.coords.posX, posY: Game.playerEntity.coords.posY }));
         else
           Game.currentRoom.entities.push(new PainMechant({ posX: Game.playerEntity.coords.posX, posY: Game.playerEntity.coords.posY }));
-      else if (Game.debug && e.code === this.controls.debugKeys.noclip)
+      else if (Game.debug && e.code === this.controls.debugKeys.noclip) {
         Game.debug_player_noclip = !Game.debug_player_noclip;
+        Game.playerEntity.movementSpeed = (Game.debug_player_noclip ? Player.NO_CLIP_MOVESPEED : Player.DEFAULT_MOVESPEED);
+      }
       else if (Game.debug && e.code === this.controls.debugKeys.nextStage)
         Game.newStage();
     };

@@ -9,6 +9,9 @@ import Stage from "../Stage";
 import Entity from "./Entity";
 
 export default class Player extends Entity {
+  static DEFAULT_MOVESPEED = 5;
+  static NO_CLIP_MOVESPEED = 15;
+
   type = entityType.PLAYER;
 
   sprites: EntitySprites = {
