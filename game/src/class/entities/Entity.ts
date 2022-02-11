@@ -3,6 +3,7 @@ import { entityType } from "../../enum/entityType";
 import { EntitySprites, Hitbox } from "../../typing/entity";
 import { Coordinates } from "../../typing/tiles";
 import Game from "../Game";
+import Logger from "../Logger";
 import Tile from "../tiles/Tile";
 import Enemy from "./enemies/Enemy";
 import Player from "./Player";
@@ -140,16 +141,19 @@ export default abstract class Entity {
       Game.currentRoom.getTilePixelCoords(hitbox.topRight),
       Game.currentRoom.getTilePixelCoords(hitbox.botLeft),
       Game.currentRoom.getTilePixelCoords(hitbox.botRight)
-    ]) as Set<Tile>;
+    ]);
 
-    if (tilesIn.size === 0) return;
 
-    tilesIn.forEach(tile => tile.walkOn(this));
+    tilesIn.forEach(tile => {
+      if (!tile) return;
+
+      tile.walkOn(this);
+    });
   }
 
   canMoveTo(coords: Coordinates) {
     const tile = Game.currentRoom.getTilePixelCoords(coords);
-    
+
     if (!tile) return false;
     if (!tile.canWalkThrough && !(tile.canFlyOver && this.canFly)) return false;
 
