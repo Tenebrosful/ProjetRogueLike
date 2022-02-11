@@ -50,7 +50,7 @@ export default abstract class Game {
 
     Controls.setup();
     GameRender.renderAll();
-    setInterval(Game.gameLoop, 1 / this._fps);
+    setInterval(Game.gameLoop, 1000 / this._fps);
 
   }
 
