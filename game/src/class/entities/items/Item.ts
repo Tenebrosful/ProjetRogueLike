@@ -1,7 +1,7 @@
 import { entityType } from "../../../enum/entityType";
-import ThinkingEntity from "../ThinkingEntity";
+import Entity from "../Entity";
 
-export default abstract class Item extends ThinkingEntity {
+export default abstract class Item extends Entity {
 
   distanceFromPlayer: number;
 

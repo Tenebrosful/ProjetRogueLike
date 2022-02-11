@@ -1,8 +1,9 @@
 import Item from "./Item";
 import IAOnPlayerContact from "../../ia/movement/IAOnPlayerContact";
+import IAInteract from "../../ia/movement/IAInteract";
 
 export default class Fruit extends Item {
-  iaMovement = new IAOnPlayerContact(10);
+  iaInteract = new IAOnPlayerContact(10);
 
   sprites = {
     idle: "enemies/painMechant/painMechantIdle.png",
