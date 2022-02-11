@@ -14,8 +14,8 @@ export default class Floor extends Tile {
   textRender = " ";
   spriteName = "floor.png";
 
-  constructor({ posX, posY }: Coordinates) {
-    super({ posX, posY });
+  constructor(coords: Coordinates) {
+    super(coords);
   }
 
 }

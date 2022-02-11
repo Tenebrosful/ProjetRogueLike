@@ -13,8 +13,8 @@ export default class Error extends Tile {
 
   textRender = "?";
 
-  constructor({ posX, posY }: Coordinates) {
-    super({ posX, posY });
+  constructor(coords: Coordinates) {
+    super(coords);
   }
 
 }

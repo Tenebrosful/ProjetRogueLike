@@ -76,10 +76,10 @@ export default class Room {
 
     this.doors.splice(doorToConvertIndex, 1);
 
-    const wallConvertedFromDoor = doorToConvert?.convertToWall();
+    const wallConvertedFromDoor = doorToConvert.convertToWall();
 
     /* @ts-ignore: this.tiles[wallConvertedFromDoor.posY] and tiles[wallConvertedFromDoor.posY][wallConvertedFromDoor.posX] shouldn't be undefined */
-    this.tiles[wallConvertedFromDoor.posY][wallConvertedFromDoor.posX] = wallConvertedFromDoor;
+    this.tiles[wallConvertedFromDoor.coords.posY][wallConvertedFromDoor.coords.posX] = wallConvertedFromDoor;
   }
 
   moveAllEntities() {

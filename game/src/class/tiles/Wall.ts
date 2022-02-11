@@ -17,13 +17,13 @@ export default class Wall extends Tile {
   textRender = "+";
   spriteName = "wall.png";
 
-  constructor({ posX, posY }: Coordinates) {
-    super({ posX, posY });
+  constructor(coords: Coordinates) {
+    super(coords);
   }
 
   convertToDoor(direction: Direction): Door {
-    Logger.log(`Convert Wall to Door at [${this.posX};${this.posY}]`, "ROOM");
-    return new Door({ posX: this.posX, posY: this.posY }, direction);
+    Logger.log(`Convert Wall to Door at [${this.coords.posX};${this.coords.posY}]`, "ROOM");
+    return new Door(this.coords, direction);
   }
 
 }

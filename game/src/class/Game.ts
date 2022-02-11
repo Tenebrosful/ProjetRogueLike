@@ -65,21 +65,21 @@ export default abstract class Game {
     
     switch (direction){
       case Direction.NORTH: 
-        this.playerEntity.coords.posX = coordsDoor.posX;
-        this.playerEntity.coords.posY = coordsDoor.posY + 1;
+        this.playerEntity.coords.posX = coordsDoor.coords.posX;
+        this.playerEntity.coords.posY = coordsDoor.coords.posY + 1;
         break;
 
       case Direction.EST: 
-        this.playerEntity.coords.posX = coordsDoor.posX - 1;
-        this.playerEntity.coords.posY = coordsDoor.posY;
+        this.playerEntity.coords.posX = coordsDoor.coords.posX - 1;
+        this.playerEntity.coords.posY = coordsDoor.coords.posY;
         break;
       case Direction.SOUTH: 
-        this.playerEntity.coords.posX = coordsDoor.posX;
-        this.playerEntity.coords.posY = coordsDoor.posY - 1 ;
+        this.playerEntity.coords.posX = coordsDoor.coords.posX;
+        this.playerEntity.coords.posY = coordsDoor.coords.posY - 1 ;
         break;
       case Direction.WEST: 
-        this.playerEntity.coords.posX = coordsDoor.posX + 1 ;
-        this.playerEntity.coords.posY = coordsDoor.posY;
+        this.playerEntity.coords.posX = coordsDoor.coords.posX + 1 ;
+        this.playerEntity.coords.posY = coordsDoor.coords.posY;
         break;
     }
     this.playerEntity.coords.posX *= 64 ;

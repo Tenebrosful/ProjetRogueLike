@@ -1,13 +1,12 @@
 import { tileType } from "../../enum/tileType";
-import { Coordinates, TileProperties } from "../../typing/tiles";
+import { Coordinates } from "../../typing/tiles";
 import Door from "./Door";
 import Floor from "./Floor";
 import Void from "./Void";
 import Wall from "./Wall";
 
 export default abstract class Tile {
-  posX: number;
-  posY: number;
+  coords: Coordinates;
   type: tileType;
 
   /**
@@ -19,8 +18,8 @@ export default abstract class Tile {
   textRender: string;
   spriteName = "default.png"; // Should be in public/img/tiles
 
-  constructor({ posX, posY }: Coordinates & TileProperties) {
-    this.posX = posX; this.posY = posY;
+  constructor(coords: Coordinates) {
+    this.coords = coords;
   }
 
   isFloor(): this is Floor {

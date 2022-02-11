@@ -16,16 +16,16 @@ export default class Door extends Tile {
 
   type = tileType.DOOR;
 
-  constructor({ posX, posY }: Coordinates, direction: Direction) {
-    super({ posX, posY });
+  constructor(coords: Coordinates, direction: Direction) {
+    super(coords);
     this.direction = direction;
     this.textRender = getDirectionTextRender(direction);
     this.spriteName = getDirectionSpriteName(direction);
   }
 
   convertToWall(): Wall {
-    Logger.log(`Convert Door to Wall at [${this.posX};${this.posY}]`, "ROOM");
-    return new Wall({ posX: this.posX, posY: this.posY });
+    Logger.log(`Convert Door to Wall at [${this.coords.posX};${this.coords.posY}]`, "ROOM");
+    return new Wall(this.coords);
   }
 
 }
