@@ -3,13 +3,13 @@ import PainMechant from "./entities/enemies/PainMechant";
 import PainMechantVolant from "./entities/enemies/PainMechantVolant";
 import Game from "./Game";
 
-export default class Controls {
+export default abstract class Controls {
   static controls = {
     debug: "KeyR",
     debugKeys: {
+      nextStage: "KeyN",
       noclip: "KeyV",
       spawnPain: "KeyU",
-      nextStage: "KeyN"
     },
     walking: {
       down: "ArrowDown",
