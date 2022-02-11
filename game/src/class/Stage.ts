@@ -163,4 +163,8 @@ export default class Stage {
     });
   }
 
+  getRoom(coords: Coordinates) {
+    return this.rooms[coords.posY]?.[coords.posX];
+  }
+
 }
