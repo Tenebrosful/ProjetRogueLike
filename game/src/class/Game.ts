@@ -29,8 +29,7 @@ export default abstract class Game {
 
     this.playerEntity = new Player();
 
-
-    this.currentFloor = 1;
+    this.currentFloor = 0;
 
     this.currentStage = this.newStage();
 
@@ -60,10 +59,12 @@ export default abstract class Game {
   }
 
   static newStage() {
-    const stage = Stage.generateRandom({ floor: this.currentFloor }, this.randomGenerator);
     this.currentFloor++;
+    const stage = Stage.generateRandom({ floor: this.currentFloor }, this.randomGenerator);
+
     Logger.log(`New Stage !\n${stage.renderTextStage()}`, "GAME");
     Logger.logObject(stage, "GAME");
+    
     return stage;
   }
 }
