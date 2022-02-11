@@ -52,7 +52,9 @@ jobs:
           name: scss-linted
           path: | 
             ./**/*.scss
-            !node_modules/
+            !node_modules
+            !game/node_modules
+            !web-server/node_modules
         
   js-ts:
     name: Lint js-ts
@@ -78,7 +80,9 @@ jobs:
           path: | 
             ./**/*.ts
             ./**/*.js
-            !node_modules/
+            !node_modules
+            !game/node_modules
+            !web-server/node_modules
         
   html:
     name: Lint html
