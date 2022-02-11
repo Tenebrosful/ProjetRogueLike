@@ -99,6 +99,13 @@ export default class Room {
     return this.tiles[coords.posY]?.[coords.posX];
   }
 
+  replaceTile(newTile: Tile) {
+    if (!this.tiles[newTile.coords.posY]?.[newTile.coords.posX]) throw new Error();
+
+    /* @ts-ignore: this.tiles[wallConvertedFromDoor.posY] and tiles[wallConvertedFromDoor.posY][wallConvertedFromDoor.posX] shouldn't be undefined */
+    this.tiles[newTile.coords.posY][newTile.coords.posX] = newTile;
+  }
+
   getTilePixelCoords(coords: Coordinates) {
     return this.tiles[Math.trunc(coords.posY / GameRender.TILE_SIZE)]?.[Math.trunc(coords.posX / GameRender.TILE_SIZE)];
   }
