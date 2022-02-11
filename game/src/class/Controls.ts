@@ -62,6 +62,8 @@ export default class Controls {
           Game.currentRoom.entities.push(new PainMechant({ posX: Game.playerEntity.coords.posX, posY: Game.playerEntity.coords.posY }));
       else if (Game.debug && e.code === this.controls.debugKeys.noclip)
         Game.debug_player_noclip = !Game.debug_player_noclip;
+      else if (e.code === "F5")
+        location.reload();
     };
   }
 
