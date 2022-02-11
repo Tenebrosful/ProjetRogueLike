@@ -62,9 +62,10 @@ export default class GameRender {
 
     if (Game.debug) {
       this._ctx.fillRect(entity.coords.posX + entity.hitbox.offset.x,
-        entity.coords.posY + entity.hitbox.offset.y, 
-        entity.hitbox.size.width - entity.hitbox.offset.x, 
+        entity.coords.posY + entity.hitbox.offset.y,
+        entity.hitbox.size.width - entity.hitbox.offset.x,
         entity.hitbox.size.height - entity.hitbox.offset.y);
+      this._ctx.fillText(`[${entity.coords.posX};${entity.coords.posY}]`, entity.coords.posX, entity.coords.posY - 20);
     }
 
     this._ctx.drawImage(entitySprite, entity.coords.posX, entity.coords.posY);
