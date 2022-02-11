@@ -5,6 +5,7 @@ import { Coordinates } from "../../typing/tiles";
 import Game from "../Game";
 import GameRender from "../GameRender";
 import Enemy from "./enemies/Enemy";
+import Player from "./Player";
 
 export default abstract class Entity {
   static DEFAULT_SPRITE = "entity_default.png";
@@ -105,5 +106,13 @@ export default abstract class Entity {
 
   idle() {
     this.currentSprite = this.sprites.idle || Entity.DEFAULT_SPRITE;
+  }
+
+  isPlayer(): this is Player {
+    return this.type === entityType.PLAYER;
+  }
+
+  isEnemy(): this is Enemy {
+    return this.type === entityType.ENEMY;
   }
 }
