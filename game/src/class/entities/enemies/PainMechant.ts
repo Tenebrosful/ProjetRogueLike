@@ -25,7 +25,7 @@ export default class PainMechant extends ThinkingEntity {
     }
   };
 
-  canFly = true;
+  canFly = false;
 
   currentSprite = this.sprites.idle;
   movementSpeed = 1;
