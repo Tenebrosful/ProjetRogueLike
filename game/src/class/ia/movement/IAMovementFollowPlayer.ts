@@ -27,19 +27,19 @@ export default class IAMovementFollowPlayer extends IAMovement {
     if (degres >= -10 && degres <= 10)
       self.move(Direction.NORTH);
     else if (degres > 10 && degres < 80)
-      self.move(Direction.NORTH);
+      self.move(Direction.NORTH_WEST);
     else if (degres >= 80 && degres <= 100)
       self.move(Direction.WEST);
     else if (degres > 100 && degres < 170)
-      self.move(Direction.WEST);
+      self.move(Direction.SOUTH_WEST);
     else if (degres >= 170 || degres <= -170)
       self.move(Direction.SOUTH);
     else if (degres < -10 && degres > -80)
-      self.move(Direction.EST);
+      self.move(Direction.NORTH_EST);
     else if (degres <= -80 && degres >= -100)
       self.move(Direction.EST);
     else if (degres < -100 && degres > -170)
-      self.move(Direction.SOUTH);
+      self.move(Direction.SOUTH_EST);
 
   }
 }

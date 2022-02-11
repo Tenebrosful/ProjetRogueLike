@@ -40,6 +40,8 @@ function getDirectionTextRender(direction: Direction) {
       return "E";
     case Direction.SOUTH:
       return "S";
+    default:
+      return "?";
   }
 }
 
@@ -53,5 +55,7 @@ function getDirectionSpriteName(direction: Direction) {
       return "doorE.png";
     case Direction.SOUTH:
       return "doorS.png";
+    default:
+      return "default.png";
   }
 }

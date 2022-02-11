@@ -83,6 +83,34 @@ export default abstract class Entity {
         this.coords.posX += this.movementSpeed;
         this.currentSprite = this.sprites.walking?.right || Entity.DEFAULT_SPRITE;
         break;
+      case Direction.NORTH_WEST:
+        if (!this.canMoveTo({ posX: coordsHitboxTopRight.x + this.movementSpeed * ((-Math.sqrt(2)) / 2), posY: coordsHitboxTopRight.y + this.movementSpeed * ((Math.sqrt(2)) / 2) },
+          { posX: coordsHitboxBotRight.x + this.movementSpeed * ((-Math.sqrt(2)) / 2), posY: coordsHitboxBotRight.y + this.movementSpeed * ((Math.sqrt(2)) / 2) })) return;
+        this.coords.posX += this.movementSpeed * ((-Math.sqrt(2)) / 2);
+        this.coords.posY -= this.movementSpeed * ((Math.sqrt(2)) / 2);
+        this.currentSprite = this.sprites.walking?.left || Entity.DEFAULT_SPRITE;
+        break;
+      case Direction.NORTH_EST:
+        if (!this.canMoveTo({ posX: coordsHitboxTopRight.x + this.movementSpeed * ((Math.sqrt(2)) / 2), posY: coordsHitboxTopRight.y + this.movementSpeed * ((Math.sqrt(2)) / 2) },
+          { posX: coordsHitboxBotRight.x + this.movementSpeed * ((Math.sqrt(2)) / 2), posY: coordsHitboxBotRight.y + this.movementSpeed * ((Math.sqrt(2)) / 2) })) return;
+        this.coords.posX += this.movementSpeed * ((Math.sqrt(2)) / 2);
+        this.coords.posY -= this.movementSpeed * ((Math.sqrt(2)) / 2);
+        this.currentSprite = this.sprites.walking?.right || Entity.DEFAULT_SPRITE;
+        break;
+      case Direction.SOUTH_WEST:
+        if (!this.canMoveTo({ posX: coordsHitboxTopRight.x + this.movementSpeed * ((-Math.sqrt(2)) / 2), posY: coordsHitboxTopRight.y + this.movementSpeed * ((-Math.sqrt(2)) / 2) },
+          { posX: coordsHitboxBotRight.x + this.movementSpeed * ((-Math.sqrt(2)) / 2), posY: coordsHitboxBotRight.y + this.movementSpeed * ((-Math.sqrt(2)) / 2) })) return;
+        this.coords.posX += this.movementSpeed * ((-Math.sqrt(2)) / 2);
+        this.coords.posY -= this.movementSpeed * ((-Math.sqrt(2)) / 2);
+        this.currentSprite = this.sprites.walking?.left || Entity.DEFAULT_SPRITE;
+        break;
+      case Direction.SOUTH_EST:
+        if (!this.canMoveTo({ posX: coordsHitboxTopRight.x + this.movementSpeed * ((Math.sqrt(2)) / 2), posY: coordsHitboxTopRight.y + this.movementSpeed * ((-Math.sqrt(2)) / 2) },
+          { posX: coordsHitboxBotRight.x + this.movementSpeed * ((Math.sqrt(2)) / 2), posY: coordsHitboxBotRight.y + this.movementSpeed * ((-Math.sqrt(2)) / 2) })) return;
+        this.coords.posX += this.movementSpeed * ((Math.sqrt(2)) / 2);
+        this.coords.posY -= this.movementSpeed * ((-Math.sqrt(2)) / 2);
+        this.currentSprite = this.sprites.walking?.right || Entity.DEFAULT_SPRITE;
+        break;
     }
   }
 
