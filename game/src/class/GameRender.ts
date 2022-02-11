@@ -1,3 +1,4 @@
+import Controls from "./Controls";
 import Entity from "./entities/Entity";
 import Game from "./Game";
 import Logger from "./Logger";
@@ -48,7 +49,7 @@ export default abstract class GameRender {
     Logger.log(`Render room [${room.coords.posX};${room.coords.posY}]`, "RENDER");
 
     this._salle2D.innerHTML = "";
-    
+
     room.tiles.forEach(line => line.forEach(tile => this.renderTile(tile)));
   }
 
@@ -79,6 +80,13 @@ export default abstract class GameRender {
 
     this._ctx.fillText(
       `Étage: ${Game.currentFloor} Salle: [${Game.currentRoom.coords.posX};${Game.currentRoom.coords.posY}]`, 0, 25);
+
+    this._ctx.fillText(
+      `Debug: NextStage = ${Controls.controls.debugKeys.nextStage} | Noclip = ${Controls.controls.debugKeys.noclip} | Spawn Pain = ${Controls.controls.debugKeys.spawnPain} (+ AltG flying ver.)`,
+      0, this._canvasHeight - 10, 600);
+
+    if (Game.debug_player_noclip)
+      this._ctx.fillText("Noclip ON", this._canvasWidth - 100, 25, 95);
 
     Game.currentRoom.entities.forEach(entity => {
       this._ctx.fillRect(entity.coords.posX + entity.hitbox.offset.x,

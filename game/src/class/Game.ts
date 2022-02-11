@@ -9,7 +9,6 @@ import GameRender from "./GameRender";
 import Logger from "./Logger";
 import Room from "./Room";
 import Stage from "./Stage";
-import Door from "./tiles/Door";
 
 export default abstract class Game {
   private static _fps = 60;
