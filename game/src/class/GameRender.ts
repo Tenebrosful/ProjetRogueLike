@@ -4,7 +4,7 @@ import Logger from "./Logger";
 import Room from "./Room";
 import Tile from "./tiles/Tile";
 
-export default class GameRender {
+export default abstract class GameRender {
   static TILE_SIZE = 64;
   static TILE_ROOT_PATH = "/static/img/tiles/";
 
