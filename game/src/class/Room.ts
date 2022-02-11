@@ -92,7 +92,7 @@ export default class Room {
 
   moveAllEntities() {
     (this.entities.filter(entity => entity instanceof ThinkingEntity) as ThinkingEntity[])
-    .forEach(entity => entity.iaMovement.think(entity));
+      .forEach(entity => entity.iaMovement.think(entity));
   }
 
   getTile(coords: Coordinates) {
@@ -103,11 +103,11 @@ export default class Room {
     return this.tiles[Math.trunc(coords.posY / GameRender.TILE_SIZE)]?.[Math.trunc(coords.posX / GameRender.TILE_SIZE)];
   }
 
-  addPlayer(){
+  addPlayer() {
     this.entities.push(Game.playerEntity);
   }
 
-  removePlayer(){
-    this.entities.slice(this.entities.findIndex(entite => entite.isPlayer()),1)
+  removePlayer() {
+    this.entities.slice(this.entities.findIndex(entite => entite.isPlayer()), 1)
   }
 }
