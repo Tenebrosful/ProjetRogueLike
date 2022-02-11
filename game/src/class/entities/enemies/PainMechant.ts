@@ -7,10 +7,10 @@ export default class PainMechant extends ThinkingEntity {
   sprites = {
     idle: "enemies/painMechant/painMechantIdle.png",
     walking: {
-      down: "enemies/painMechant/painMechantD.png",
+      down: "enemies/painMechant/painMechantR.png",
       left: "enemies/painMechant/painMechantL.png",
       right: "enemies/painMechant/painMechantR.png",
-      up: "enemies/painMechant/painMechantU.png"
+      up: "enemies/painMechant/painMechantL.png"
     }
   };
 
