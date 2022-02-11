@@ -155,8 +155,8 @@ export default class Stage {
       line.forEach((room, posX) => {
         Logger.log(`Vérification de la salle [${posX};${posY}] pour la conversion de porte en mur`, "STAGE");
 
-        if (!this.rooms[posY + 1]?.[posX]) room.convertNotLinkedDoor(Direction.NORTH);
-        if (!this.rooms[posY - 1]?.[posX]) room.convertNotLinkedDoor(Direction.SOUTH);
+        if (!this.rooms[posY - 1]?.[posX]) room.convertNotLinkedDoor(Direction.NORTH);
+        if (!this.rooms[posY + 1]?.[posX]) room.convertNotLinkedDoor(Direction.SOUTH);
         if (!this.rooms[posY]?.[posX + 1]) room.convertNotLinkedDoor(Direction.EST);
         if (!this.rooms[posY]?.[posX - 1]) room.convertNotLinkedDoor(Direction.WEST);
       });
