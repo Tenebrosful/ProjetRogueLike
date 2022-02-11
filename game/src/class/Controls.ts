@@ -15,7 +15,8 @@ export default abstract class Controls {
       noclip: "KeyV",
       openPortail: "KeyO",
       spawnPain: "KeyU",
-      spawnPortailMiddle: "KeyP"
+      spawnPortailMiddle: "KeyP",
+      suicid: "KeyS",
     },
     walking: {
       down: "ArrowDown",
@@ -80,9 +81,12 @@ export default abstract class Controls {
         Game.currentRoom.replaceTile(middleTile.convertToPortail());
         GameRender.renderRoom(Game.currentRoom);
       }
-      else if (Game.debug && e.code === this.controls.debugKeys.openPortail)
+      else if (Game.debug && e.code === this.controls.debugKeys.openPortail) {
         Game.currentRoom.tiles.forEach(line => line.forEach(tile => { if (tile.isPortail()) tile.open(); }));
         GameRender.renderRoom(Game.currentRoom);
+      }
+      else if (Game.debug && e.code === this.controls.debugKeys.suicid)
+        Game.playerEntity.getHurt(Infinity);
     };
   }
 

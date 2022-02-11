@@ -109,4 +109,32 @@ export default abstract class GameRender {
     this.renderRoomEntities(Game.currentRoom);
   }
 
+  static clearGameContainer(){
+    const gameContainer = document.getElementById("gameContainer");
+    if (!gameContainer) return;
+    gameContainer.innerHTML = "";
+  }
+
+  static displayEndGame(){
+    const resultContainer = document.createElement("div");
+    resultContainer.classList.add("container");
+    
+    const replayLink = document.createElement("a");
+    replayLink.href="/play";
+    replayLink.innerText="Rejouer";
+    
+    const resultH1 = document.createElement("h1");
+    resultH1.innerText = "Vous êtes morts";
+    
+    const resultUl = document.createElement("ul");
+    const liKilledMonster = document.createElement("li");
+    liKilledMonster.innerText = `Vous avez tué ${Game.playerEntity.killedMonster} monstres`;
+      
+    resultContainer.appendChild(resultH1);
+    resultContainer.appendChild(resultUl);
+    resultContainer.appendChild(replayLink);
+    resultUl.appendChild(liKilledMonster);
+    document.body.appendChild(resultContainer);
+  }
+
 }

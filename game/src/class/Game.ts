@@ -26,6 +26,8 @@ export default abstract class Game {
   static debug = false;
   static debug_player_noclip = false;
 
+  static gameLoopInterval : NodeJS.Timer;
+
   static newGame(seed: string = randomBytes(10).toString("hex")) {
     this.seed = seed;
 
@@ -38,7 +40,8 @@ export default abstract class Game {
     this.newStage();
 
     Controls.setup();
-    setInterval(Game.gameLoop, 1000 / this._fps);
+    GameRender.renderAll();
+    this.gameLoopInterval = setInterval(Game.gameLoop, 1000 / this._fps);
 
   }
 
@@ -105,5 +108,13 @@ export default abstract class Game {
     this.currentRoom.entities.push(new PainMechantVolant({ posX: 700, posY: 250 }));
 
     GameRender.renderAll();
+  }
+  static end(){
+    clearInterval(this.gameLoopInterval);
+    // Recuperer les data de la partie
+    // Les enregistrer en bdd
+    GameRender.clearGameContainer();
+    GameRender.displayEndGame();
+    return;
   }
 }

@@ -25,8 +25,16 @@ webpage.get("/profil",(req,res)=>{
     res.render("users/profil");
 });
 
+webpage.get("/menu",(req,res)=>{
+    res.render("game/menu");
+});
+
 webpage.get("/play",(req,res)=>{
     res.render("game/play");
+});
+
+webpage.get("/history",(req,res)=>{
+    res.render("game/history");
 });
 
 
