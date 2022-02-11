@@ -34,25 +34,9 @@ export default abstract class Game {
 
     this.currentFloor = 0;
 
-    this.currentStage = this.newStage();
-
-    this.currentRoom = this.currentStage.spawn;
-
-    Logger.logObject(this.currentRoom, "GAME");
-    Logger.log(this.currentRoom.renderTextTiles(), "GAME");
-
-    this.playerEntity.coords.posX = this.currentRoom.width * GameRender.TILE_SIZE / 2;
-    this.playerEntity.coords.posY = this.currentRoom.height * GameRender.TILE_SIZE / 2;
-    this.currentRoom.addPlayer()
-    //this.currentRoom.entities.push(this.playerEntity);
-
-    Logger.logObject(this.playerEntity, "GAME");
-
-    this.currentRoom.entities.push(new PainMechant({ posX: 300, posY: 300 }));
-    this.currentRoom.entities.push(new PainMechantVolant({ posX: 700, posY: 250 }));
+    this.newStage();
 
     Controls.setup();
-    GameRender.renderAll();
     setInterval(Game.gameLoop, 1000 / this._fps);
 
   }
@@ -96,11 +80,26 @@ export default abstract class Game {
 
   static newStage() {
     this.currentFloor++;
-    const stage = Stage.generateRandom({ floor: this.currentFloor }, this.randomGenerator);
+    this.currentStage = Stage.generateRandom({ floor: this.currentFloor }, this.randomGenerator);
 
-    Logger.log(`New Stage !\n${stage.renderTextStage()}`, "GAME");
-    Logger.logObject(stage, "GAME");
+    Logger.log(`New Stage !\n${this.currentStage.renderTextStage()}`, "GAME");
+    Logger.logObject(this.currentStage, "GAME");
     
-    return stage;
+    this.currentRoom = this.currentStage.spawn;
+
+    Logger.logObject(this.currentRoom, "GAME");
+    Logger.log(this.currentRoom.renderTextTiles(), "GAME");
+
+    this.playerEntity.coords.posX = this.currentRoom.width * GameRender.TILE_SIZE / 2;
+    this.playerEntity.coords.posY = this.currentRoom.height * GameRender.TILE_SIZE / 2;
+    this.currentRoom.addPlayer()
+    //this.currentRoom.entities.push(this.playerEntity);
+
+    Logger.logObject(this.playerEntity, "GAME");
+
+    this.currentRoom.entities.push(new PainMechant({ posX: 300, posY: 300 }));
+    this.currentRoom.entities.push(new PainMechantVolant({ posX: 700, posY: 250 }));
+
+    GameRender.renderAll();
   }
 }
