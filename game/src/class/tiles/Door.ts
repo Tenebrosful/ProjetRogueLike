@@ -3,6 +3,7 @@ import { Coordinates } from "../../typing/tiles";
 import { Direction } from "../../enum/direction";
 import Tile from "./Tile";
 import Wall from "./Wall";
+import Logger from "../Logger";
 
 export default class Door extends Tile {
   direction: Direction;
@@ -14,23 +15,23 @@ export default class Door extends Tile {
   canWalkThrough = true;
 
   type = tileType.DOOR;
-  spriteName = "door.png";
 
   constructor({ posX, posY }: Coordinates, direction: Direction) {
     super({ posX, posY });
     this.direction = direction;
     this.textRender = getDirectionTextRender(direction);
+    this.spriteName = getDirectionSpriteName(direction);
   }
 
   convertToWall(): Wall {
-    console.log(`Convert Door to Wall at [${this.posX};${this.posY}]`);
+    Logger.log(`Convert Door to Wall at [${this.posX};${this.posY}]`, "ROOM");
     return new Wall({ posX: this.posX, posY: this.posY });
   }
 
 }
 
-function getDirectionTextRender(direction: Direction){
-  switch(direction){
+function getDirectionTextRender(direction: Direction) {
+  switch (direction) {
     case Direction.NORTH:
       return "N";
     case Direction.WEST:
@@ -39,5 +40,22 @@ function getDirectionTextRender(direction: Direction){
       return "E";
     case Direction.SOUTH:
       return "S";
+    default:
+      return "?";
+  }
+}
+
+function getDirectionSpriteName(direction: Direction) {
+  switch(direction) {
+    case Direction.NORTH:
+      return "doorN.png";
+    case Direction.WEST:
+      return "doorW.png";
+    case Direction.EST:
+      return "doorE.png";
+    case Direction.SOUTH:
+      return "doorS.png";
+    default:
+      return "default.png";
   }
 }

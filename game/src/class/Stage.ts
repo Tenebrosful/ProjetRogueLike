@@ -94,7 +94,7 @@ export default class Stage {
       (this.rooms?.[coords.posY + 1]?.[coords.posX] ? 1 : 0) +
       (this.rooms?.[coords.posY]?.[coords.posX - 1] ? 1 : 0) +
       (this.rooms?.[coords.posY]?.[coords.posX + 1] ? 1 : 0)
-    ) * 2);
+    ) * 0.75);
   }
 
   private getMissingRoomsFactor() {
@@ -102,12 +102,14 @@ export default class Stage {
   }
 
   private generateNextRoomSpeceficDirection(coords: Coordinates, direction: Direction, depth: number, rand: RandomSeed) {
-    if (this.rooms?.[coords.posX]?.[coords.posY]) { Logger.log(`Room [${coords.posX};${coords.posY}] already exist !`, "STAGE"); return; } // Room already exist
+    if (this.rooms?.[coords.posY]?.[coords.posX]) { Logger.log(`Room [${coords.posX};${coords.posY}] already exist !`, "STAGE"); return; } // Room already exist
 
-    Logger.log(`(depth: ${depth}, floor: ${this.floor}, proximityFactor: ${this.getProximityFactor(coords)}, missingRooms: ${this.getMissingRoomsFactor()}) ${this.getChanceToGenerate(depth, this.getProximityFactor(coords))}% to generate [${coords.posX};${coords.posY}]`
+    const chanceToGenerate =  this.getChanceToGenerate(depth, this.getProximityFactor(coords));
+
+    Logger.log(`(depth: ${depth}, floor: ${this.floor}, missingRooms: ${this.getMissingRoomsFactor()}, proximityFactor: ${this.getProximityFactor(coords)}) ${chanceToGenerate}% to generate [${coords.posX};${coords.posY}]`
       , "STAGE");
 
-    if (rand.intBetween(1, 100) > this.getChanceToGenerate(depth, this.getProximityFactor(coords))) return;
+    if (rand.intBetween(1, 100) > chanceToGenerate) return;
 
     this.generateRoom(coords, direction, depth, rand);
   }
@@ -115,9 +117,11 @@ export default class Stage {
   private getChanceToGenerate(depth: number, proximityFactor: number) {
     if (depth === 1) return 100; // 100% de chance si c'est la première salle
 
+    Logger.log(`${Math.max(Math.exp(-depth * Stage._depthChanceInfluence) * 60, (depth > 10 ? 0.001 : 0.01))} * ${Math.log(this.floor) * Stage._floorChanceInfluence + 1} * ${this.getMissingRoomsFactor()} * ${proximityFactor} * 100`, "STAGE");
+
     return Math.min(
       (
-        (Math.exp(-depth * Stage._depthChanceInfluence) * 60) // It's harder to generate a room when we are far from the spawn
+        Math.max(Math.exp(-depth * Stage._depthChanceInfluence) * 60, (depth > 10 ? 0.001 : 0.01)) // It's harder to generate a room when we are far from the spawn
         * (Math.log(this.floor) * Stage._floorChanceInfluence + 1) // It's easier to generate a room when we are high in floor number (Make larger stages)
         * this.getMissingRoomsFactor() // It's easier to generate a room when there is a lot more to generate next
         * proximityFactor) // It's harder to generate a room if there is already rooms near (favorise larger stages)
@@ -128,12 +132,12 @@ export default class Stage {
   private generateRoom(coords: Coordinates, direction: Direction | null, depth: number, rand: RandomSeed) {
     if (!this.rooms) this.rooms = [];
 
-    if (!this.rooms[coords.posX]) this.rooms[coords.posX] = [];
+    if (!this.rooms[coords.posY]) this.rooms[coords.posY] = [];
 
     Logger.log(`Generate room [${coords.posX};${coords.posY}]`, "STAGE");
 
     // @ts-ignore
-    this.rooms[coords.posX][coords.posY] = Room.generateRandom(rand);
+    this.rooms[coords.posY][coords.posX] = Room.generateRandom(rand, { posX: coords.posX, posY: coords.posY });
     this.currentRoomNumber++;
 
     Logger.log(`Salles restantes à générer : ${this._maxRoomNumber - this.currentRoomNumber} / ${this._maxRoomNumber}`, "STAGE");

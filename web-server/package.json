@@ -1,4 +1,7 @@
 {
+  "scripts": {
+    "start": "ts-node src/serv-web/server.ts"
+  },
   "dependencies": {
     "bcryptjs": "^2.4.3",
     "body-parser": "^1.19.1",

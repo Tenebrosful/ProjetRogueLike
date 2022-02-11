@@ -2,7 +2,24 @@
 
 ## Env variables
 
-[Via des fichiers .env](config/README.md)
+[Via des fichiers .env](web-server/config/README.md)
+
+## Node packages
+
+```bash
+npm i
+cd game
+npm i
+cd ../web-server
+npm i
+```
+
+## Build the game
+
+```bash
+cd game
+npm run build
+```
 
 # Qu'est-ce que le Projet Rogue Like ?
 

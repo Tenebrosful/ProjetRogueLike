@@ -340,3 +340,5 @@ ASALocalRun/
 *.env
 
 build/
+
+web-server/public/game/
