@@ -28,5 +28,5 @@ export default class PainMechant extends Enemy {
   canFly = false;
 
   currentSprite = this.sprites.idle;
-  movementSpeed = 1;
+  movementSpeed = 2;
 }

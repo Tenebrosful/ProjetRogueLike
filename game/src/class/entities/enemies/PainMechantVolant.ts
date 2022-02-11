@@ -28,5 +28,5 @@ export default class PainMechantVolant extends Enemy {
   canFly = true;
 
   currentSprite = this.sprites.idle;
-  movementSpeed = 1.5;
+  movementSpeed = 3.5;
 }

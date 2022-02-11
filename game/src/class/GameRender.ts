@@ -1,3 +1,4 @@
+import Controls from "./Controls";
 import Entity from "./entities/Entity";
 import Game from "./Game";
 import Logger from "./Logger";
@@ -37,8 +38,8 @@ export default abstract class GameRender {
     renderTile.style.height = `${this.TILE_SIZE}px`;
     renderTile.style.width = `${this.TILE_SIZE}px`;
     renderTile.style.position = "absolute";
-    renderTile.style.top = `${tile.posY * this.TILE_SIZE}px`;
-    renderTile.style.left = `${tile.posX * this.TILE_SIZE}px`;
+    renderTile.style.top = `${tile.coords.posY * this.TILE_SIZE}px`;
+    renderTile.style.left = `${tile.coords.posX * this.TILE_SIZE}px`;
     renderTile.style.backgroundImage = `url(${this.TILE_ROOT_PATH}${tile.spriteName})`;
 
     this._salle2D.appendChild(renderTile);
@@ -46,7 +47,9 @@ export default abstract class GameRender {
 
   static renderRoom(room: Room) {
     Logger.log(`Render room [${room.coords.posX};${room.coords.posY}]`, "RENDER");
-    
+
+    this._salle2D.innerHTML = "";
+
     room.tiles.forEach(line => line.forEach(tile => this.renderTile(tile)));
   }
 
@@ -76,14 +79,21 @@ export default abstract class GameRender {
     if (!Game.debug) return;
 
     this._ctx.fillText(
-      `Étage: ${Game.currentFloor} Salle: [${Game.currentRoom.coords.posX};${Game.currentRoom.coords.posY}]`, 0, 25);
+      `Seed: ${Game.seed} Étage: ${Game.currentFloor} Salle: [${Game.currentRoom.coords.posX};${Game.currentRoom.coords.posY}]`, 0, 25);
+
+    this._ctx.fillText(
+      `Debug: NextStage = ${Controls.controls.debugKeys.nextStage} | Noclip = ${Controls.controls.debugKeys.noclip} | Spawn Pain = ${Controls.controls.debugKeys.spawnPain} (+ AltG flying ver.) | Spawn Portail = ${Controls.controls.debugKeys.spawnPortailMiddle} | Open Portail = ${Controls.controls.debugKeys.openPortail}`,
+      0, this._canvasHeight - 10);
+
+    if (Game.debug_player_noclip)
+      this._ctx.fillText("Noclip ON", this._canvasWidth - 100, 25, 95);
 
     Game.currentRoom.entities.forEach(entity => {
       this._ctx.fillRect(entity.coords.posX + entity.hitbox.offset.x,
         entity.coords.posY + entity.hitbox.offset.y,
         entity.hitbox.size.width - entity.hitbox.offset.x,
         entity.hitbox.size.height - entity.hitbox.offset.y);
-      this._ctx.fillText(`[${entity.coords.posX.toFixed(0)};${entity.coords.posY.toFixed(0)}]`, entity.coords.posX, entity.coords.posY - 20);
+      this._ctx.fillText(`[${entity.coords.posX.toFixed(0)};${entity.coords.posY.toFixed(0)}] / [${Math.trunc(entity.coords.posX / this.TILE_SIZE)};${Math.trunc(entity.coords.posY / this.TILE_SIZE)}]`, entity.coords.posX, entity.coords.posY - 20);
     });
   }
 

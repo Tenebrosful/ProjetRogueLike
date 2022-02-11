@@ -11,7 +11,7 @@ export default abstract class Logger {
       console.log(`[${type}]\t${message}`);
   }
 
-  static logObject(object: object, type: LogType = "OTHER"){
+  static logObject(object: object | undefined, type: LogType = "OTHER"){
     if (!Logger._enable) return;
     if (!this._enableAll && !this._enabledLogs.includes(type)) return;
 
