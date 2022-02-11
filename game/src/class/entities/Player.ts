@@ -39,30 +39,30 @@ export default class Player extends Entity {
   currentSprite = this.sprites.walking?.left || Entity.DEFAULT_SPRITE;
   movementSpeed = 5;
 
-  move(direction: Direction){
+  move(direction: Direction) {
     super.move(direction);
     this.handleDoorCollision();
   }
 
-  handleDoorCollision(){
+  handleDoorCollision() {
     const tileX = Math.trunc(this.coords.posX / GameRender.TILE_SIZE);
     const tileY = Math.trunc(this.coords.posY / GameRender.TILE_SIZE);
     const playerCoords: Coordinates = { posX: tileX, posY: tileY } // point en haut à gauche 
     const tile = Game.currentRoom.getTile(playerCoords);
-    if(! tile?.isDoor())return;
+    if (!tile?.isDoor()) return;
     let newRoom;
-    switch (tile.direction){
+    switch (tile.direction) {
       case Direction.NORTH:
-        newRoom = Game.currentStage.rooms[Game.currentRoom.coords.posY - 1 ]?.[Game.currentRoom.coords.posX]
+        newRoom = Game.currentStage.getRoom({ posX: Game.currentRoom.coords.posX, posY: Game.currentRoom.coords.posY - 1 });
         break;
       case Direction.SOUTH:
-        newRoom = Game.currentStage.rooms[Game.currentRoom.coords.posY + 1 ]?.[Game.currentRoom.coords.posX]
+        newRoom = Game.currentStage.getRoom({ posX: Game.currentRoom.coords.posX, posY: Game.currentRoom.coords.posY + 1 });
         break;
       case Direction.EST:
-        newRoom = Game.currentStage.rooms[Game.currentRoom.coords.posY ]?.[Game.currentRoom.coords.posX + 1]
+        newRoom = Game.currentStage.getRoom({ posX: Game.currentRoom.coords.posX + 1, posY: Game.currentRoom.coords.posY });
         break;
       case Direction.WEST:
-        newRoom = Game.currentStage.rooms[Game.currentRoom.coords.posY ]?.[Game.currentRoom.coords.posX - 1]
+        newRoom = Game.currentStage.getRoom({ posX: Game.currentRoom.coords.posX - 1, posY: Game.currentRoom.coords.posY });
         break;
     }
     if (!newRoom) throw new Error;
@@ -71,6 +71,6 @@ export default class Player extends Entity {
   }
   canMoveTo(coordsDeplacementOne: Coordinates, coordsDeplacementDeux: Coordinates): boolean {
     if (Game.debug && Game.debug_player_noclip) return true;
-    return super.canMoveTo(coordsDeplacementOne,  coordsDeplacementDeux);
+    return super.canMoveTo(coordsDeplacementOne, coordsDeplacementDeux);
   }
 }
