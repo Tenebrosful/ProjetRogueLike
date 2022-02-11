@@ -46,6 +46,8 @@ export default abstract class GameRender {
 
   static renderRoom(room: Room) {
     Logger.log(`Render room [${room.coords.posX};${room.coords.posY}]`, "RENDER");
+
+    this._salle2D.innerHTML = "";
     
     room.tiles.forEach(line => line.forEach(tile => this.renderTile(tile)));
   }
