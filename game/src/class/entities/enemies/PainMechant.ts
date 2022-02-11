@@ -1,7 +1,8 @@
 import IAMovementSquare from "../../ia/movement/IAMovementSquare";
-import ThinkingEntity from "../ThinkingEntity";
+import Enemy from "./Enemy";
 
-export default class PainMechant extends ThinkingEntity {
+export default class PainMechant extends Enemy {
+
   iaMovement = new IAMovementSquare;
 
   sprites = {

@@ -1,7 +1,8 @@
 import IAMovementFollowPlayer from "../../ia/movement/IAMovementFollowPlayer";
-import ThinkingEntity from "../ThinkingEntity";
+import Enemy from "./Enemy";
 
-export default class PainMechantVolant extends ThinkingEntity {
+export default class PainMechantVolant extends Enemy {
+
   iaMovement = new IAMovementFollowPlayer(5);
 
   sprites = {
