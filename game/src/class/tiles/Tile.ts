@@ -3,6 +3,7 @@ import { Coordinates } from "../../typing/tiles";
 import Entity from "../entities/Entity";
 import Door from "./Door";
 import Floor from "./Floor";
+import Portail from "./Portail";
 import Void from "./Void";
 import Wall from "./Wall";
 
@@ -46,6 +47,10 @@ export default abstract class Tile {
 
   isDoor(): this is Door {
     return this.type === tileType.DOOR;
+  }
+
+  isPortail(): this is Portail {
+    return this.type === tileType.PORTAIL;
   }
 
 }
