@@ -11,6 +11,8 @@ export default abstract class Entity {
   coords: Coordinates;
   sprites: EntitySprites;
 
+  canFly: boolean;
+
   currentSprite: string;
   movementSpeed: number;
 
@@ -85,7 +87,7 @@ export default abstract class Entity {
 
     let tuileOne = Game.currentRoom.tiles[tileOneY]?.[tileOneX];
     if (!tuileOne) return false;
-    if (!tuileOne.canWalkThrough)return false;
+    if (!tuileOne.canWalkThrough && !(tuileOne.canFlyOver && this.canFly))return false;
 
     //Deuxieme coin
     let tileTwoX = Math.trunc(coordsDeplacementDeux.posX / GameRender.TILE_SIZE) ;
@@ -93,7 +95,7 @@ export default abstract class Entity {
 
     let tuileTwo = Game.currentRoom.tiles[tileTwoY]?.[tileTwoX];
     if (!tuileTwo) return false;
-    if (!tuileTwo.canWalkThrough)return false;
+    if (!tuileTwo.canWalkThrough && !(tuileTwo.canFlyOver && this.canFly))return false;
    
     return true;
   }

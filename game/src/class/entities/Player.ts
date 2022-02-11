@@ -24,6 +24,8 @@ export default class Player extends Entity {
     }
   };
 
+  canFly = false;
+
   currentSprite = this.sprites.walking?.left || Entity.DEFAULT_SPRITE;
   movementSpeed = 2;
   
