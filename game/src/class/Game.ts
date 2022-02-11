@@ -3,6 +3,7 @@ import * as random_seed from "random-seed";
 import Controls from "./Controls";
 import PainMechant from "./entities/enemies/PainMechant";
 import PainMechantVolant from "./entities/enemies/PainMechantVolant";
+import Fruit from "./entities/items/Fruit";
 import Player from "./entities/Player";
 import GameRender from "./GameRender";
 import Logger from "./Logger";
@@ -47,6 +48,7 @@ export default abstract class Game {
 
     this.currentRoom.entities.push(new PainMechant({ posX: 300, posY: 300 }));
     this.currentRoom.entities.push(new PainMechantVolant({ posX: 700, posY: 250 }));
+    this.currentRoom.entities.push(new Fruit({ posX: 500, posY: 100 }));
 
     Controls.setup();
     GameRender.renderAll();
