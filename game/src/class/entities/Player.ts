@@ -57,7 +57,6 @@ export default class Player extends Entity {
         break;
       case Direction.EST:
         newRoom = Game.currentStage.rooms[Game.currentRoom.coords.posY ]?.[Game.currentRoom.coords.posX + 1]
-        Logger.logObject(Game.currentStage.rooms,'GAME');
         break;
       case Direction.WEST:
         newRoom = Game.currentStage.rooms[Game.currentRoom.coords.posY ]?.[Game.currentRoom.coords.posX - 1]
