@@ -68,7 +68,8 @@ export default abstract class GameRender {
   static renderRoomEntities(room: Room) {
     Logger.log(`Render all entities of room [${room.coords.posX};${room.coords.posY}]`, "RENDER");
 
-    room.entities.forEach(entity => this.renderEntity(entity));
+    room.entities.filter(entity => !entity.isPlayer()).forEach(entity => this.renderEntity(entity));
+    this.renderEntity(Game.playerEntity);
   }
 
   static renderDebug() {
