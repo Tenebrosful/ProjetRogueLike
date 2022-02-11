@@ -34,11 +34,13 @@ export default class Player extends Entity {
   canFly = false;
 
   currentSprite = this.sprites.walking?.left || Entity.DEFAULT_SPRITE;
-  movementSpeed = 2;
+  movementSpeed = 5;
+
   move(direction: Direction){
     super.move(direction);
     this.handleDoorCollision();
   }
+
   handleDoorCollision(){
     const tileX = Math.trunc(this.coords.posX / GameRender.TILE_SIZE);
     const tileY = Math.trunc(this.coords.posY / GameRender.TILE_SIZE);
