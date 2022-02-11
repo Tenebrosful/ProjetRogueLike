@@ -35,27 +35,29 @@ export default abstract class Entity {
     this.coords = coords;
   }
 
+  getHitbox(): Hitbox {
+    return {
+      botLeft: {
+        posX: this.coords.posX,
+        posY: this.coords.posY + this.hitbox.size.height
+      },
+      botRight: {
+        posX: this.coords.posX + this.hitbox.size.width - this.hitbox.offset.x,
+        posY: this.coords.posY + this.hitbox.offset.y
+      },
+      topLeft: {
+        posX: this.coords.posX,
+        posY: this.coords.posY + this.hitbox.offset.y
+      },
+      topRight: {
+        posX: this.coords.posX + this.hitbox.size.width - this.hitbox.offset.x,
+        posY: this.coords.posY + this.hitbox.offset.y
+      }
+    };
+  }
+
   move(direction: Direction) {
-    // Top - Left
-    const coordsHitboxTopLeft = {
-      x: this.coords.posX,
-      y: this.coords.posY + this.hitbox.offset.y
-    };
-    // Top - Right
-    const coordsHitboxTopRight = {
-      x: this.coords.posX + this.hitbox.size.width - this.hitbox.offset.x,
-      y: this.coords.posY + this.hitbox.offset.y
-    };
-    // Bot - Left 
-    const coordsHitboxBotLeft = {
-      x: this.coords.posX,
-      y: this.coords.posY + this.hitbox.size.height
-    };
-    // Bot - Right
-    const coordsHitboxBotRight = {
-      x: this.coords.posX + this.hitbox.size.width - this.hitbox.offset.x,
-      y: this.coords.posY + this.hitbox.size.height
-    };
+    let hitbox = this.getHitbox();
 
     switch (direction) {
       case Direction.NORTH:
