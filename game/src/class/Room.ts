@@ -93,7 +93,7 @@ export default class Room {
   }
 
   getTilePixelCoords(coords: Coordinates) {
-    return this.tiles[coords.posY / GameRender.TILE_SIZE]?.[coords.posX / GameRender.TILE_SIZE];
+    return this.tiles[Math.trunc(coords.posY / GameRender.TILE_SIZE)]?.[Math.trunc(coords.posX / GameRender.TILE_SIZE)];
   }
 
   addPlayer(){
