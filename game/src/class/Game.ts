@@ -82,6 +82,8 @@ export default abstract class Game {
         this.playerEntity.coords.posY = coordsDoor.posY;
         break;
     }
+    this.playerEntity.coords.posX *= 64 ;
+    this.playerEntity.coords.posY *= 64;
     this.currentRoom.addPlayer();
     GameRender.renderAll();
   }
