@@ -46,11 +46,13 @@ export default abstract class GameRender {
 
   static renderRoom(room: Room) {
     Logger.log(`Render room [${room.coords.posX};${room.coords.posY}]`, "RENDER");
+    
     room.tiles.forEach(line => line.forEach(tile => this.renderTile(tile)));
   }
 
   static renderCanvas() {
     Logger.log(`Render Canvas (width: ${this._canvasWidth}, heigh: ${this._canvasHeight})`, "RENDER");
+
     this._ctx.clearRect(0, 0, this._canvasWidth, this._canvasHeight);
   }
 
@@ -60,20 +62,28 @@ export default abstract class GameRender {
     const entitySprite = new Image();
     entitySprite.src = `/static/img/${entity.currentSprite}`;
 
-    if (Game.debug) {
-      this._ctx.fillRect(entity.coords.posX + entity.hitbox.offset.x,
-        entity.coords.posY + entity.hitbox.offset.y,
-        entity.hitbox.size.width - entity.hitbox.offset.x,
-        entity.hitbox.size.height - entity.hitbox.offset.y);
-      this._ctx.fillText(`[${entity.coords.posX};${entity.coords.posY}]`, entity.coords.posX, entity.coords.posY - 20);
-    }
-
     this._ctx.drawImage(entitySprite, entity.coords.posX, entity.coords.posY);
   }
 
   static renderRoomEntities(room: Room) {
     Logger.log(`Render all entities of room [${room.coords.posX};${room.coords.posY}]`, "RENDER");
+
     room.entities.forEach(entity => this.renderEntity(entity));
+  }
+
+  static renderDebug() {
+    if (!Game.debug) return;
+
+    this._ctx.fillText(
+      `Étage: ${Game.currentFloor} Salle: [${Game.currentRoom.coords.posX};${Game.currentRoom.coords.posY}]`, 0, 25);
+
+    Game.currentRoom.entities.forEach(entity => {
+      this._ctx.fillRect(entity.coords.posX + entity.hitbox.offset.x,
+        entity.coords.posY + entity.hitbox.offset.y,
+        entity.hitbox.size.width - entity.hitbox.offset.x,
+        entity.hitbox.size.height - entity.hitbox.offset.y);
+      this._ctx.fillText(`[${entity.coords.posX};${entity.coords.posY}]`, entity.coords.posX, entity.coords.posY - 20);
+    });
   }
 
   static renderAll() {
@@ -84,6 +94,7 @@ export default abstract class GameRender {
 
   static renderAllDynamic() {
     this.renderCanvas();
+    this.renderDebug();
     this.renderRoomEntities(Game.currentRoom);
   }
 
