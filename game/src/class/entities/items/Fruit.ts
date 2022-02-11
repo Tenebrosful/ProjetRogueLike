@@ -1,6 +1,9 @@
 import Item from "./Item";
+import IAOnPlayerContact from "../../ia/movement/IAPlayerTouch";
 
-export default class PainMechant extends Item {
+export default class Fruit extends Item {
+  iaMovement = new IAOnPlayerContact(10);
+
   sprites = {
     idle: "enemies/painMechant/painMechantIdle.png",
   };
@@ -8,13 +11,17 @@ export default class PainMechant extends Item {
   hitbox = {
     offset: {
       x: 0,
-      y: 16
+      y: 0
     },
     size: {
-      height: 30,
+      height: 46,
       width: 64
     }
   };
+
+  onContact(){
+    console.log("An Item !");
+  }
 
   canFly = false;
   currentSprite = this.sprites.idle;

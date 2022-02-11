@@ -137,6 +137,8 @@ export default abstract class Entity {
     this.currentSprite = this.sprites.idle || Entity.DEFAULT_SPRITE;
   }
 
+  onContact(){}
+
   isPlayer(): this is Player {
     return this.type === entityType.PLAYER;
   }
