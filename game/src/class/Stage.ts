@@ -94,7 +94,7 @@ export default class Stage {
       (this.rooms?.[coords.posY + 1]?.[coords.posX] ? 1 : 0) +
       (this.rooms?.[coords.posY]?.[coords.posX - 1] ? 1 : 0) +
       (this.rooms?.[coords.posY]?.[coords.posX + 1] ? 1 : 0)
-    ) * 2);
+    ) * 0.75);
   }
 
   private getMissingRoomsFactor() {
