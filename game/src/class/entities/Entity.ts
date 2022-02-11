@@ -4,7 +4,6 @@ import { EntitySprites } from "../../typing/entitySprites";
 import { Coordinates } from "../../typing/tiles";
 import Game from "../Game";
 import GameRender from "../GameRender";
-import Logger from "../Logger";
 import Enemy from "./enemies/Enemy";
 import Player from "./Player";
 
