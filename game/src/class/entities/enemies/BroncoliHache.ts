@@ -1,7 +1,7 @@
 import IAMovementLigne from "../../ia/movement/IAMovementLigne";
 import Enemy from "./Enemy";
 
-export default class broncoliHache extends Enemy {
+export default class BroncoliHache extends Enemy {
   iaMovement = new IAMovementLigne;
 
   sprites = {
