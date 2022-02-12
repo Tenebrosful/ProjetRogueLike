@@ -4,6 +4,7 @@ import Enemy from "./Enemy";
 export default class BroncoliHache extends Enemy {
   iaMovement = new IAMovementLigne;
 
+  name = "BroncoliHache";
   sprites = {
     idle: "enemies/broncoli/broncoliHache.png",
     walking: {
