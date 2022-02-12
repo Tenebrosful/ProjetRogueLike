@@ -5,4 +5,5 @@ export default abstract class Enemy extends ThinkingEntity {
   type = entityType.ENEMY;
 
   name = "Enemi";
+
 }
