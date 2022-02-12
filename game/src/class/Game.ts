@@ -11,6 +11,7 @@ import Logger from "./Logger";
 import Room from "./Room";
 import Stage from "./Stage";
 import GenerateEntity from "./entities/GenerateEntity";
+import { RandomSeed } from "random-seed";
 
 export default abstract class Game {
   private static _fps = 60;
@@ -23,7 +24,9 @@ export default abstract class Game {
   static playerEntity: Player;
 
   static seed: string;
-  static randomGenerator: random_seed.RandomSeed;
+  static rngStage: RandomSeed;
+  static rngEnemies: RandomSeed;
+  static rngLoots: RandomSeed;
 
   static debug = false;
   static debug_player_noclip = false;
@@ -33,7 +36,9 @@ export default abstract class Game {
   static newGame(seed: string = randomBytes(10).toString("hex")) {
     this.seed = seed;
 
-    this.randomGenerator = random_seed.create(seed);
+    this.rngStage = random_seed.create(seed);
+    this.rngEnemies = random_seed.create(seed);
+    this.rngLoots = random_seed.create(seed);
 
     this.playerEntity = new Player();
 
@@ -94,7 +99,7 @@ export default abstract class Game {
 
   static newStage() {
     this.currentFloor++;
-    this.currentStage = Stage.generateRandom({ floor: this.currentFloor }, this.randomGenerator);
+    this.currentStage = Stage.generateRandom({ floor: this.currentFloor }, this.rngStage);
 
     Logger.log(`New Stage !\n${this.currentStage.renderTextStage()}`, "GAME");
     Logger.logObject(this.currentStage, "GAME");
