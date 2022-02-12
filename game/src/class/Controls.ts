@@ -1,15 +1,10 @@
 import { Direction } from "../enum/direction";
-import PainMechant from "./entities/enemies/PainMechant";
-import PainMechantVolant from "./entities/enemies/PainMechantVolant";
+import Debug from "./Debug";
 import Game from "./Game";
 
-export default class Controls {
+export default abstract class Controls {
   static controls = {
     debug: "KeyR",
-    debugKeys: {
-      noclip: "KeyV",
-      spawnPain: "KeyU"
-    },
     walking: {
       down: "ArrowDown",
       left: "ArrowLeft",
@@ -53,15 +48,12 @@ export default class Controls {
         this.currentState.walking.left = false;
       else if (e.code === this.controls.walking.right)
         this.currentState.walking.right = false;
+      else if (e.code === "F5")
+        location.reload();
       else if (e.code === this.controls.debug)
         Game.debug = !Game.debug;
-      else if (Game.debug && e.code === this.controls.debugKeys.spawnPain)
-        if (e.altKey)
-          Game.currentRoom.entities.push(new PainMechantVolant({ posX: Game.playerEntity.coords.posX, posY: Game.playerEntity.coords.posY }));
-        else
-          Game.currentRoom.entities.push(new PainMechant({ posX: Game.playerEntity.coords.posX, posY: Game.playerEntity.coords.posY }));
-      else if (Game.debug && e.code === this.controls.debugKeys.noclip)
-        Game.debug_player_noclip = !Game.debug_player_noclip;
+      else if (Game.debug)
+        Debug.debugControls(e); // Must be in last
     };
   }
 

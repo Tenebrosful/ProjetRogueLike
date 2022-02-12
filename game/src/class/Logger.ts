@@ -11,7 +11,7 @@ export default abstract class Logger {
       console.log(`[${type}]\t${message}`);
   }
 
-  static logObject(object: object, type: LogType = "OTHER"){
+  static logObject(object: object | undefined, type: LogType = "OTHER"){
     if (!Logger._enable) return;
     if (!this._enableAll && !this._enabledLogs.includes(type)) return;
 
@@ -30,4 +30,4 @@ export default abstract class Logger {
   }
 }
 
-export type LogType = "GAME" | "ENTITY" | "STAGE" | "ROOM" | "RENDER" | "OTHER";
+export type LogType = "GAME" | "ENEMY_GENERATION" | "ENTITY" | "STAGE" | "ROOM" | "RENDER" | "OTHER";

@@ -28,7 +28,7 @@ export default class Stage {
 
     this.isXL = random.intBetween(1, 100) <= Stage._chanceToXL;
 
-    this._maxRoomNumber = Math.floor(Stage._baseRoomNumber * (Math.max(this.floor / 3, 1)) * (this.isXL ? random.floatBetween(1.5, 1.5 * ((this.floor + 5) / 5)) : 1));
+    this._maxRoomNumber = Math.floor(Stage._baseRoomNumber * (Math.max(this.floor / 5, 1)) * (this.isXL ? random.floatBetween(1.5, 1.5 * (this.floor / 5)) : 1));
 
     Logger.log(`Nombre de salle maximum : ${this._maxRoomNumber}${this.isXL ? " (XL)" : ""}`, "STAGE");
 
@@ -155,12 +155,16 @@ export default class Stage {
       line.forEach((room, posX) => {
         Logger.log(`Vérification de la salle [${posX};${posY}] pour la conversion de porte en mur`, "STAGE");
 
-        if (!this.rooms[posY + 1]?.[posX]) room.convertNotLinkedDoor(Direction.NORTH);
-        if (!this.rooms[posY - 1]?.[posX]) room.convertNotLinkedDoor(Direction.SOUTH);
+        if (!this.rooms[posY - 1]?.[posX]) room.convertNotLinkedDoor(Direction.NORTH);
+        if (!this.rooms[posY + 1]?.[posX]) room.convertNotLinkedDoor(Direction.SOUTH);
         if (!this.rooms[posY]?.[posX + 1]) room.convertNotLinkedDoor(Direction.EST);
         if (!this.rooms[posY]?.[posX - 1]) room.convertNotLinkedDoor(Direction.WEST);
       });
     });
+  }
+
+  getRoom(coords: Coordinates) {
+    return this.rooms[coords.posY]?.[coords.posX];
   }
 
 }
