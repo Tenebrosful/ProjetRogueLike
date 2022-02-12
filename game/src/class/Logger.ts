@@ -30,4 +30,4 @@ export default abstract class Logger {
   }
 }
 
-export type LogType = "GAME" | "ENTITY" | "STAGE" | "ROOM" | "RENDER" | "OTHER";
+export type LogType = "GAME" | "ENEMY_GENERATION" | "ENTITY" | "STAGE" | "ROOM" | "RENDER" | "OTHER";
