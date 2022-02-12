@@ -10,5 +10,5 @@ export default abstract class GameDictionary {
   static getByIndex(index: number) {
     if(index < 0 || index >= this.nbrEntries) return;
     return this.entries[index];
-  };
+  }
 }
