@@ -128,7 +128,7 @@ export default abstract class Game {
     for (let i = 0; i < nbrEnemies; i++)
       enemies.push(this.createRandomEnemy(this.rngEnemies) as Enemy);
 
-    const possibleTiles = room.tiles.flat().filter(tile => tile.canFlyOver || tile.canWalkThrough);
+    const possibleTiles = room.tiles.flat().filter(tile => (tile.canFlyOver || tile.canWalkThrough) && !tile.isDoor());
 
     Logger.logObject(possibleTiles, "ENEMY_GENERATION");
 
