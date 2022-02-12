@@ -1,11 +1,6 @@
 import { Direction } from "../enum/direction";
 import Debug from "./Debug";
-import PainMechant from "./entities/enemies/PainMechant";
-import PainMechantVolant from "./entities/enemies/PainMechantVolant";
-import Player from "./entities/Player";
 import Game from "./Game";
-import GameRender from "./GameRender";
-import Floor from "./tiles/Floor";
 
 export default abstract class Controls {
   static controls = {
