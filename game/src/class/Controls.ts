@@ -1,4 +1,5 @@
 import { Direction } from "../enum/direction";
+import Debug from "./Debug";
 import PainMechant from "./entities/enemies/PainMechant";
 import PainMechantVolant from "./entities/enemies/PainMechantVolant";
 import Player from "./entities/Player";
@@ -9,14 +10,6 @@ import Floor from "./tiles/Floor";
 export default abstract class Controls {
   static controls = {
     debug: "KeyR",
-    debugKeys: {
-      nextStage: "KeyN",
-      noclip: "KeyV",
-      openPortail: "KeyO",
-      spawnPain: "KeyU",
-      spawnPortailMiddle: "KeyP",
-      suicid: "KeyS",
-    },
     walking: {
       down: "ArrowDown",
       left: "ArrowLeft",
@@ -64,28 +57,8 @@ export default abstract class Controls {
         location.reload();
       else if (e.code === this.controls.debug)
         Game.debug = !Game.debug;
-      else if (Game.debug && e.code === this.controls.debugKeys.spawnPain)
-        if (e.altKey)
-          Game.currentRoom.entities.push(new PainMechantVolant({ posX: Game.playerEntity.coords.posX, posY: Game.playerEntity.coords.posY }));
-        else
-          Game.currentRoom.entities.push(new PainMechant({ posX: Game.playerEntity.coords.posX, posY: Game.playerEntity.coords.posY }));
-      else if (Game.debug && e.code === this.controls.debugKeys.noclip) {
-        Game.debug_player_noclip = !Game.debug_player_noclip;
-        Game.playerEntity.movementSpeed = (Game.debug_player_noclip ? Player.NO_CLIP_MOVESPEED : Player.DEFAULT_MOVESPEED);
-      }
-      else if (Game.debug && e.code === this.controls.debugKeys.nextStage)
-        Game.newStage();
-      else if (Game.debug && e.code === this.controls.debugKeys.spawnPortailMiddle) {
-        const middleTile = Game.currentRoom.getTile(Game.currentRoom.middle) as Floor;
-        Game.currentRoom.replaceTile(middleTile.convertToPortail());
-        GameRender.renderRoom(Game.currentRoom);
-      }
-      else if (Game.debug && e.code === this.controls.debugKeys.openPortail) {
-        Game.currentRoom.tiles.forEach(line => line.forEach(tile => { if (tile.isPortail()) tile.open(); }));
-        GameRender.renderRoom(Game.currentRoom);
-      }
-      else if (Game.debug && e.code === this.controls.debugKeys.suicid)
-        Game.playerEntity.getHurt(Infinity);
+      else if (Game.debug)
+        Debug.debugControls(e); // Must be in last
     };
   }
 
