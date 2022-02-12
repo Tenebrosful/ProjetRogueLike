@@ -82,7 +82,7 @@ export default abstract class GameRender {
       `Seed: ${Game.seed} Étage: ${Game.currentFloor} Salle: [${Game.currentRoom.coords.posX};${Game.currentRoom.coords.posY}]`, 0, 25);
 
     this._ctx.fillText(
-      `Debug: Suicide = ${Debug.debugKeys.suicid} | NextStage = ${Debug.debugKeys.nextStage} | Noclip = ${Debug.debugKeys.noclip} | Spawn Pain = ${Debug.debugKeys.spawnPain} (+ AltG flying ver.) | Spawn Portail = ${Debug.debugKeys.spawnPortailMiddle} | Open Portail = ${Debug.debugKeys.openPortail}`,
+      `Debug Mod (Pressez ${Debug.debugKeys.help} pour les contrôles)`,
       0, this._canvasHeight - 10, this._canvasWidth);
 
     if (Game.debug_player_noclip)
