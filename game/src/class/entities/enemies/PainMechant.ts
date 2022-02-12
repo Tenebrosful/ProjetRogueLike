@@ -4,6 +4,7 @@ import Enemy from "./Enemy";
 export default class PainMechant extends Enemy {
   iaMovement = new IAMovementSquare;
 
+  name = "PainMechant";
   sprites = {
     idle: "enemies/painMechant/painMechantIdle.png",
     walking: {
@@ -28,5 +29,5 @@ export default class PainMechant extends Enemy {
   canFly = false;
 
   currentSprite = this.sprites.idle;
-  movementSpeed = 1;
+  movementSpeed = 2;
 }

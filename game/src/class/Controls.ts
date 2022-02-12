@@ -1,14 +1,21 @@
 import { Direction } from "../enum/direction";
 import PainMechant from "./entities/enemies/PainMechant";
 import PainMechantVolant from "./entities/enemies/PainMechantVolant";
+import Player from "./entities/Player";
 import Game from "./Game";
+import GameRender from "./GameRender";
+import Floor from "./tiles/Floor";
 
-export default class Controls {
+export default abstract class Controls {
   static controls = {
     debug: "KeyR",
     debugKeys: {
+      nextStage: "KeyN",
       noclip: "KeyV",
-      spawnPain: "KeyU"
+      openPortail: "KeyO",
+      spawnPain: "KeyU",
+      spawnPortailMiddle: "KeyP",
+      suicid: "KeyS",
     },
     walking: {
       down: "ArrowDown",
@@ -53,6 +60,8 @@ export default class Controls {
         this.currentState.walking.left = false;
       else if (e.code === this.controls.walking.right)
         this.currentState.walking.right = false;
+      else if (e.code === "F5")
+        location.reload();
       else if (e.code === this.controls.debug)
         Game.debug = !Game.debug;
       else if (Game.debug && e.code === this.controls.debugKeys.spawnPain)
@@ -60,8 +69,23 @@ export default class Controls {
           Game.currentRoom.entities.push(new PainMechantVolant({ posX: Game.playerEntity.coords.posX, posY: Game.playerEntity.coords.posY }));
         else
           Game.currentRoom.entities.push(new PainMechant({ posX: Game.playerEntity.coords.posX, posY: Game.playerEntity.coords.posY }));
-      else if (Game.debug && e.code === this.controls.debugKeys.noclip)
+      else if (Game.debug && e.code === this.controls.debugKeys.noclip) {
         Game.debug_player_noclip = !Game.debug_player_noclip;
+        Game.playerEntity.movementSpeed = (Game.debug_player_noclip ? Player.NO_CLIP_MOVESPEED : Player.DEFAULT_MOVESPEED);
+      }
+      else if (Game.debug && e.code === this.controls.debugKeys.nextStage)
+        Game.newStage();
+      else if (Game.debug && e.code === this.controls.debugKeys.spawnPortailMiddle) {
+        const middleTile = Game.currentRoom.getTile(Game.currentRoom.middle) as Floor;
+        Game.currentRoom.replaceTile(middleTile.convertToPortail());
+        GameRender.renderRoom(Game.currentRoom);
+      }
+      else if (Game.debug && e.code === this.controls.debugKeys.openPortail) {
+        Game.currentRoom.tiles.forEach(line => line.forEach(tile => { if (tile.isPortail()) tile.open(); }));
+        GameRender.renderRoom(Game.currentRoom);
+      }
+      else if (Game.debug && e.code === this.controls.debugKeys.suicid)
+        Game.playerEntity.getHurt(Infinity);
     };
   }
 

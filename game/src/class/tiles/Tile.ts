@@ -1,13 +1,14 @@
 import { tileType } from "../../enum/tileType";
-import { Coordinates, TileProperties } from "../../typing/tiles";
+import { Coordinates } from "../../typing/tiles";
+import Entity from "../entities/Entity";
 import Door from "./Door";
 import Floor from "./Floor";
+import Portail from "./Portail";
 import Void from "./Void";
 import Wall from "./Wall";
 
 export default abstract class Tile {
-  posX: number;
-  posY: number;
+  coords: Coordinates;
   type: tileType;
 
   /**
@@ -19,8 +20,13 @@ export default abstract class Tile {
   textRender: string;
   spriteName = "default.png"; // Should be in public/img/tiles
 
-  constructor({ posX, posY }: Coordinates & TileProperties) {
-    this.posX = posX; this.posY = posY;
+  constructor(coords: Coordinates) {
+    this.coords = coords;
+  }
+
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  walkOn(entity: Entity) {
+    return;
   }
 
   isFloor(): this is Floor {
@@ -41,6 +47,10 @@ export default abstract class Tile {
 
   isDoor(): this is Door {
     return this.type === tileType.DOOR;
+  }
+
+  isPortail(): this is Portail {
+    return this.type === tileType.PORTAIL;
   }
 
 }
