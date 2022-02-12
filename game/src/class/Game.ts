@@ -7,7 +7,6 @@ import GameRender from "./GameRender";
 import Logger from "./Logger";
 import Room from "./Room";
 import Stage from "./Stage";
-import GenerateEntity from "./entities/GenerateEntity";
 import { RandomSeed } from "random-seed";
 import EnemyDictionary from "../dictionary/EnemyDictionary";
 import Enemy from "./entities/enemies/Enemy";
@@ -56,34 +55,33 @@ export default abstract class Game {
 
   }
 
-  static changeRoom(newRoom: Room,direction: Direction){
+  static changeRoom(newRoom: Room, direction: Direction) {
     this.currentRoom.removePlayer();
     this.currentRoom = newRoom;
-    const coordsDoor = this.currentRoom.doors.find(door => door.direction === direction);
-    if (!coordsDoor)throw new Error;
-    
-    switch (direction){
-      case Direction.NORTH: 
-        this.playerEntity.coords.posX = coordsDoor.coords.posX;
-        this.playerEntity.coords.posY = coordsDoor.coords.posY + 1;
-        break;
 
-      case Direction.EST: 
-        this.playerEntity.coords.posX = coordsDoor.coords.posX - 1;
-        this.playerEntity.coords.posY = coordsDoor.coords.posY;
+    const coordsDoor = this.currentRoom.doors.find(door => door.direction === direction);
+
+    if (!coordsDoor) throw new Error;
+
+    this.playerEntity.coords = coordsDoor.getPixelCoords();
+
+    switch (direction) {
+      case Direction.NORTH:
+        this.playerEntity.coords.posY += GameRender.TILE_SIZE;
         break;
-      case Direction.SOUTH: 
-        this.playerEntity.coords.posX = coordsDoor.coords.posX;
-        this.playerEntity.coords.posY = coordsDoor.coords.posY - 1 ;
+      case Direction.EST:
+        this.playerEntity.coords.posX -= GameRender.TILE_SIZE;
         break;
-      case Direction.WEST: 
-        this.playerEntity.coords.posX = coordsDoor.coords.posX + 1 ;
-        this.playerEntity.coords.posY = coordsDoor.coords.posY;
+      case Direction.SOUTH:
+        this.playerEntity.coords.posY -= GameRender.TILE_SIZE;
+        break;
+      case Direction.WEST:
+        this.playerEntity.coords.posX += GameRender.TILE_SIZE;
         break;
     }
-    this.playerEntity.coords.posX *= 64 ;
-    this.playerEntity.coords.posY *= 64;
+    
     this.currentRoom.addPlayer();
+
     GameRender.renderAll();
   }
 
@@ -99,7 +97,7 @@ export default abstract class Game {
 
     Logger.log(`New Stage !\n${this.currentStage.renderTextStage()}`, "GAME");
     Logger.logObject(this.currentStage, "GAME");
-    
+
     this.currentRoom = this.currentStage.spawn;
 
     Logger.logObject(this.currentRoom, "GAME");
