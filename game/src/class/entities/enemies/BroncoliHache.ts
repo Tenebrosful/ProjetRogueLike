@@ -17,12 +17,12 @@ export default class BroncoliHache extends Enemy {
 
   hitbox = {
     offset: {
-      x: 4, // Réduction de 4px pour pas qu'il soit bloqué dans les couloir de 1 case de large
+      x: 0, // Réduction de 4px pour pas qu'il soit bloqué dans les couloir de 1 case de large
       y: 0
     },
     size: {
-      height: 46,
-      width: 64
+      height: 64,
+      width: 38
     }
   };
 
