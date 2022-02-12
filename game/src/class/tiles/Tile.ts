@@ -1,6 +1,7 @@
 import { tileType } from "../../enum/tileType";
 import { Coordinates } from "../../typing/tiles";
 import Entity from "../entities/Entity";
+import GameRender from "../GameRender";
 import Door from "./Door";
 import Floor from "./Floor";
 import Portail from "./Portail";
@@ -27,6 +28,10 @@ export default abstract class Tile {
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   walkOn(entity: Entity) {
     return;
+  }
+
+  getPixelCoords(): Coordinates {
+    return { posX: this.coords.posX * GameRender.TILE_SIZE, posY: this.coords.posY * GameRender.TILE_SIZE };
   }
 
   isFloor(): this is Floor {

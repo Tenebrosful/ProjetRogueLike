@@ -21,6 +21,7 @@ function getTileFactory(type: tileType) {
       return new VoidFactory;
     case tileType.DOOR:
       return new DoorFactory;
+    case tileType.PORTAIL:
     default:
       return new ErrorFactory;
   }

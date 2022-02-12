@@ -1,4 +1,4 @@
-import Controls from "./Controls";
+import Debug from "./Debug";
 import Entity from "./entities/Entity";
 import Game from "./Game";
 import Logger from "./Logger";
@@ -82,8 +82,8 @@ export default abstract class GameRender {
       `Seed: ${Game.seed} Étage: ${Game.currentFloor} Salle: [${Game.currentRoom.coords.posX};${Game.currentRoom.coords.posY}]`, 0, 25);
 
     this._ctx.fillText(
-      `Debug: Suicide = ${Controls.controls.debugKeys.suicid} | NextStage = ${Controls.controls.debugKeys.nextStage} | Noclip = ${Controls.controls.debugKeys.noclip} | Spawn Pain = ${Controls.controls.debugKeys.spawnPain} (+ AltG flying ver.) | Spawn Portail = ${Controls.controls.debugKeys.spawnPortailMiddle} | Open Portail = ${Controls.controls.debugKeys.openPortail}`,
-      0, this._canvasHeight - 10);
+      `Debug Mod (Pressez ${Debug.debugKeys.help} pour les contrôles)`,
+      0, this._canvasHeight - 10, this._canvasWidth);
 
     if (Game.debug_player_noclip)
       this._ctx.fillText("Noclip ON", this._canvasWidth - 100, 25, 95);
