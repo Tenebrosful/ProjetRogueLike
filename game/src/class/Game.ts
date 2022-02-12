@@ -2,9 +2,6 @@ import { randomBytes } from "crypto";
 import * as random_seed from "random-seed";
 import { Direction } from "../enum/direction";
 import Controls from "./Controls";
-import broncoliHache from "./entities/enemies/BroncoliHache";
-import PainMechant from "./entities/enemies/PainMechant";
-import PainMechantVolant from "./entities/enemies/PainMechantVolant";
 import Player from "./entities/Player";
 import GameRender from "./GameRender";
 import Logger from "./Logger";
@@ -12,6 +9,9 @@ import Room from "./Room";
 import Stage from "./Stage";
 import GenerateEntity from "./entities/GenerateEntity";
 import { RandomSeed } from "random-seed";
+import EnemyDictionary from "../dictionary/EnemyDictionary";
+import Enemy from "./entities/enemies/Enemy";
+import Tile from "./tiles/Tile";
 
 export default abstract class Game {
   private static _fps = 60;
@@ -49,13 +49,7 @@ export default abstract class Game {
     this.newStage();
 
     Logger.logObject(this.playerEntity, "GAME");
- 
-    const entity = new GenerateEntity();
-    entity.monsters.forEach(element =>{
-      this.currentRoom.entities.push(element);
-    });
 
-  
     Controls.setup();
     GameRender.renderAll();
     this.gameLoopInterval = setInterval(Game.gameLoop, 1000 / this._fps);
@@ -118,14 +112,58 @@ export default abstract class Game {
 
     Logger.logObject(this.playerEntity, "GAME");
 
-    /**
-     * TEMPORARY
-     */
-    this.currentRoom.entities.push(new PainMechant({ posX: 300, posY: 300 }));
-    this.currentRoom.entities.push(new PainMechantVolant({ posX: 700, posY: 250 }));
+    this.currentStage.rooms.flat().filter(room => room !== this.currentStage.spawn)
+      .forEach(room => this.generateEnemies(room));
 
     GameRender.renderAll();
   }
+
+  static generateEnemies(room: Room) {
+    const nbrEnemies = this.rngEnemies.intBetween(0, 5);
+
+    Logger.log(`${nbrEnemies} ennemis générés pour la salle [${room.coords.posX};${room.coords.posY}]`, "ENEMY_GENERATION");
+
+    if (nbrEnemies === 0) return;
+
+    const enemies: Enemy[] = [];
+
+    for (let i = 0; i < nbrEnemies; i++)
+      enemies.push(this.createRandomEnemy(this.rngEnemies) as Enemy);
+
+    const possibleTiles = room.tiles.flat().filter(tile => tile.canFlyOver || tile.canWalkThrough);
+
+    Logger.logObject(possibleTiles, "ENEMY_GENERATION");
+
+    enemies.forEach(enemy => {
+      const tiles = possibleTiles.filter(tile => (enemy.canFly && tile.canFlyOver) || tile.canWalkThrough);
+
+      Logger.logObject(tiles, "ENEMY_GENERATION");
+
+      if (tiles.length === 0) { Logger.log(`Pas assez de place pour placer ${enemy.name}`, "ENEMY_GENERATION"); return; }
+
+      const tileIndex = this.rngEnemies.intBetween(0, tiles.length - 1);
+
+      const tile = tiles[tileIndex] as Tile;
+
+      enemy.coords = tile.getPixelCoords();
+      possibleTiles.slice(possibleTiles.findIndex(t => t === tile), 1);
+
+      room.entities.push(enemy);
+    });
+
+  }
+
+  static createRandomEnemy(rand: RandomSeed) {
+    const enemyIndex = rand.intBetween(0, 2);
+
+    const enemy = EnemyDictionary.createByIndex(enemyIndex);
+
+    Logger.logObject(enemy, "ENEMY_GENERATION");
+
+    return enemy;
+
+  }
+
   static end() {
     if (this.gameLoopInterval) clearInterval(this.gameLoopInterval);
     // Recuperer les data de la partie
