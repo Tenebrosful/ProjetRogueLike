@@ -168,14 +168,14 @@ export default abstract class Game {
       const collectedItems = Game.playerEntity.collectedItems.toString();
       const coveredStage = Game.playerEntity.coveredStage.toString();
       const killedMonster = Game.playerEntity.killedMonster.toString();
-            
+
       const token = localStorage.getItem("token");
 
       const result = await fetch("/end", {
           body: JSON.stringify({
-            killedMonster,
-            coveredStage,
             collectedItems,
+            coveredStage,
+            killedMonster,
             token
           }),
           headers: {

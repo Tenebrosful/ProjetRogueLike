@@ -1,12 +1,12 @@
 import * as mongoose from "mongoose";
 
 const UserSchema = new mongoose.Schema({
-    password: { required: true, type: String },
     parties : [
         {
         ref: "GameSchema",
         type: mongoose.Schema.Types.ObjectId        
         }],
+    password: { required: true, type: String },
     username: { required: true, type: String, unique: true }
 }, { collection: "users" });
 
