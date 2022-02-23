@@ -1,10 +1,13 @@
 import { Direction } from "../enum/direction";
 import Debug from "./Debug";
 import Game from "./Game";
+import Healbar from "./Healbar";
+import Inventory from "./Inventory";
 
 export default abstract class Controls {
   static controls = {
     debug: "KeyR",
+    inventory: "KeyI",
     walking: {
       down: "ArrowDown",
       left: "ArrowLeft",
@@ -19,7 +22,8 @@ export default abstract class Controls {
       left: false,
       right: false,
       up: false
-    }
+    },
+
   };
 
   static setup() {
@@ -54,6 +58,14 @@ export default abstract class Controls {
         Game.debug = !Game.debug;
       else if (Game.debug)
         Debug.debugControls(e); // Must be in last
+      else if (e.code === this.controls.inventory)
+        if(!Inventory.visible){
+          Inventory.display();
+          Inventory.visible = true ;
+        }else{
+          Inventory.hide();
+          Inventory.visible = false;
+        }
     };
   }
 
