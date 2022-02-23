@@ -165,9 +165,10 @@ export default abstract class Game {
   static postGameData(){
     sendXHR()
     async function sendXHR() {
-      const killedMonster = Game.playerEntity.killedMonster.toString();
-      const coveredStage = Game.playerEntity.coveredStage.toString();
       const collectedItems = Game.playerEntity.collectedItems.toString();
+      const coveredStage = Game.playerEntity.coveredStage.toString();
+      const killedMonster = Game.playerEntity.killedMonster.toString();
+            
       const token = localStorage.getItem("token");
 
       const result = await fetch("/end", {
