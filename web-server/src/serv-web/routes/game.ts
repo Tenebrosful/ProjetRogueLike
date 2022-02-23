@@ -13,10 +13,10 @@ const JWT_SECRET = process.env.JWT_SECRET || randomBytes(10).toString("hex");
 
 game.post("/end", async (req, res) => {   
     const { killedMonster, coveredStage, collectedItems, token } = req.body;
-    let pseudoJoueur = 'Guess'
+    let pseudoJoueur = "Guess";
     if(token !== null){
         const user = jwt.verify(token, JWT_SECRET) as { id: string, username: string };
-        if(user.username) pseudoJoueur = user.username
+        if(user.username) pseudoJoueur = user.username;
     }
     // Vérification des champs 
     await Game.create({
@@ -28,9 +28,9 @@ game.post("/end", async (req, res) => {
         if(token !== null){
             const user = jwt.verify(token, JWT_SECRET) as { id: string, username: string };
             User.findById(user.id).then(doc => {
-                doc["parties"].push(docGame._id)
+                doc["parties"].push(docGame._id);
                 doc.save();
-            })
+            });
         }
     });
     res.status(200).json({ status: "ok" }); 

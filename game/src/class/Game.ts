@@ -163,7 +163,7 @@ export default abstract class Game {
   }
 
   static postGameData(){
-    sendXHR()
+    sendXHR();
     async function sendXHR() {
       const collectedItems = Game.playerEntity.collectedItems.toString();
       const coveredStage = Game.playerEntity.coveredStage.toString();
@@ -184,16 +184,16 @@ export default abstract class Game {
           method: "POST"
       }).then((res) => res.json());
 
-      if (result.status !== "ok"){
+      if (result.status !== "ok")
         alert("erreur de sauvegarde de la partie");
-      }
+      
     }
   }
 
   static end() {
     if (this.gameLoopInterval) clearInterval(this.gameLoopInterval);
     Game.postGameData(); // Récupère les données de la partie puis les sauvegarde
-    GameRender.clearGameContainer(); //Vide la div contenant l'affichage du jeu
+    GameRender.clearGameContainer(); // Vide la div contenant l'affichage du jeu
     GameRender.displayEndGame(); // Affichage du message de fin de partie avec lien pour relancer une partie
     return;
   }
