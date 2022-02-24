@@ -31,6 +31,9 @@ app.use("/", webpage);
 import account from "./routes/account";
 app.use("/api/account", account);
 
+import game from "./routes/game";
+app.use("/", game);
+
 /**
  * Handle Errors
  */
