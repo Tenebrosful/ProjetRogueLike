@@ -38,8 +38,8 @@ if(games !== "[]"){
     divHistory.appendChild(h2)
   }
 
-function initTbody(table,games){
-  const gamesAsJson = JSON.parse(games)
+function initTbody(table,parties){
+  const gamesAsJson = JSON.parse(parties)
   console.log(gamesAsJson)
   let tbody = document.createElement('tbody')
     table.appendChild(tbody)
