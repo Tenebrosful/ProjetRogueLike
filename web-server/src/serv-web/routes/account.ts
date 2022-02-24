@@ -83,32 +83,32 @@ account.post("/change-password", async (req, res) => {
 account.post("/history", async(req,res) => {
     const { token } = req.body;
     const user = jwt.verify(token, JWT_SECRET) as { id: string, username: string };
-    let user_id = user.id
+    const user_id = user.id;
 
     User.findOne({_id: user_id}).then(async (docUser)=>{
 
-        let fn = async function getGame(game_id: any){
-            return Game.findOne({_id:game_id})
-        }
+        const fn = async function getGame(game_id: any){
+            return Game.findOne({_id:game_id});
+        };
 
-        let actions = await docUser.parties.map(fn)
-        let results = await Promise.all(actions)
+        const actions = await docUser.parties.map(fn);
+        const results = await Promise.all(actions);
 
-        let historique = Array();
+        const historique = [];
         results.forEach(result => {
-            let partie = 
+            const partie = 
             [
                 {gameDate: result.gameDate},
                 {killedMonsters: result.killedMonster},
                 {coveredStages: result.coveredStage},
                 {collectedItems: result.collectedItems}
-            ]
-            historique.push(partie)
+            ];
+            historique.push(partie);
         });
-        let StringHistory = JSON.stringify(historique)
+        const StringHistory = JSON.stringify(historique);
         res.status(200).json({  data : StringHistory,status: "ok"});
-    })
+    });
     
-})
+});
 
 export default account;

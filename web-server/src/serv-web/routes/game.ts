@@ -18,7 +18,7 @@ game.post("/end", async (req, res) => {
         if(user.username) pseudoJoueur = user.username;
     }
     // Vérification des champs 
-    const gameDate = addDate()
+    const gameDate = addDate();
     await Game.create({
         collectedItems,
         coveredStage,
@@ -46,17 +46,17 @@ game.get("/play",(req,res)=>{
 });
 
 game.get("/history",(req,res)=>{
-    console.log("ha")
+    console.log("ha");
     res.render("game/history");
 });
 
 function addDate(){
     const date = new Date();
-    console.log(date)
+    console.log(date);
     const [hour, minutes, seconds] = [date.getHours(), date.getMinutes(), date.getSeconds()];
     const [month, day, year]       = [date.getMonth(), date.getDate(), date.getFullYear()];
-    const ma_date = hour + "/" + minutes + "/" + seconds + "/" + day + "/" + month + "/" + year
-    return ma_date
+    const ma_date = hour + "/" + minutes + "/" + seconds + "/" + day + "/" + month + "/" + year;
+    return ma_date;
 }
 
 export default game;
