@@ -100,6 +100,7 @@ account.post("/history", async(req,res) => {
         results.forEach(result => {
             let partie = 
             [
+                {gameDate: result.gameDate},
                 {killedMonsters: result.killedMonster},
                 {coveredStages: result.coveredStage},
                 {collectedItems: result.collectedItems}
@@ -112,7 +113,5 @@ account.post("/history", async(req,res) => {
     })
     
 })
-
-
 
 export default account;
