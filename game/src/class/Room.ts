@@ -95,7 +95,7 @@ export default class Room {
       .forEach(entity => entity.iaMovement.think(entity));
   }
 
-  checkContactAllEntities() {
+  checkInteractAllEntities() {
     (this.entities.filter(entity => entity instanceof ThinkingEntity) as ThinkingEntity[])
       .forEach(entity => entity.iaInteract.think(entity));
   }
