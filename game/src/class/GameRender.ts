@@ -120,20 +120,48 @@ export default abstract class GameRender {
     resultContainer.classList.add("container");
     
     const replayLink = document.createElement("a");
+    replayLink.classList.add("btn")
+    replayLink.classList.add("btn-primary")
+    replayLink.classList.add("mt-3")
     replayLink.href="/play";
     replayLink.innerText="Rejouer";
+
+    const historyLink = document.createElement("a");
+    historyLink.classList.add("btn")
+    historyLink.classList.add("btn-secondary")
+    historyLink.classList.add("mt-3")
+    historyLink.classList.add("ms-3")
+    historyLink.href="/history";
+    historyLink.innerText="Historique des dernières parties";
     
     const resultH1 = document.createElement("h1");
     resultH1.innerText = "Vous êtes morts";
     
     const resultUl = document.createElement("ul");
+      resultUl.classList.add("list-group")
+
+    const liCollectedItems = document.createElement("li");
+      liCollectedItems.classList.add("list-group-item")
+      liCollectedItems.classList.add("list-group-item-secondary")
+      liCollectedItems.innerText = `Objets ramassés : ${Game.playerEntity.collectedItems}`;
+
     const liKilledMonster = document.createElement("li");
-    liKilledMonster.innerText = `Vous avez tué ${Game.playerEntity.killedMonster} monstres`;
+      liKilledMonster.classList.add("list-group-item")
+      liKilledMonster.classList.add("list-group-item-secondary")
+      liKilledMonster.innerText = `Monstres tués : ${Game.playerEntity.killedMonster}`;
+
+    const liCoveredStages = document.createElement("li");
+      liCoveredStages.classList.add("list-group-item")
+      liCoveredStages.classList.add("list-group-item-secondary")
+      liCoveredStages.innerText = `Etages parcourus : ${Game.playerEntity.coveredStage}`;
       
     resultContainer.appendChild(resultH1);
     resultContainer.appendChild(resultUl);
     resultContainer.appendChild(replayLink);
+    resultContainer.appendChild(historyLink);
+    resultUl.appendChild(liCollectedItems);
     resultUl.appendChild(liKilledMonster);
+    resultUl.appendChild(liCoveredStages);
     document.body.appendChild(resultContainer);
   }
 
