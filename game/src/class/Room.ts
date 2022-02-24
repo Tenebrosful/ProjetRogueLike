@@ -95,6 +95,11 @@ export default class Room {
       .forEach(entity => entity.iaMovement.think(entity));
   }
 
+  checkContactAllEntities() {
+    (this.entities.filter(entity => entity instanceof ThinkingEntity) as ThinkingEntity[])
+      .forEach(entity => entity.iaInteract.think(entity));
+  }
+
   getTile(coords: Coordinates) {
     return this.tiles[coords.posY]?.[coords.posX];
   }

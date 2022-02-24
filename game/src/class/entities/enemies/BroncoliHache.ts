@@ -1,8 +1,10 @@
 import IAMovementLigne from "../../ia/movement/IAMovementLigne";
+import IAOnPlayerContact from "../../ia/movement/IAOnPlayerContact";
 import Enemy from "./Enemy";
 
 export default class BroncoliHache extends Enemy {
   iaMovement = new IAMovementLigne;
+  iaInteract = new IAOnPlayerContact(10);
 
   name = "BroncoliHache";
   sprites = {
@@ -25,6 +27,10 @@ export default class BroncoliHache extends Enemy {
       width: 38
     }
   };
+
+  onContact(): void {
+      console.log("fight !");
+  }
 
   canFly = false;
 

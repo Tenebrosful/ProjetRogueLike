@@ -30,7 +30,7 @@ export default class PainMechantVolant extends Enemy {
   };
 
   onContact(){
-    console.log("COMBAT !");
+    window.alert("TEST");
   }
 
   canFly = true;

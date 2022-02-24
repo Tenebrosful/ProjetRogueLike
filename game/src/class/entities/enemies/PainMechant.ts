@@ -1,8 +1,10 @@
 import IAMovementSquare from "../../ia/movement/IAMovementSquare";
+import IAOnPlayerContact from "../../ia/movement/IAOnPlayerContact";
 import Enemy from "./Enemy";
 
 export default class PainMechant extends Enemy {
   iaMovement = new IAMovementSquare;
+  iaInteract = new IAOnPlayerContact(5);
 
   name = "PainMechant";
   sprites = {
@@ -25,6 +27,10 @@ export default class PainMechant extends Enemy {
       width: 64
     }
   };
+
+  onContact(): void {
+    console.log("fight !");
+}
 
   canFly = false;
 
