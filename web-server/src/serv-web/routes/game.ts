@@ -20,9 +20,9 @@ game.post("/end", async (req, res) => {
     // Vérification des champs 
     const gameDate = addDate()
     await Game.create({
-        gameDate,
         collectedItems,
         coveredStage,
+        gameDate,
         killedMonster,
         pseudoJoueur
     }).then((docGame: { _id: any; }) => {

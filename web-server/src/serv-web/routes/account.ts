@@ -5,9 +5,7 @@ import * as dotenv from "dotenv";
 import { User } from "../../database/models/User";
 import { randomBytes } from "crypto";
 import { MongoError } from "mongodb";
-import { appendFile } from "fs";
 import { Game } from "../../database/models/Game";
-import { stringify } from "querystring";
 
 dotenv.config({ path: "config/serv-web.env" });
 const account = express.Router();
@@ -108,8 +106,7 @@ account.post("/history", async(req,res) => {
             historique.push(partie)
         });
         let StringHistory = JSON.stringify(historique)
-        console.log(StringHistory)
-        res.status(200).json({ status: "ok", data : StringHistory});
+        res.status(200).json({  data : StringHistory,status: "ok"});
     })
     
 })

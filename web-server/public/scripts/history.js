@@ -23,7 +23,6 @@ document.addEventListener('DOMContentLoaded', function () {
 });
 
 function addGamesToDom(games){
-if(!games) return
 if(games !== "[]"){
   let divHistory = document.getElementById('history')
   let table = document.createElement('table')
