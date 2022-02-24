@@ -124,15 +124,7 @@ export default abstract class GameRender {
     replayLink.classList.add("btn-primary")
     replayLink.classList.add("mt-3")
     replayLink.href="/play";
-    replayLink.innerText="Rejouer";
-
-    const historyLink = document.createElement("a");
-    historyLink.classList.add("btn")
-    historyLink.classList.add("btn-secondary")
-    historyLink.classList.add("mt-3")
-    historyLink.classList.add("ms-3")
-    historyLink.href="/history";
-    historyLink.innerText="Historique des dernières parties";
+    replayLink.innerText="Rejouer";   
     
     const resultH1 = document.createElement("h1");
     resultH1.innerText = "Vous êtes morts";
@@ -157,8 +149,21 @@ export default abstract class GameRender {
       
     resultContainer.appendChild(resultH1);
     resultContainer.appendChild(resultUl);
-    resultContainer.appendChild(replayLink);
+    resultContainer.appendChild(replayLink);  
+
+    const token = localStorage.getItem("token");
+    if (token){
+      const historyLink = document.createElement("a");
+    historyLink.classList.add("btn")
+    historyLink.classList.add("btn-secondary")
+    historyLink.classList.add("mt-3")
+    historyLink.classList.add("ms-3")
+    historyLink.href="/history";
+    historyLink.innerText="Historique des dernières parties";
+    
     resultContainer.appendChild(historyLink);
+    }  
+    
     resultUl.appendChild(liCollectedItems);
     resultUl.appendChild(liKilledMonster);
     resultUl.appendChild(liCoveredStages);

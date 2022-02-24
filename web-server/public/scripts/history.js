@@ -3,7 +3,7 @@ document.addEventListener('DOMContentLoaded', function () {
   async function sendXHR() {
 
     const token = localStorage.getItem("token");
-
+    if (!token) return
     const result = await fetch("/api/account/history", {
       body: JSON.stringify({
         token,
