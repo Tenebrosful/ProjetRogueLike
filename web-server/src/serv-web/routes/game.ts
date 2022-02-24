@@ -10,7 +10,6 @@ const game = express.Router();
 
 const JWT_SECRET = process.env.JWT_SECRET || randomBytes(10).toString("hex");
 
-
 game.post("/end", async (req, res) => {   
     const { killedMonster, coveredStage, collectedItems, token } = req.body;
     let pseudoJoueur = "Guess";
@@ -34,6 +33,20 @@ game.post("/end", async (req, res) => {
         }
     });
     res.status(200).json({ status: "ok" }); 
+});
+
+game.get("/menu",(req,res)=>{
+    res.render("game/menu");
+});
+
+game.get("/play",(req,res)=>{
+    res.render("game/play");
+});
+
+let historique = true;
+game.get("/history",(req,res)=>{
+    console.log("ha")
+    res.render("game/history",{historique: historique});
 });
 
 export default game;
