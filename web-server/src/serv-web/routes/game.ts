@@ -10,7 +10,6 @@ const game = express.Router();
 
 const JWT_SECRET = process.env.JWT_SECRET || randomBytes(10).toString("hex");
 
-
 game.post("/end", async (req, res) => {   
     const { killedMonster, coveredStage, collectedItems, token } = req.body;
     let pseudoJoueur = "Guess";
@@ -19,9 +18,11 @@ game.post("/end", async (req, res) => {
         if(user.username) pseudoJoueur = user.username;
     }
     // Vérification des champs 
+    const gameDate = addDate()
     await Game.create({
         collectedItems,
         coveredStage,
+        gameDate,
         killedMonster,
         pseudoJoueur
     }).then((docGame: { _id: any; }) => {
@@ -35,5 +36,27 @@ game.post("/end", async (req, res) => {
     });
     res.status(200).json({ status: "ok" }); 
 });
+
+game.get("/menu",(req,res)=>{
+    res.render("game/menu");
+});
+
+game.get("/play",(req,res)=>{
+    res.render("game/play");
+});
+
+game.get("/history",(req,res)=>{
+    console.log("ha")
+    res.render("game/history");
+});
+
+function addDate(){
+    const date = new Date();
+    console.log(date)
+    const [hour, minutes, seconds] = [date.getHours(), date.getMinutes(), date.getSeconds()];
+    const [month, day, year]       = [date.getMonth(), date.getDate(), date.getFullYear()];
+    const ma_date = hour + "/" + minutes + "/" + seconds + "/" + day + "/" + month + "/" + year
+    return ma_date
+}
 
 export default game;
