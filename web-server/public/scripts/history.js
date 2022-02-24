@@ -34,6 +34,7 @@ if(games !== "[]"){
 }else{
   let divHistory = document.getElementById('history')
   let h2 = document.createElement('h2')
+    h2.classList.add("mt-3")
     h2.innerText="Vous n'avez pas de partie récente"
     divHistory.appendChild(h2)
   }
@@ -41,22 +42,27 @@ if(games !== "[]"){
 function initTbody(table,games){
   const gamesAsJson = JSON.parse(games)
   console.log(gamesAsJson)
-  //Ajouter le Tbody
   let tbody = document.createElement('tbody')
     table.appendChild(tbody)
   gamesAsJson.forEach(partie => {
     let line_tr = document.createElement('tr')
     let date_th = document.createElement('th')
       date_th.setAttribute('score','row')
-      date_th.innerText = "24/02/2020"
+      if(partie[0].gameDate){
+        date_th.innerText = formatDate(partie[0].gameDate)
+      }else{
+        date_th.innerText = "Date"
+      }
+      
+
     let killedMonster_td = document.createElement('td')
-      killedMonster_td.innerText = partie[0].killedMonsters
+      killedMonster_td.innerText = partie[1].killedMonsters
     
     let coveredStages_td = document.createElement('td')
-      coveredStages_td.innerText = partie[1].coveredStages
+      coveredStages_td.innerText = partie[2].coveredStages
 
     let collectedItem_td = document.createElement('td')
-      collectedItem_td.innerText = partie[2].collectedItems
+      collectedItem_td.innerText = partie[3].collectedItems
     
     line_tr.appendChild(date_th)
     line_tr.appendChild(collectedItem_td)
@@ -65,7 +71,12 @@ function initTbody(table,games){
     tbody.appendChild(line_tr)
   });
 }
-
+function formatDate(date){
+  let splitedDate = date.split('/')
+  let formatedDate = `${splitedDate[0]}:${splitedDate[1]}:${splitedDate[2]}, ${splitedDate[3]}/${parseInt(splitedDate[4]) + 1}/${splitedDate[5]}`
+  //On ajoute 1 au mois lors de l'affichage car en JS les mois partent de 0
+  return formatedDate
+}
 function initThead(table){
   let thead = document.createElement('thead')
   let head_tr = document.createElement('tr')
