@@ -1,5 +1,3 @@
-import Game from "./Game";
-
 export default abstract class Inventory {
     public static itemList = new Array(40);
     private static div = document.getElementById("inventory") as HTMLDivElement;
