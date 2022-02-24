@@ -18,7 +18,9 @@ game.post("/end", async (req, res) => {
         if(user.username) pseudoJoueur = user.username;
     }
     // Vérification des champs 
+    const gameDate = addDate()
     await Game.create({
+        gameDate,
         collectedItems,
         coveredStage,
         killedMonster,
@@ -43,10 +45,18 @@ game.get("/play",(req,res)=>{
     res.render("game/play");
 });
 
-let historique = true;
 game.get("/history",(req,res)=>{
     console.log("ha")
-    res.render("game/history",{historique: historique});
+    res.render("game/history");
 });
+
+function addDate(){
+    const date = new Date();
+    console.log(date)
+    const [hour, minutes, seconds] = [date.getHours(), date.getMinutes(), date.getSeconds()];
+    const [month, day, year]       = [date.getMonth(), date.getDate(), date.getFullYear()];
+    const ma_date = hour + "/" + minutes + "/" + seconds + "/" + day + "/" + month + "/" + year
+    return ma_date
+}
 
 export default game;
