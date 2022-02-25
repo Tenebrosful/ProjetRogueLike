@@ -10,7 +10,9 @@ import Stage from "./Stage";
 import { RandomSeed } from "random-seed";
 import EnemyDictionary from "../dictionary/EnemyDictionary";
 import Enemy from "./entities/enemies/Enemy";
+import Item from "./entities/items/Item";
 import Tile from "./tiles/Tile";
+import ItemDictionary from "../dictionary/ItemDictionary";
 
 export default abstract class Game {
   private static _fps = 60;
@@ -25,6 +27,7 @@ export default abstract class Game {
   static seed: string;
   static rngStage: RandomSeed;
   static rngEnemies: RandomSeed;
+  static rngItems: RandomSeed;
   static rngLoots: RandomSeed;
 
   static debug = false;
@@ -87,6 +90,7 @@ export default abstract class Game {
 
   static gameLoop() {
     Controls.handlePlayerMove();
+    Game.currentRoom.checkEntitiesCollisionsWithHeros();
     Game.currentRoom.moveAllEntities();
     GameRender.renderAllDynamic();
   }
@@ -111,7 +115,7 @@ export default abstract class Game {
     Logger.logObject(this.playerEntity, "GAME");
 
     this.currentStage.rooms.flat().filter(room => room !== this.currentStage.spawn)
-      .forEach(room => this.generateEnemies(room));
+      .forEach(room => {this.generateEnemies(room),  this.generateItems(room)});
 
     GameRender.renderAll();
   }
@@ -148,7 +152,6 @@ export default abstract class Game {
 
       room.entities.push(enemy);
     });
-
   }
 
   static createRandomEnemy(rand: RandomSeed) {
@@ -159,7 +162,44 @@ export default abstract class Game {
     Logger.logObject(enemy, "ENEMY_GENERATION");
 
     return enemy;
+  }
 
+  static generateItems(room: Room) {
+    const nbrItems = this.rngLoots.intBetween(1, 3);
+
+
+    if (nbrItems === 0) return;
+
+    const items: Item[] = [];
+
+    for (let i = 0; i < nbrItems; i++)
+    items.push(this.createRandomItems(this.rngLoots) as Item);
+
+    const possibleTiles = room.tiles.flat().filter(tile => (tile.canWalkThrough) && !tile.isDoor());
+    console.log(items);
+    items.forEach(item => {
+    const tiles = possibleTiles.filter(tile => (tile.canWalkThrough));
+    console.log(item);
+    Logger.logObject(tiles, "ENEMY_GENERATION");
+
+    if (tiles.length === 0) { console.log("pas assez de place pour item"); return; }
+
+    const tileIndex = this.rngLoots.intBetween(0, tiles.length - 1);
+
+    const tile = tiles[tileIndex] as Tile;
+    item.coords = tile.getPixelCoords();
+    possibleTiles.slice(possibleTiles.findIndex(t => t === tile), 1);
+
+    room.entities.push(item);
+    });
+  }
+
+  static createRandomItems(rand: RandomSeed) {
+    const itemIndex = rand.intBetween(0,1);
+
+    const item = ItemDictionary.createByIndex(itemIndex);
+
+    return item;
   }
 
   static postGameData(){
