@@ -11,6 +11,7 @@ import ThinkingEntity from "./entities/ThinkingEntity";
 import Game from "./Game";
 import GameRender from "./GameRender";
 import Logger from "./Logger";
+import Item from "./entities/items/Item";
 
 export default class Room {
   coords: Coordinates;
@@ -99,7 +100,18 @@ export default class Room {
   checkEntitiesCollisionsWithHeros() {
     this.entities.forEach(entity => {
       if(entity.checkCollisionsWithHeros()){
-        Logger.log(`On a une collision !${entity.name}`);
+        if(entity.type === 2){
+          //Monstre
+        }else if(entity.type === 3){
+          //Item
+          let item = entity as Item;
+          if (Game.playerEntity.inventory.canAddItem()){
+            Game.playerEntity.inventory.add(item);
+            Game.currentRoom.removeEntity(item);
+          }
+          item.use()
+        }
+        Logger.log(`On a une collision !${entity.type}, ${entity.name}`)
         return;
       }
     });
@@ -124,7 +136,19 @@ export default class Room {
     this.entities.push(Game.playerEntity);
   }
 
+  removeEntity(entity: Entity){
+    const index = this.entities.indexOf(entity);
+    if(index === -1) return;
+
+    console.log("Entity Preremoved",entity,index)
+    console.log("Entitées", this.entities)
+
+    this.entities.splice(index, 1);
+    
+    console.log("Entity Removed",entity,index);
+    console.log("Entitées", this.entities);
+  }
   removePlayer() {
-    this.entities.slice(this.entities.findIndex(entite => entite.isPlayer()), 1);
+    this.entities.splice(this.entities.findIndex(entite => entite.isPlayer()), 1);
   }
 }
