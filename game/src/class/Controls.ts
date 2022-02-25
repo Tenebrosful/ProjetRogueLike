@@ -74,6 +74,11 @@ export default abstract class Controls {
       else if (Game.debug)
         Debug.debugControls(e); // Must be in last
       else if (e.code === this.controls.inventory)
+      {
+        this.currentState.walking.up = false;
+        this.currentState.walking.down = false;
+        this.currentState.walking.right = false;
+        this.currentState.walking.left = false;
         if(!Inventory.visible){
           Inventory.display();
           Inventory.visible = true ;
@@ -81,7 +86,7 @@ export default abstract class Controls {
           Inventory.hide();
           Inventory.visible = false;
         }
-      
+      }
     };
   }
 
