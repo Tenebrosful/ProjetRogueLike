@@ -94,7 +94,7 @@ account.post("/history", async(req,res) => {
         const actions = await docUser.parties.map(fn);
         const results = await Promise.all(actions);
 
-        let historique = Array();
+        const historique = [];
         results.forEach(result => {
             const partie = 
             [

@@ -1,4 +1,4 @@
-import Item from "./Item"
+import Item from "./Item";
 import Game from "../../Game";
 
 export default class PommeOr extends Item {
@@ -18,13 +18,13 @@ export default class PommeOr extends Item {
   };
 
     use(): void {
-        if(  Game.playerEntity.life !== 100){
-            if( Game.playerEntity.life < 90){
+        if(  Game.playerEntity.life !== 100)
+            if( Game.playerEntity.life < 90)
                 Game.playerEntity.life += 10;
-            }else{
+            else
                 Game.playerEntity.life = 100;
-            }
-        }
+            
+        
        
     }
 }

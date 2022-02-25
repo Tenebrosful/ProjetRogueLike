@@ -58,14 +58,14 @@ export default abstract class Entity {
   }
 
   checkCollisionsWithHeros(){
-    if(this.isPlayer())return false
-    let collision = false
-    let box = this.getHitbox()
-    let herosBox = Game.playerEntity.getHitbox()
+    if(this.isPlayer())return false;
+    let collision = false;
+    const box = this.getHitbox();
+    const herosBox = Game.playerEntity.getHitbox();
     // Si l'un des 4points de ma hitBox se situe entre le point haut gauche et point bas droite du héros, je suis en collision avec lui
 
     // Top left
-    /*Logger.log(`Héros Top Left : ${herosBox.topLeft.posX},${herosBox.topLeft.posY}`)
+    /* Logger.log(`Héros Top Left : ${herosBox.topLeft.posX},${herosBox.topLeft.posY}`)
     Logger.log(`Héros Top Right : ${herosBox.topRight.posX},${herosBox.topRight.posY}`)
     Logger.log(`Héros Bot Left : ${herosBox.botLeft.posX},${herosBox.botLeft.posY}`)
     Logger.log(`Héros Bot Right : ${herosBox.botRight.posX},${herosBox.botRight.posY}`)
@@ -76,7 +76,7 @@ export default abstract class Entity {
     if (herosBox.topLeft.posX <= box.topLeft.posX && box.topLeft.posX <= herosBox.botRight.posX &&
         herosBox.topLeft.posY <= box.topLeft.posY && box.topLeft.posY <= herosBox.botRight.posY)
       {
-        Logger.log("Collision top left")
+        Logger.log("Collision top left");
         collision = true;
       }
     else 
@@ -84,7 +84,7 @@ export default abstract class Entity {
     if (herosBox.topLeft.posX <= box.topRight.posX && box.topRight.posX <= herosBox.botRight.posX &&
         herosBox.topLeft.posY <= box.topRight.posY && box.topRight.posY <= herosBox.botRight.posY)
         {
-          Logger.log("Collision top right")
+          Logger.log("Collision top right");
           collision = true;
         }
     else
@@ -92,7 +92,7 @@ export default abstract class Entity {
     if (herosBox.topLeft.posX <= box.botLeft.posX && box.botLeft.posX <= herosBox.botRight.posX &&
         herosBox.topLeft.posY <= box.botLeft.posY && box.botLeft.posY <= herosBox.botRight.posY)
         {
-          Logger.log("Collision bot left")
+          Logger.log("Collision bot left");
           collision = true;
         }
     else
@@ -100,10 +100,10 @@ export default abstract class Entity {
     if (herosBox.topLeft.posX <= box.botRight.posX && box.botRight.posX <= herosBox.botRight.posX &&
         herosBox.topLeft.posY <= box.botRight.posY && box.botRight.posY <= herosBox.botRight.posY)
         {
-          Logger.log("Collision bot right")
+          Logger.log("Collision bot right");
           collision = true;
         }
-    return collision
+    return collision;
   }
 
   move(direction: Direction) {
@@ -192,8 +192,8 @@ export default abstract class Entity {
       Game.currentRoom.getTilePixelCoords(hitbox.botRight)
     ]);
 
-    //Logger.log(`${this.name} walking on`, "ENTITY");
-    //Logger.logObject(tilesIn, "ENTITY");
+    // Logger.log(`${this.name} walking on`, "ENTITY");
+    // Logger.logObject(tilesIn, "ENTITY");
 
     tilesIn.forEach(tile => {
       if (!tile) return;

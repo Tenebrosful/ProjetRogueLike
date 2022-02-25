@@ -99,7 +99,7 @@ export default class Room {
   checkEntitiesCollisionsWithHeros() {
     this.entities.forEach(entity => {
       if(entity.checkCollisionsWithHeros()){
-        Logger.log(`On a une collision !${entity.name}`)
+        Logger.log(`On a une collision !${entity.name}`);
         return;
       }
     });

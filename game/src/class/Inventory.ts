@@ -1,19 +1,19 @@
 export default abstract class Inventory {
     public static itemList = new Array(40);
     private static div = document.getElementById("inventory") as HTMLDivElement;
-    public static visible = false as Boolean;
+    public static visible = false as boolean;
 
 
     static add(){
       if(this.itemList.length <= 40){
         // Inventory.itemList.push(item);
-      Inventory.div.innerHTML += '<img src="/static/img/items/pommeOr.png"/>';
+      Inventory.div.innerHTML += "<img src=\"/static/img/items/pommeOr.png\"/>";
       return true;
       }
       return false;
     }
 
-    /*static remove(){
+    /* static remove(){
 
     }*/
 
