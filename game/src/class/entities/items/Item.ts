@@ -1,5 +1,3 @@
-import Game from "../../Game";
-import { Coordinates } from "../../../typing/tiles";
 import { entityType } from "../../../enum/entityType";
 import Entity from "../Entity";
 

@@ -13,9 +13,9 @@ export default abstract class Inventory {
       return false;
     }
 
-    static remove(){
+    /*static remove(){
 
-    }
+    }*/
 
     static display(){
       Inventory.div.style.display = "inline";

@@ -1,5 +1,4 @@
 import Item from "./Item"
-import Game from "../../Game";
 
 export default class Treasure extends Item {
 

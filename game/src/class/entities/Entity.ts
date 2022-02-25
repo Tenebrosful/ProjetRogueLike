@@ -38,21 +38,21 @@ export default abstract class Entity {
 
   getHitbox(): Hitbox {
     return {
-      topRight: {
-        posX: this.coords.posX + this.hitbox.size.width + this.hitbox.offset.x,
-        posY: this.coords.posY + this.hitbox.offset.y
-      },
-      topLeft: {
+      botLeft: {
         posX: this.coords.posX + this.hitbox.offset.x,
-        posY: this.coords.posY + this.hitbox.offset.y
+        posY: this.coords.posY + this.hitbox.size.height
       },
       botRight: {
         posX: this.coords.posX + this.hitbox.size.width + this.hitbox.offset.x,
         posY: this.coords.posY + this.hitbox.size.height
       },
-      botLeft: {
+      topLeft: {
         posX: this.coords.posX + this.hitbox.offset.x,
-        posY: this.coords.posY + this.hitbox.size.height
+        posY: this.coords.posY + this.hitbox.offset.y
+      },
+      topRight: {
+        posX: this.coords.posX + this.hitbox.size.width + this.hitbox.offset.x,
+        posY: this.coords.posY + this.hitbox.offset.y
       },
     };
   }

@@ -13,7 +13,6 @@ import Enemy from "./entities/enemies/Enemy";
 import Item from "./entities/items/Item";
 import Tile from "./tiles/Tile";
 import ItemDictionary from "../dictionary/ItemDictionary";
-import { Console } from "console";
 
 export default abstract class Game {
   private static _fps = 60;

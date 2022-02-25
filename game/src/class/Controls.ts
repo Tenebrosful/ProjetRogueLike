@@ -1,7 +1,6 @@
 import { Direction } from "../enum/direction";
 import Debug from "./Debug";
 import Game from "./Game";
-import Healbar from "./Healbar";
 import Inventory from "./Inventory";
 
 export default abstract class Controls {
