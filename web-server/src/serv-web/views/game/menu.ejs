@@ -13,13 +13,15 @@
             <%- include('../partials/navbar.ejs') %>
         </header>
         <main>
-            <a href="/play">Nouvelle partie</a>
-            <a href="/history">Reprendre une partie sauvegardée</a>
-            <a href="/history">Voir mes dernières parties</a>
-            <h1>Règles du jeu</h1>
-            <p>Vous etes dans un donjon avec plusieurs étages composés de différentes salles.
-                Pour vous déplacer vous pouver utiliser les touches de votre clavier.
-            </p>
+            <div class="container mt-3">
+                <h1>Règles du jeu</h1>
+                <p>Vous etes dans un donjon avec plusieurs étages composés de différentes salles.
+                    Pour vous déplacer vous pouver utiliser les touches de votre clavier.
+                </p>
+                <a href="/play" class="btn btn-primary">Nouvelle partie</a>
+                <!--<a href="/history">Reprendre une partie sauvegardée</a>-->
+                <a href="/history" class="btn btn-secondary">Voir mes dernières parties</a>
+            </div>
         </main>
     </body>
 </html>

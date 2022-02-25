@@ -203,12 +203,39 @@ export default abstract class Game {
     return item;
   }
 
+  static postGameData(){
+    sendXHR();
+    async function sendXHR() {
+      const collectedItems = Game.playerEntity.collectedItems.toString();
+      const coveredStage = Game.playerEntity.coveredStage.toString();
+      const killedMonster = Game.playerEntity.killedMonster.toString();
+
+      const token = localStorage.getItem("token");
+
+      const result = await fetch("/end", {
+          body: JSON.stringify({
+            collectedItems,
+            coveredStage,
+            killedMonster,
+            token
+          }),
+          headers: {
+              "Content-Type": "application/json"
+          },
+          method: "POST"
+      }).then((res) => res.json());
+
+      if (result.status !== "ok")
+        alert("erreur de sauvegarde de la partie");
+      
+    }
+  }
+
   static end() {
     if (this.gameLoopInterval) clearInterval(this.gameLoopInterval);
-    // Recuperer les data de la partie
-    // Les enregistrer en bdd
-    GameRender.clearGameContainer();
-    GameRender.displayEndGame();
+    Game.postGameData(); // Récupère les données de la partie puis les sauvegarde
+    GameRender.clearGameContainer(); // Vide la div contenant l'affichage du jeu
+    GameRender.displayEndGame(); // Affichage du message de fin de partie avec lien pour relancer une partie
     return;
   }
 }
