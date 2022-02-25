@@ -1,16 +1,26 @@
-export default abstract class Inventory {
-    public static itemList = new Array(40);
+import Item from "./entities/items/Item";
+
+export default class Inventory {
+    maxPlace = 40
+    itemList;
     private static div = document.getElementById("inventory") as HTMLDivElement;
     public static visible = false as Boolean;
 
+    constructor(itemList: Array<Item>) {
+      this.itemList = itemList;
+    }
 
-    static add(){
-      if(this.itemList.length <= 40){
-        // Inventory.itemList.push(item);
-      Inventory.div.innerHTML += '<img src="/static/img/items/pommeOr.png"/>';
-      return true;
+    canAddItem(){
+      if(this.itemList.length <= this.maxPlace){
+        return true
       }
       return false;
+    }
+    add(item: Item){
+      this.itemList.push(item);
+      Inventory.div.innerHTML += '<img src="/static/img/items/pommeOr.png"/>'; 
+      //Mettre un ID sur l'image pour la retirer
+      //En cas d'utilisation
     }
 
     /*static remove(){
@@ -19,7 +29,7 @@ export default abstract class Inventory {
 
     static display(){
       Inventory.div.style.display = "inline";
-      Inventory.add();
+      //Inventory.add();
     }
 
     static hide(){

@@ -1,5 +1,6 @@
 import Item from "./Item"
 import Game from "../../Game";
+import Logger from "../../Logger";
 
 export default class PommeOr extends Item {
 
@@ -18,6 +19,7 @@ export default class PommeOr extends Item {
   };
 
     use(): void {
+      Logger.log("On a mangé une pomme");
         if(  Game.playerEntity.life !== 100){
             if( Game.playerEntity.life < 90){
                 Game.playerEntity.life += 10;

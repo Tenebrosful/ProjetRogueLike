@@ -13,6 +13,7 @@ import Enemy from "./entities/enemies/Enemy";
 import Item from "./entities/items/Item";
 import Tile from "./tiles/Tile";
 import ItemDictionary from "../dictionary/ItemDictionary";
+import Inventory from "./Inventory";
 
 export default abstract class Game {
   private static _fps = 60;
@@ -45,6 +46,7 @@ export default abstract class Game {
     this.rngLoots = random_seed.create(seed);
 
     this.playerEntity = new Player();
+    this.playerEntity.inventory = new Inventory([]);
 
     this.currentFloor = 0;
 

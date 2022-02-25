@@ -2,6 +2,7 @@ import { entityType } from "../../enum/entityType";
 import { EntitySprites } from "../../typing/entity";
 import { Coordinates } from "../../typing/tiles";
 import Game from "../Game";
+import Inventory from "../Inventory";
 import Logger from "../Logger";
 import Entity from "./Entity";
 
@@ -38,6 +39,8 @@ export default class Player extends Entity {
   
   movementSpeed = 5;
   life = 100;
+
+  inventory: Inventory;
 
   killedMonster = 0;
   coveredStage = 0;
