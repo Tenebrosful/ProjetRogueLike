@@ -10,6 +10,7 @@ import Entity from "./entities/Entity";
 import ThinkingEntity from "./entities/ThinkingEntity";
 import Game from "./Game";
 import GameRender from "./GameRender";
+import Logger from "./Logger";
 
 export default class Room {
   coords: Coordinates;
@@ -93,6 +94,15 @@ export default class Room {
   moveAllEntities() {
     (this.entities.filter(entity => entity instanceof ThinkingEntity) as ThinkingEntity[])
       .forEach(entity => entity.iaMovement.think(entity));
+  }
+
+  checkEntitiesCollisionsWithHeros() {
+    this.entities.forEach(entity => {
+      if(entity.checkCollisionsWithHeros()){
+        Logger.log(`On a une collision !${entity.name}`)
+        return;
+      }
+    });
   }
 
   getTile(coords: Coordinates) {
