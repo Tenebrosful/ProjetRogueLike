@@ -101,17 +101,17 @@ export default class Room {
     this.entities.forEach(entity => {
       if(entity.checkCollisionsWithHeros()){
         if(entity.type === 2){
-          //Monstre
+          // Monstre
         }else if(entity.type === 3){
-          //Item
-          let item = entity as Item;
+          // Item
+          const item = entity as Item;
           if (Game.playerEntity.inventory.canAddItem()){
             Game.playerEntity.inventory.add(item);
             Game.currentRoom.removeEntity(item);
           }
-          item.use()
+          item.use();
         }
-        Logger.log(`On a une collision !${entity.type}, ${entity.name}`)
+        Logger.log(`On a une collision !${entity.type}, ${entity.name}`);
         return;
       }
     });
@@ -140,8 +140,8 @@ export default class Room {
     const index = this.entities.indexOf(entity);
     if(index === -1) return;
 
-    console.log("Entity Preremoved",entity,index)
-    console.log("Entitées", this.entities)
+    console.log("Entity Preremoved",entity,index);
+    console.log("Entitées", this.entities);
 
     this.entities.splice(index, 1);
     
