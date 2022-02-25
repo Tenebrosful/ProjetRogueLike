@@ -40,32 +40,32 @@ export default abstract class Controls {
     };
 
     window.onkeyup = (e) => {
-      e.preventDefault()
+      e.preventDefault();
 
-      if (e.code === this.controls.walking.up){
+      if (e.code === this.controls.walking.up)
         if(!Inventory.visible)
         this.currentState.walking.up = false;
         else
         console.log("Inventaire haut");
-      }
-      else if (e.code === this.controls.walking.down){
+      
+      else if (e.code === this.controls.walking.down)
         if(!Inventory.visible)
         this.currentState.walking.down = false;
         else
         console.log("Inventaire bas");
-      }
-      else if (e.code === this.controls.walking.left){
+      
+      else if (e.code === this.controls.walking.left)
         if(!Inventory.visible)
         this.currentState.walking.left = false;
         else
         console.log("Inventaire gauche");
-      }
-      else if (e.code === this.controls.walking.right){
+      
+      else if (e.code === this.controls.walking.right)
         if(!Inventory.visible)
         this.currentState.walking.right = false;
         else
         console.log("Inventaire droite");
-      }
+      
         
       else if (e.code === "F5")
         location.reload();
@@ -73,7 +73,7 @@ export default abstract class Controls {
         Game.debug = !Game.debug;
       else if (Game.debug)
         Debug.debugControls(e); // Must be in last
-      else if (e.code === this.controls.inventory){
+      else if (e.code === this.controls.inventory)
         if(!Inventory.visible){
           Inventory.display();
           Inventory.visible = true ;
@@ -81,7 +81,7 @@ export default abstract class Controls {
           Inventory.hide();
           Inventory.visible = false;
         }
-      }
+      
     };
   }
 

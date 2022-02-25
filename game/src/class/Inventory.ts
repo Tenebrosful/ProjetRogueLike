@@ -4,7 +4,7 @@ export default class Inventory {
     maxPlace = 40
     itemList;
     private static div = document.getElementById("inventory") as HTMLDivElement;
-    public static visible = false as Boolean;
+    public static visible = false as boolean;
 
     constructor(itemList: Array<Item>) {
       this.itemList = itemList;
@@ -14,7 +14,7 @@ export default class Inventory {
       if(this.itemList.length <= this.maxPlace){
         return true
       }
-      return false;
+      return false
     }
     add(item: Item){
       this.itemList.push(item);
@@ -23,7 +23,7 @@ export default class Inventory {
       //En cas d'utilisation
     }
 
-    /*static remove(){
+    /* static remove(){
 
     }*/
 

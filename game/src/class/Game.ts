@@ -117,7 +117,7 @@ export default abstract class Game {
     Logger.logObject(this.playerEntity, "GAME");
 
     this.currentStage.rooms.flat().filter(room => room !== this.currentStage.spawn)
-      .forEach(room => {this.generateEnemies(room),  this.generateItems(room)});
+      .forEach(room => {this.generateEnemies(room),  this.generateItems(room);});
 
     GameRender.renderAll();
   }
