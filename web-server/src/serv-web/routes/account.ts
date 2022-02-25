@@ -5,6 +5,7 @@ import * as dotenv from "dotenv";
 import { User } from "../../database/models/User";
 import { randomBytes } from "crypto";
 import { MongoError } from "mongodb";
+import { Game } from "../../database/models/Game";
 
 dotenv.config({ path: "config/serv-web.env" });
 const account = express.Router();
@@ -77,6 +78,37 @@ account.post("/change-password", async (req, res) => {
     }catch (error) {
         res.status(400).json({ error: " :) ", status: "error" });
     }
+});
+
+account.post("/history", async(req,res) => {
+    const { token } = req.body;
+    const user = jwt.verify(token, JWT_SECRET) as { id: string, username: string };
+    const user_id = user.id;
+
+    User.findOne({_id: user_id}).then(async (docUser)=>{
+
+        const fn = async function getGame(game_id: any){
+            return Game.findOne({_id:game_id});
+        };
+
+        const actions = await docUser.parties.map(fn);
+        const results = await Promise.all(actions);
+
+        const historique = [];
+        results.forEach(result => {
+            const partie = 
+            [
+                {gameDate: result.gameDate},
+                {killedMonsters: result.killedMonster},
+                {coveredStages: result.coveredStage},
+                {collectedItems: result.collectedItems}
+            ];
+            historique.push(partie);
+        });
+        const StringHistory = JSON.stringify(historique);
+        res.status(200).json({  data : StringHistory,status: "ok"});
+    });
+    
 });
 
 export default account;
