@@ -18,15 +18,15 @@ export default class PommeOr extends Item {
     }
   };
 
-  use(): void {
-    Logger.log("On a mangé une pomme");
+  use(): boolean {
+   
     if (Game.playerEntity.life !== 100) 
-      if (Game.playerEntity.life < 90) 
+      if (Game.playerEntity.life < 90) {
         Game.playerEntity.life += 10;
-      
-      else
-        Game.playerEntity.life = 100;
-    
-
+        Logger.log("On a mangé une pomme");
+        return true;
+      }
+      Logger.log("Votre vie est au maximum !");
+       return false;
   }
 }

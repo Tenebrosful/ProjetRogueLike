@@ -1,5 +1,6 @@
 import { Direction } from "../enum/direction";
 import Debug from "./Debug";
+import Item from "./entities/items/Item";
 import Game from "./Game";
 import Inventory from "./Inventory";
 
@@ -45,28 +46,56 @@ export default abstract class Controls {
       if (e.code === this.controls.walking.up)
         if(!Inventory.visible)
         this.currentState.walking.up = false;
-        else
-        console.log("Inventaire haut");
+        else{
+          if(Inventory.posSelector -10 >= 0 ){
+            var emplacement = Inventory.InventoryImgs[Inventory.posSelector] as HTMLElement;
+            emplacement.style.border = "none";
+            Inventory.posSelector -= 10;
+            console.log(Inventory.posSelector);
+            emplacement = Inventory.InventoryImgs[Inventory.posSelector] as HTMLElement;
+            emplacement.style.border = "solid";
+          }
+        }
       
       else if (e.code === this.controls.walking.down)
         if(!Inventory.visible)
         this.currentState.walking.down = false;
-        else
-        console.log("Inventaire bas");
-      
+         else{
+          if(Inventory.posSelector + 10 < Game.playerEntity.inventory.itemList.length ){
+            var emplacement = Inventory.InventoryImgs[Inventory.posSelector] as HTMLElement;
+            emplacement.style.border = "none";
+            Inventory.posSelector+= 10;
+            console.log(Inventory.posSelector);
+            emplacement = Inventory.InventoryImgs[Inventory.posSelector] as HTMLElement;
+            emplacement.style.border = "solid";
+          }
+        }
       else if (e.code === this.controls.walking.left)
         if(!Inventory.visible)
         this.currentState.walking.left = false;
-        else
-        console.log("Inventaire gauche");
-      
+        else{
+          if(Inventory.posSelector > 0){
+            var emplacement = Inventory.InventoryImgs[Inventory.posSelector] as HTMLElement;
+            emplacement.style.border = "none";
+            Inventory.posSelector--;
+            console.log(Inventory.posSelector);
+            var emplacement = Inventory.InventoryImgs[Inventory.posSelector] as HTMLElement;
+            emplacement.style.border = "solid";
+          }
+        }
       else if (e.code === this.controls.walking.right)
         if(!Inventory.visible)
         this.currentState.walking.right = false;
-        else
-        console.log("Inventaire droite");
-      
-        
+        else{
+          if(Inventory.posSelector < Game.playerEntity.inventory.itemList.length -1){
+            var emplacement = Inventory.InventoryImgs[Inventory.posSelector] as HTMLElement;
+            emplacement.style.border = "none";
+            Inventory.posSelector++;
+            console.log(Inventory.posSelector);
+            emplacement = Inventory.InventoryImgs[Inventory.posSelector] as HTMLElement;
+            emplacement.style.border = "solid";
+          }
+        }
       else if (e.code === "F5")
         location.reload();
       else if (e.code === this.controls.debug)
@@ -79,12 +108,39 @@ export default abstract class Controls {
         this.currentState.walking.down = false;
         this.currentState.walking.right = false;
         this.currentState.walking.left = false;
+        if(Game.playerEntity.inventory.itemList[0] != null){
+          var emplacement = Inventory.InventoryImgs[Inventory.posSelector] as HTMLElement;
+          emplacement.style.border = "none";
+          Inventory.posSelector = 0;
+          emplacement = Inventory.InventoryImgs[Inventory.posSelector] as HTMLElement;
+          emplacement.style.border = "solid";
+        }
         if(!Inventory.visible){
           Inventory.display();
           Inventory.visible = true ;
         }else{
           Inventory.hide();
           Inventory.visible = false;
+        }
+      }
+      else if (e.code === "Space"){
+        if(Inventory.visible){
+          var item = Game.playerEntity.inventory.itemList[Inventory.posSelector] as Item;
+          if(Game.playerEntity.inventory.itemList[Inventory.posSelector] != 'null'){
+            if(Game.playerEntity.inventory.itemList[Inventory.posSelector].use()){
+              emplacement = Inventory.InventoryImgs[Inventory.posSelector] as HTMLElement;
+              emplacement.remove();
+              console.log(Game.playerEntity.inventory.itemList);
+              console.log(Inventory.posSelector);
+              Game.playerEntity.inventory.itemList.slice((Inventory.posSelector + 1));
+              console.log(Game.playerEntity.inventory.itemList);
+              if(Inventory.posSelector > 0){
+                Inventory.posSelector -= 1;
+                emplacement = Inventory.InventoryImgs[Inventory.posSelector] as HTMLElement;
+                emplacement.style.border = "solid";
+              }
+            }
+          };
         }
       }
     };

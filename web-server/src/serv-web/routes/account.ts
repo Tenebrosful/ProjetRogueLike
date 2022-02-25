@@ -95,7 +95,7 @@ account.post("/history", async(req,res) => {
         const results = await Promise.all(actions);
 
         //@ts-ignore tmp
-        const historique = [];
+        const historique = new Array;
         results.forEach(result => {
             const partie = 
             [

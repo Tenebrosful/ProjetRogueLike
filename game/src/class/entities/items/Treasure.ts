@@ -16,7 +16,8 @@ export default class Treasure extends Item {
    }
  };
 
-    use(): void {
+    use(): boolean {
        console.log("gold +100");
+       return true;
     }
 }

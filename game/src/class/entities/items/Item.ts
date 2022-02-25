@@ -6,5 +6,5 @@ export default abstract class Item extends Entity {
   movementSpeed = 0;
   canFly = false;
 
-  abstract use() : void;
+  abstract use() : boolean;
   }
