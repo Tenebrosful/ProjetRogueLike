@@ -104,6 +104,7 @@ account.post("/history", async(req,res) => {
                 {coveredStages: result.coveredStage},
                 {collectedItems: result.collectedItems}
             ];
+            // @ts-ignore tmp
             historique.push(partie);
         });
         const StringHistory = JSON.stringify(historique);
