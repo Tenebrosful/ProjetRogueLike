@@ -38,23 +38,72 @@ export default abstract class Entity {
 
   getHitbox(): Hitbox {
     return {
-      botLeft: {
-        posX: this.coords.posX,
-        posY: this.coords.posY + this.hitbox.size.height
-      },
-      botRight: {
-        posX: this.coords.posX + this.hitbox.size.width - this.hitbox.offset.x,
+      topRight: {
+        posX: this.coords.posX + this.hitbox.size.width + this.hitbox.offset.x,
         posY: this.coords.posY + this.hitbox.offset.y
       },
       topLeft: {
-        posX: this.coords.posX,
+        posX: this.coords.posX + this.hitbox.offset.x,
         posY: this.coords.posY + this.hitbox.offset.y
       },
-      topRight: {
-        posX: this.coords.posX + this.hitbox.size.width - this.hitbox.offset.x,
-        posY: this.coords.posY + this.hitbox.offset.y
-      }
+      botRight: {
+        posX: this.coords.posX + this.hitbox.size.width + this.hitbox.offset.x,
+        posY: this.coords.posY + this.hitbox.size.height
+      },
+      botLeft: {
+        posX: this.coords.posX + this.hitbox.offset.x,
+        posY: this.coords.posY + this.hitbox.size.height
+      },
     };
+  }
+
+  checkCollisionsWithHeros(){
+    if(this.isPlayer())return false
+    let collision = false
+    let box = this.getHitbox()
+    let herosBox = Game.playerEntity.getHitbox()
+    // Si l'un des 4points de ma hitBox se situe entre le point haut gauche et point bas droite du héros, je suis en collision avec lui
+
+    // Top left
+    Logger.log(`Héros Top Left : ${herosBox.topLeft.posX},${herosBox.topLeft.posY}`)
+    Logger.log(`Héros Top Right : ${herosBox.topRight.posX},${herosBox.topRight.posY}`)
+    Logger.log(`Héros Bot Left : ${herosBox.botLeft.posX},${herosBox.botLeft.posY}`)
+    Logger.log(`Héros Bot Right : ${herosBox.botRight.posX},${herosBox.botRight.posY}`)
+    Logger.log(`Entity Top Left : ${box.topLeft.posX},${box.topLeft.posY}`)
+    Logger.log(`Entity Top Right : ${box.topRight.posX},${box.topRight.posY}`)
+    Logger.log(`Entity Bot Left : ${box.botLeft.posX},${box.botLeft.posY}`)
+    Logger.log(`Entity Bot Right : ${box.botRight.posX},${box.botRight.posY}`)
+    if (herosBox.topLeft.posX <= box.topLeft.posX && box.topLeft.posX <= herosBox.botRight.posX &&
+        herosBox.topLeft.posY <= box.topLeft.posY && box.topLeft.posY <= herosBox.botRight.posY)
+      {
+        Logger.log("Collision avec top left")
+        collision = true;
+      }
+    else 
+    // Top Right
+    if (herosBox.topLeft.posX <= box.topRight.posX && box.topRight.posX <= herosBox.botRight.posX &&
+        herosBox.topLeft.posY <= box.topRight.posY && box.topRight.posY <= herosBox.botRight.posY)
+        {
+          Logger.log("Collision avec top right")
+          collision = true;
+        }
+    else
+    // Bot Left
+    if (herosBox.topLeft.posX <= box.botLeft.posX && box.botLeft.posX <= herosBox.botRight.posX &&
+        herosBox.topLeft.posY <= box.botLeft.posY && box.botLeft.posY <= herosBox.botRight.posY)
+        {
+          Logger.log("Collision avec bot left")
+          collision = true;
+        }
+    else
+    // Bot Right
+    if (herosBox.topLeft.posX <= box.botRight.posX && box.botRight.posX <= herosBox.botRight.posX &&
+        herosBox.topLeft.posY <= box.botRight.posY && box.botRight.posY <= herosBox.botRight.posY)
+        {
+          Logger.log("Collision avec bot right")
+          collision = true;
+        }
+    return collision
   }
 
   move(direction: Direction) {
@@ -143,8 +192,8 @@ export default abstract class Entity {
       Game.currentRoom.getTilePixelCoords(hitbox.botRight)
     ]);
 
-    Logger.log(`${this.name} walking on`, "ENTITY");
-    Logger.logObject(tilesIn, "ENTITY");
+    //Logger.log(`${this.name} walking on`, "ENTITY");
+    //Logger.logObject(tilesIn, "ENTITY");
 
     tilesIn.forEach(tile => {
       if (!tile) return;
