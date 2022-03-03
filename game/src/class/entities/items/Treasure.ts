@@ -2,7 +2,7 @@ import Item from "./Item";
 
 export default class Treasure extends Item {
 
- name = "Pomme dorée";
+ name = "treasure";
  currentSprite = "items/treasure.png";
 
  hitbox = {
@@ -16,7 +16,8 @@ export default class Treasure extends Item {
    }
  };
 
-    use(): void {
+    use(): boolean {
        console.log("gold +100");
+       return true;
     }
 }

@@ -7,6 +7,8 @@ export default class PommeOr extends Item {
   name = "Pomme dorée";
   currentSprite = "items/pommeOr.png";
 
+  healValue = 10;
+
   hitbox = {
     offset: {
       x: 6,
@@ -18,15 +20,19 @@ export default class PommeOr extends Item {
     }
   };
 
-  use(): void {
-    Logger.log("On a mangé une pomme");
-    if (Game.playerEntity.life !== 100) 
-      if (Game.playerEntity.life < 90) 
-        Game.playerEntity.life += 10;
-      
-      else
-        Game.playerEntity.life = 100;
-    
-
+  use(): boolean {
+   
+    if (Game.playerEntity.life !== Game.playerEntity.maxLife) 
+      if (Game.playerEntity.life <= Game.playerEntity.maxLife- this.healValue) {
+        Game.playerEntity.life += this.healValue;
+        Logger.log("On a mangé une pomme");
+        return true;
+      }else{
+        Game.playerEntity.life = Game.playerEntity.maxLife;
+        Logger.log("On a mangé une pomme");
+        return true;
+      }
+      Logger.log("Votre vie est au maximum !");
+       return false;
   }
 }

@@ -38,7 +38,8 @@ export default class Player extends Entity {
   currentSprite = this.sprites.walking?.left || Entity.DEFAULT_SPRITE;
   
   movementSpeed = 5;
-  life = 100;
+  life = 71;
+  maxLife = 100;
 
   inventory: Inventory;
 
