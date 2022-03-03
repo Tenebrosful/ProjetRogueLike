@@ -131,8 +131,7 @@ export default abstract class Controls {
               emplacement = Inventory.InventoryImgs[Inventory.posSelector] as HTMLElement;
               emplacement.remove();
               console.log(Game.playerEntity.inventory.itemList);
-              console.log(Inventory.posSelector);
-              Game.playerEntity.inventory.itemList.slice((Inventory.posSelector + 1));
+              Game.playerEntity.inventory.itemList = Game.playerEntity.inventory.itemList.slice(Inventory.posSelector, 1);
               console.log(Game.playerEntity.inventory.itemList);
               if(Inventory.posSelector > 0){
                 Inventory.posSelector -= 1;

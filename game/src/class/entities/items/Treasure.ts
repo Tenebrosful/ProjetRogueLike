@@ -2,7 +2,7 @@ import Item from "./Item";
 
 export default class Treasure extends Item {
 
- name = "Pomme dorée";
+ name = "treasure";
  currentSprite = "items/treasure.png";
 
  hitbox = {
