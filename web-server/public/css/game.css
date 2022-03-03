@@ -31,3 +31,27 @@
 #progress-bar::-webkit-progress-value {
   background: rgb(255 0 0);
 }
+
+#fightContainer{
+  background-color: aqua;
+  position: absolute;
+  top : 274px;
+  left: 424px;
+
+  z-index: 999;
+
+}
+#fighterImgContainer{
+  margin-top: 16px;
+  margin-bottom: 16px;
+  text-align: center;
+}
+#buttonsContainer{
+  width: 360px;
+  height : 90px;
+}
+#playerImg{
+  margin-right: 32px;
+}
+
+
