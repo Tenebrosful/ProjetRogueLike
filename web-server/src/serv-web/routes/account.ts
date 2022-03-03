@@ -96,6 +96,7 @@ account.post("/history", async(req,res) => {
 
         //@ts-ignore tmp
         const historique = new Array;
+      
         results.forEach(result => {
             const partie = 
             [
@@ -104,6 +105,7 @@ account.post("/history", async(req,res) => {
                 {coveredStages: result.coveredStage},
                 {collectedItems: result.collectedItems}
             ];
+            // @ts-ignore tmp
             historique.push(partie);
         });
         const StringHistory = JSON.stringify(historique);
