@@ -1,4 +1,5 @@
 import Item from "./entities/items/Item";
+import Game from "./Game";
 
 export default class Inventory {
     maxPlace = 40;
@@ -13,7 +14,7 @@ export default class Inventory {
     }
 
     canAddItem(){
-      if(this.itemList.length-1 <= this.maxPlace)
+      if(this.itemList.length + 1 <= this.maxPlace) // + 1 Pour corriger le fait qu'un tableau commence à 0
         return true;
       
       return false;
@@ -21,6 +22,7 @@ export default class Inventory {
     add(item: Item){
       this.itemList.push(item);
       Inventory.div.innerHTML += "<img \" src=\"/static/img/" + item.currentSprite +  "\"/>"; 
+      Game.playerEntity.collectedItems++ ;
       // Mettre un ID sur l'image pour la retirer
       // En cas d'utilisation
     }
