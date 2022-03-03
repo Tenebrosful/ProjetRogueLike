@@ -115,6 +115,75 @@ export default abstract class GameRender {
     gameContainer.innerHTML = "";
   }
 
+  static clearFightInterface(){
+    const fightContainer = document.getElementById("fightContainer");
+    if (!fightContainer) return;
+    document.body.removeChild(fightContainer);
+  }
+
+  static displayFightInterface(entity : Entity){
+    const fightContainer = document.createElement("div");
+      fightContainer.style.width = this._canvas.width.toString();
+      fightContainer.style.height = this._canvas.height.toString();
+      fightContainer.id = "fightContainer"
+
+    const fighterImgContainer = document.createElement("div");
+    fighterImgContainer.id = "fighterImgContainer";
+      const playerImg = document.createElement("img");
+        playerImg.id = "playerImg"
+        playerImg.src = "/static/img/player/playerR.png";
+      const monsterImg = document.createElement("img");
+        monsterImg.id = "monsterImg"
+      if(entity.sprites.walking?.left){
+        monsterImg.src = "/static/img/" + entity.sprites.walking.left;
+      }else{
+        monsterImg.src = "/static/img/enemies/K_Roi_ssant_gauche.png";
+      }
+      
+        
+    // deux images
+
+    const buttonsContainer = document.createElement("div");
+      buttonsContainer.id = "buttonsContainer"
+    // Pierre 
+    const imgPierre = document.createElement("img");
+      imgPierre.src = "/static/img/fightImg/pierre.png"
+      imgPierre.addEventListener("click", function() {
+        this.style.backgroundColor = "red";
+      });
+    // Feuille
+    const imgFeuille = document.createElement("img");
+      imgFeuille.src = "/static/img/fightImg/feuille.png"
+      imgFeuille.addEventListener("click", function() {
+        this.style.backgroundColor = "red";
+      });
+    // Ciseaux 
+    const imgCiseaux = document.createElement("img");
+      imgCiseaux.src = "/static/img/fightImg/ciseaux.png"
+      imgCiseaux.addEventListener("click", function() {
+        this.style.backgroundColor = "red";
+      });
+    // Fuir
+    const imgFuir = document.createElement("img");
+      imgFuir.src = "/static/img/fightImg/exit.png"
+      imgFuir.addEventListener("click", function() {
+        Game.playerEntity.getHurt(10);
+        GameRender.clearFightInterface();
+        Game.endFight();
+      });
+
+    fightContainer.appendChild(fighterImgContainer);
+      fighterImgContainer.appendChild(playerImg)
+      fighterImgContainer.appendChild(monsterImg);
+    //buttonsContainer
+      buttonsContainer.appendChild(imgPierre);
+      buttonsContainer.appendChild(imgFeuille);
+      buttonsContainer.appendChild(imgCiseaux);
+      buttonsContainer.appendChild(imgFuir);
+    fightContainer.appendChild(buttonsContainer);
+    document.body.appendChild(fightContainer);
+  }
+
   static displayEndGame(){
     const resultContainer = document.createElement("div");
     resultContainer.classList.add("container");
