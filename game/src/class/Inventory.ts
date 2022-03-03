@@ -13,7 +13,7 @@ export default class Inventory {
     }
 
     canAddItem(){
-      if(this.itemList.length <= this.maxPlace)
+      if(this.itemList.length-1 <= this.maxPlace)
         return true;
       
       return false;
