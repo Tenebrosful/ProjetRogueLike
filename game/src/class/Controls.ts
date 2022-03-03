@@ -48,7 +48,7 @@ export default abstract class Controls {
         this.currentState.walking.up = false;
         else{
           if(Inventory.posSelector -10 >= 0 ){
-            var emplacement = Inventory.InventoryImgs[Inventory.posSelector] as HTMLElement;
+            let emplacement = Inventory.InventoryImgs[Inventory.posSelector] as HTMLElement;
             emplacement.style.border = "none";
             Inventory.posSelector -= 10;
             console.log(Inventory.posSelector);
@@ -62,7 +62,7 @@ export default abstract class Controls {
         this.currentState.walking.down = false;
          else{
           if(Inventory.posSelector + 10 < Game.playerEntity.inventory.itemList.length ){
-            var emplacement = Inventory.InventoryImgs[Inventory.posSelector] as HTMLElement;
+            let emplacement = Inventory.InventoryImgs[Inventory.posSelector] as HTMLElement;
             emplacement.style.border = "none";
             Inventory.posSelector+= 10;
             console.log(Inventory.posSelector);
@@ -75,11 +75,11 @@ export default abstract class Controls {
         this.currentState.walking.left = false;
         else{
           if(Inventory.posSelector > 0){
-            var emplacement = Inventory.InventoryImgs[Inventory.posSelector] as HTMLElement;
+            let emplacement = Inventory.InventoryImgs[Inventory.posSelector] as HTMLElement;
             emplacement.style.border = "none";
             Inventory.posSelector--;
             console.log(Inventory.posSelector);
-            var emplacement = Inventory.InventoryImgs[Inventory.posSelector] as HTMLElement;
+            emplacement = Inventory.InventoryImgs[Inventory.posSelector] as HTMLElement;
             emplacement.style.border = "solid";
           }
         }
@@ -88,7 +88,7 @@ export default abstract class Controls {
         this.currentState.walking.right = false;
         else{
           if(Inventory.posSelector < Game.playerEntity.inventory.itemList.length -1){
-            var emplacement = Inventory.InventoryImgs[Inventory.posSelector] as HTMLElement;
+            let emplacement = Inventory.InventoryImgs[Inventory.posSelector] as HTMLElement;
             emplacement.style.border = "none";
             Inventory.posSelector++;
             console.log(Inventory.posSelector);
@@ -108,8 +108,8 @@ export default abstract class Controls {
         this.currentState.walking.down = false;
         this.currentState.walking.right = false;
         this.currentState.walking.left = false;
-        if(Game.playerEntity.inventory.itemList[0] != null){
-          var emplacement = Inventory.InventoryImgs[Inventory.posSelector] as HTMLElement;
+        if(Game.playerEntity.inventory.itemList[0] !== null){
+          let emplacement = Inventory.InventoryImgs[Inventory.posSelector] as HTMLElement;
           emplacement.style.border = "none";
           Inventory.posSelector = 0;
           emplacement = Inventory.InventoryImgs[Inventory.posSelector] as HTMLElement;
@@ -125,10 +125,10 @@ export default abstract class Controls {
       }
       else if (e.code === "Space"){
         if(Inventory.visible){
-          var item = Game.playerEntity.inventory.itemList[Inventory.posSelector] as Item;
+          let item = Game.playerEntity.inventory.itemList[Inventory.posSelector] as Item;
           if(Game.playerEntity.inventory.itemList[Inventory.posSelector] !== null){
             if(item.use()){
-              emplacement = Inventory.InventoryImgs[Inventory.posSelector] as HTMLElement;
+              let emplacement = Inventory.InventoryImgs[Inventory.posSelector] as HTMLElement;
               emplacement.remove();
               console.log(Game.playerEntity.inventory.itemList);
               Game.playerEntity.inventory.itemList.splice(Inventory.posSelector, 1);
