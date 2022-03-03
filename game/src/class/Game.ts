@@ -232,6 +232,12 @@ export default abstract class Game {
     }
   }
 
+  static startFight(){
+    if (this.gameLoopInterval) clearInterval(this.gameLoopInterval);
+  }
+  static endFight(){
+    this.gameLoopInterval = setInterval(Game.gameLoop, 1000 / this._fps);
+  }
   static end() {
     if (this.gameLoopInterval) clearInterval(this.gameLoopInterval);
     Game.postGameData(); // Récupère les données de la partie puis les sauvegarde
