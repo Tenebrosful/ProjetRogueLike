@@ -6,6 +6,7 @@ import { User } from "../../database/models/User";
 import { randomBytes } from "crypto";
 import { MongoError } from "mongodb";
 import { Game } from "../../database/models/Game";
+import Historique from "../responseInterface/IHistorique";
 
 dotenv.config({ path: "config/serv-web.env" });
 const account = express.Router();
@@ -94,8 +95,7 @@ account.post("/history", async(req,res) => {
         const actions = await docUser.parties.map(fn);
         const results = await Promise.all(actions);
 
-        // @ts-ignore tmp
-        const historique = [];
+        const historique: Historique[] = [];
       
         results.forEach(result => {
             const partie = 
