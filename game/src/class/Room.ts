@@ -102,6 +102,14 @@ export default class Room {
       if(entity.checkCollisionsWithHeros()){
         if(entity.type === 2){
           // Monstre
+            Game.startFight();
+            // GameRender -> afficher l'interface de combat
+            // Jouer le combat
+            Logger.log(`Fight !${entity.type}, ${entity.name}`);
+            GameRender.displayFightInterface(entity);
+            Game.currentRoom.removeEntity(entity);
+            
+            //Game.endFight();
         }else if(entity.type === 3){
           // Item
           const item = entity as Item;
@@ -109,7 +117,6 @@ export default class Room {
             Game.playerEntity.inventory.add(item);
             Game.currentRoom.removeEntity(item);
           }
-          // item.use();
         }
         Logger.log(`On a une collision !${entity.type}, ${entity.name}`);
         return;
