@@ -108,7 +108,7 @@ export default abstract class Controls {
         this.currentState.walking.down = false;
         this.currentState.walking.right = false;
         this.currentState.walking.left = false;
-        if(Game.playerEntity.inventory.itemList[0] !== null){
+        if(Inventory.InventoryImgs.length !== 0){
           let emplacement = Inventory.InventoryImgs[Inventory.posSelector] as HTMLElement;
           emplacement.style.border = "none";
           Inventory.posSelector = 0;
