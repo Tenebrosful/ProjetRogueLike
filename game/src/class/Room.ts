@@ -109,7 +109,7 @@ export default class Room {
             Game.playerEntity.inventory.add(item);
             Game.currentRoom.removeEntity(item);
           }
-          //item.use();
+          // item.use();
         }
         Logger.log(`On a une collision !${entity.type}, ${entity.name}`);
         return;

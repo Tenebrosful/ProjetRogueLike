@@ -123,17 +123,17 @@ export default abstract class Controls {
           Inventory.visible = false;
         }
       }
-      else if (e.code === "Space"){
+      else if (e.code === "Space")
         if(Inventory.visible){
-          let item = Game.playerEntity.inventory.itemList[Inventory.posSelector] as Item;
-          if(Game.playerEntity.inventory.itemList[Inventory.posSelector] !== null){
+          const item = Game.playerEntity.inventory.itemList[Inventory.posSelector] as Item;
+          if(Game.playerEntity.inventory.itemList[Inventory.posSelector] !== null)
             if(item.use()){
               let emplacement = Inventory.InventoryImgs[Inventory.posSelector] as HTMLElement;
               emplacement.remove();
               console.log(Game.playerEntity.inventory.itemList);
               Game.playerEntity.inventory.itemList.splice(Inventory.posSelector, 1);
-              console.log(Inventory.posSelector, 'Pos selector');
-              console.log(Game.playerEntity.life, 'hp du perso');
+              console.log(Inventory.posSelector, "Pos selector");
+              console.log(Game.playerEntity.life, "hp du perso");
               console.log(Game.playerEntity.inventory.itemList);
               if(Inventory.posSelector > 0){
                 Inventory.posSelector -= 1;
@@ -141,9 +141,9 @@ export default abstract class Controls {
                 emplacement.style.border = "solid";
               }
             }
-          };
+          
         }
-      }
+      
     };
   }
 

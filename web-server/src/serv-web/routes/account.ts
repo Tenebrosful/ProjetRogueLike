@@ -94,8 +94,8 @@ account.post("/history", async(req,res) => {
         const actions = await docUser.parties.map(fn);
         const results = await Promise.all(actions);
 
-        //@ts-ignore tmp
-        const historique = new Array;
+        // @ts-ignore tmp
+        const historique = [];
       
         results.forEach(result => {
             const partie = 
