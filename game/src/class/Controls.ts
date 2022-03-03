@@ -126,12 +126,14 @@ export default abstract class Controls {
       else if (e.code === "Space"){
         if(Inventory.visible){
           var item = Game.playerEntity.inventory.itemList[Inventory.posSelector] as Item;
-          if(Game.playerEntity.inventory.itemList[Inventory.posSelector] != 'null'){
-            if(Game.playerEntity.inventory.itemList[Inventory.posSelector].use()){
+          if(Game.playerEntity.inventory.itemList[Inventory.posSelector] !== null){
+            if(item.use()){
               emplacement = Inventory.InventoryImgs[Inventory.posSelector] as HTMLElement;
               emplacement.remove();
               console.log(Game.playerEntity.inventory.itemList);
-              Game.playerEntity.inventory.itemList = Game.playerEntity.inventory.itemList.slice(Inventory.posSelector, 1);
+              Game.playerEntity.inventory.itemList.splice(Inventory.posSelector, 1);
+              console.log(Inventory.posSelector, 'Pos selector');
+              console.log(Game.playerEntity.life, 'hp du perso');
               console.log(Game.playerEntity.inventory.itemList);
               if(Inventory.posSelector > 0){
                 Inventory.posSelector -= 1;
