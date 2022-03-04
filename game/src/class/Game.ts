@@ -241,13 +241,14 @@ export default abstract class Game {
   static endFight(){
     this.gameLoopInterval = setInterval(Game.gameLoop, 1000 / this._fps);
   }
-  static fight(entity: Entity, choixJoueur: String){
+  static fight(choixJoueur: String){
     let choixDuMonstre = this.getChoixDuMonstre();
+    Logger.log('Choix du monstre: '+ choixDuMonstre)
     let resultat;
     let nul = "nul"; let perdu = "perdu"; let victoire = "victoire"
     if (choixDuMonstre === choixJoueur){
       resultat = nul
-      // return resultat
+      return resultat
     }
     // Pierre
     if(choixJoueur === "pierre"){
@@ -273,7 +274,7 @@ export default abstract class Game {
         resultat = perdu
       }
     }
-    //return resultat
+    return resultat
   }
   static getChoixDuMonstre(){
     const nbChoix = 3;
