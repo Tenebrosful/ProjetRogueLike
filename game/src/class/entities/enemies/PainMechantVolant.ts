@@ -6,8 +6,8 @@ export default class PainMechantVolant extends Enemy {
 
   name = "PainMechantVolant";
 
-  maxHp = 10;
-  hp = 10;
+  maxLife = 10;
+  life = 10;
   
   sprites = {
     idle: "enemies/painMechantVolant/painMechantVolantIdle.png",

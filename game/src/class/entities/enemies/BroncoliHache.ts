@@ -6,8 +6,8 @@ export default class BroncoliHache extends Enemy {
 
   name = "BroncoliHache";
   
-  maxHp = 10;
-  hp = 10;
+  maxLife = 10;
+  life = 10;
 
   sprites = {
     idle: "enemies/broncoli/broncoliHache.png",
