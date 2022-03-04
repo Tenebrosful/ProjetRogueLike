@@ -2,6 +2,7 @@ import { entityType } from "../../enum/entityType";
 import { EntitySprites } from "../../typing/entity";
 import { Coordinates } from "../../typing/tiles";
 import Game from "../Game";
+import GameRender from "../GameRender";
 import Inventory from "../Inventory";
 import Logger from "../Logger";
 import Entity from "./Entity";
@@ -57,9 +58,10 @@ export default class Player extends Entity {
 
   getHurt(damage: number): void {
     this.life -= damage;
-    Logger.log(`Points de vie : ${this.life}`, "GAME");
+    Logger.log(`Points de vie du joueur: ${this.life}`, "GAME");
     if (!this.isStillALive())
       Game.end();
+      GameRender.clearFightInterface(); 
   }
   isStillALive(): boolean {
     return this.life > 0;
