@@ -5,6 +5,10 @@ export default class PainMechant extends Enemy {
   iaMovement = new IAMovementSquare;
 
   name = "PainMechant";
+
+  maxHp = 20;
+  hp = 20;
+
   sprites = {
     idle: "enemies/painMechant/painMechantIdle.png",
     walking: {

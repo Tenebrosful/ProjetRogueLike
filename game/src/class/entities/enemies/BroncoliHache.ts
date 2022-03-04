@@ -5,6 +5,10 @@ export default class BroncoliHache extends Enemy {
   iaMovement = new IAMovementLigne;
 
   name = "BroncoliHache";
+  
+  maxHp = 10;
+  hp = 10;
+
   sprites = {
     idle: "enemies/broncoli/broncoliHache.png",
     walking: {

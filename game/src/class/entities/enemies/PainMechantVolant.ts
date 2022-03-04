@@ -5,6 +5,10 @@ export default class PainMechantVolant extends Enemy {
   iaMovement = new IAMovementFollowPlayer(5);
 
   name = "PainMechantVolant";
+
+  maxHp = 10;
+  hp = 10;
+  
   sprites = {
     idle: "enemies/painMechantVolant/painMechantVolantIdle.png",
     walking: {
