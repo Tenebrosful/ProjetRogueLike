@@ -12,6 +12,7 @@ import Game from "./Game";
 import GameRender from "./GameRender";
 import Logger from "./Logger";
 import Item from "./entities/items/Item";
+import Enemy from "./entities/enemies/Enemy";
 
 export default class Room {
   coords: Coordinates;
@@ -106,8 +107,8 @@ export default class Room {
             // GameRender -> afficher l'interface de combat
             // Jouer le combat
             Logger.log(`Fight !${entity.type}, ${entity.name}`);
-            GameRender.displayFightInterface(entity);
-            Game.currentRoom.removeEntity(entity);
+            GameRender.displayFightInterface(entity as Enemy);
+            //Game.currentRoom.removeEntity(entity);
             
             //Game.endFight();
         }else if(entity.type === 3){
