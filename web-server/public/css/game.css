@@ -23,6 +23,7 @@
 #progress-bar {
   position: absolute;
   background-color: rgb(255 0 0);
+  z-index: 999;
   font-size: 2rem;
   margin-top: 1em;
   margin-left: 1em;
@@ -33,12 +34,14 @@
 }
 
 #fightContainer{
-  background-color: aqua;
+  border: 3px solid black;
+  background-color: #212529;
   position: absolute;
-  top : 274px;
-  left: 424px;
+  /*top : 274px;
+  left: 424px;*/
+  top:80px;
 
-  z-index: 999;
+  z-index: 997;
 
 }
 #fighterImgContainer{
@@ -47,8 +50,12 @@
   text-align: center;
 }
 #buttonsContainer{
+  /*
   width: 360px;
   height : 90px;
+  */
+  height:  576px;
+  width: 1216px;
 }
 #playerImg{
   margin-right: 32px;
