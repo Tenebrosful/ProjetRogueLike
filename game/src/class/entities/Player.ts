@@ -36,16 +36,17 @@ export default class Player extends Entity {
   canFly = false;
 
   currentSprite = this.sprites.walking?.left || Entity.DEFAULT_SPRITE;
-  
-  movementSpeed = 5;
-  life = 71;
-  maxLife = 100;
-
   inventory: Inventory;
+
+  movementSpeed = 5;
+  maxLife = 100;
+  life = 71;
+  gold = 0;
 
   killedMonster = 0;
   coveredStage = 0;
   collectedItems = 0;
+  
   date = new Date();
 
 
