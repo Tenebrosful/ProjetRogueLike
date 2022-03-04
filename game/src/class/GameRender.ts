@@ -1,4 +1,5 @@
 import Debug from "./Debug";
+import Enemy from "./entities/enemies/Enemy";
 import Entity from "./entities/Entity";
 import Game from "./Game";
 import Logger from "./Logger";
@@ -121,7 +122,7 @@ export default abstract class GameRender {
     document.body.removeChild(fightContainer);
   }
 
-  static displayFightInterface(entity : Entity){
+  static displayFightInterface(entity : Enemy){
     const fightContainer = document.createElement("div");
       fightContainer.style.width = this._canvas.width.toString();
       fightContainer.style.height = this._canvas.height.toString();
@@ -149,26 +150,33 @@ export default abstract class GameRender {
     const imgPierre = document.createElement("img");
       imgPierre.src = "/static/img/fightImg/pierre.png"
       imgPierre.addEventListener("click", function() {
-        Game.fight(entity,"pierre")
-        this.style.backgroundColor = "red";
+        let result = Game.fight("pierre")
+        if (result)
+        GameRender.doDamage(entity,result)
       });
     // Feuille
     const imgFeuille = document.createElement("img");
       imgFeuille.src = "/static/img/fightImg/feuille.png"
       imgFeuille.addEventListener("click", function() {
-        this.style.backgroundColor = "red";
+        let result = Game.fight("feuille")
+        if (result)
+        GameRender.doDamage(entity,result)
       });
     // Ciseaux 
     const imgCiseaux = document.createElement("img");
       imgCiseaux.src = "/static/img/fightImg/ciseaux.png"
       imgCiseaux.addEventListener("click", function() {
-        this.style.backgroundColor = "red";
+        let result = Game.fight("ciseaux")
+        if (result)
+        GameRender.doDamage(entity,result)
       });
     // Fuir
     const imgFuir = document.createElement("img");
       imgFuir.src = "/static/img/fightImg/exit.png"
       imgFuir.addEventListener("click", function() {
         Game.playerEntity.getHurt(10);
+        //let _entity = entity as Entity
+        Game.currentRoom.removeEntity(entity);
         GameRender.clearFightInterface();
         Game.endFight();
       });
@@ -183,6 +191,24 @@ export default abstract class GameRender {
       buttonsContainer.appendChild(imgFuir);
     fightContainer.appendChild(buttonsContainer);
     document.body.appendChild(fightContainer);
+  }
+
+  static doDamage(_entity:Enemy, result:String){
+    let degats = 10
+    const index = Game.currentRoom.entities.indexOf(_entity);
+    if(index === -1) return;
+    const enemy = Game.currentRoom.entities[index] as Enemy ;
+    if (result === "victoire" && enemy){
+      enemy.getHurt(degats)
+      if (true){ // Si l'enemie a plus de point de vie, on le supprime et on arrete le combat
+        Game.currentRoom.removeEntity(enemy);
+        Game.playerEntity.killedMonster++;
+        GameRender.clearFightInterface();
+        Game.endFight();
+      }
+    }else if (result === "perdu"){
+      Game.playerEntity.getHurt(10)
+    }
   }
 
   static displayEndGame(){
