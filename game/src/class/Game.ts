@@ -234,6 +234,8 @@ export default abstract class Game {
 
   static startFight(){
     if (this.gameLoopInterval) clearInterval(this.gameLoopInterval);
+    //Bloquer l'ouverture de l'inventaire
+    //Penser a fermer l'inventaire si un monstre entre en collision avec nous ou stopper la gameloop pendant l'ouverture de l'inventaire
   }
   static endFight(){
     this.gameLoopInterval = setInterval(Game.gameLoop, 1000 / this._fps);
