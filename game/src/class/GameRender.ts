@@ -149,6 +149,7 @@ export default abstract class GameRender {
     const imgPierre = document.createElement("img");
       imgPierre.src = "/static/img/fightImg/pierre.png"
       imgPierre.addEventListener("click", function() {
+        Game.fight(entity,"pierre")
         this.style.backgroundColor = "red";
       });
     // Feuille
