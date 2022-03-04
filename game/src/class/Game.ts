@@ -14,6 +14,7 @@ import Item from "./entities/items/Item";
 import Tile from "./tiles/Tile";
 import ItemDictionary from "../dictionary/ItemDictionary";
 import Inventory from "./Inventory";
+import Entity from "./entities/Entity";
 
 export default abstract class Game {
   private static _fps = 60;
@@ -240,6 +241,53 @@ export default abstract class Game {
   static endFight(){
     this.gameLoopInterval = setInterval(Game.gameLoop, 1000 / this._fps);
   }
+  static fight(entity: Entity, choixJoueur: String){
+    let choixDuMonstre = this.getChoixDuMonstre();
+    let resultat;
+    let nul = "nul"; let perdu = "perdu"; let victoire = "victoire"
+    if (choixDuMonstre === choixJoueur){
+      resultat = nul
+      // return resultat
+    }
+    // Pierre
+    if(choixJoueur === "pierre"){
+      if (choixDuMonstre === "ciseaux"){
+        resultat = victoire;
+      }else if (choixDuMonstre === "feuille"){
+        resultat = perdu;
+      }
+    }
+    // Feuille 
+    if(choixJoueur === "feuille"){
+      if(choixDuMonstre === "pierre"){
+        resultat = victoire
+      }else if (choixDuMonstre === "ciseaux"){
+        resultat = perdu
+      }
+    }
+    // Ciseaux
+    if(choixJoueur === "ciseaux"){
+      if(choixDuMonstre === "feuille"){
+        resultat = victoire
+      }else if(choixDuMonstre === "pierre"){
+        resultat = perdu
+      }
+    }
+    //return resultat
+  }
+  static getChoixDuMonstre(){
+    const nbChoix = 3;
+    const listeChoix = 
+    [
+      "pierre",
+      "feuille",
+      "ciseaux"
+    ];
+
+    let randomNumber = Math.floor(Math.random() * nbChoix);
+    return listeChoix[randomNumber];
+  }
+  
   static end() {
     if (this.gameLoopInterval) clearInterval(this.gameLoopInterval);
     Game.postGameData(); // Récupère les données de la partie puis les sauvegarde
