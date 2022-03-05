@@ -236,50 +236,50 @@ export default abstract class Game {
 
   static startFight() {
     if (this.gameLoopInterval) clearInterval(this.gameLoopInterval);
-    //Bloquer l'ouverture de l'inventaire
-    //Penser a fermer l'inventaire si un monstre entre en collision avec nous ou stopper la gameloop pendant l'ouverture de l'inventaire
+    // Bloquer l'ouverture de l'inventaire
+    // Penser a fermer l'inventaire si un monstre entre en collision avec nous ou stopper la gameloop pendant l'ouverture de l'inventaire
   }
   static endFight() {
     if(this.gameLoopInterval) 
-    clearInterval(this.gameLoopInterval)
+    clearInterval(this.gameLoopInterval);
     this.gameLoopInterval = setInterval(Game.gameLoop, 1000 / this._fps);
   }
-  static fight(choixJoueur: String) {
-    let choixDuMonstre = this.getChoixDuMonstre();
-    Logger.log('Choix du monstre: ' + choixDuMonstre)
-    if (!choixDuMonstre) return
-    GameRender.displayChoices(choixJoueur, choixDuMonstre)
+  static fight(choixJoueur: string) {
+    const choixDuMonstre = this.getChoixDuMonstre();
+    Logger.log("Choix du monstre: " + choixDuMonstre);
+    if (!choixDuMonstre) return;
+    GameRender.displayChoices(choixJoueur, choixDuMonstre);
     let resultat;
-    let nul = "nul"; let perdu = "perdu"; let victoire = "victoire"
+    const nul = "nul"; const perdu = "perdu"; const victoire = "victoire";
     if (choixDuMonstre === choixJoueur) {
-      resultat = nul
-      return resultat
+      resultat = nul;
+      return resultat;
     }
     // Pierre
-    if (choixJoueur === "pierre") {
-      if (choixDuMonstre === "ciseaux") {
+    if (choixJoueur === "pierre") 
+      if (choixDuMonstre === "ciseaux") 
         resultat = victoire;
-      } else if (choixDuMonstre === "feuille") {
+       else if (choixDuMonstre === "feuille") 
         resultat = perdu;
-      }
-    }
+      
+    
     // Feuille 
-    if (choixJoueur === "feuille") {
-      if (choixDuMonstre === "pierre") {
-        resultat = victoire
-      } else if (choixDuMonstre === "ciseaux") {
-        resultat = perdu
-      }
-    }
+    if (choixJoueur === "feuille") 
+      if (choixDuMonstre === "pierre") 
+        resultat = victoire;
+       else if (choixDuMonstre === "ciseaux") 
+        resultat = perdu;
+      
+    
     // Ciseaux
-    if (choixJoueur === "ciseaux") {
-      if (choixDuMonstre === "feuille") {
-        resultat = victoire
-      } else if (choixDuMonstre === "pierre") {
-        resultat = perdu
-      }
-    }
-    return resultat
+    if (choixJoueur === "ciseaux") 
+      if (choixDuMonstre === "feuille") 
+        resultat = victoire;
+       else if (choixDuMonstre === "pierre") 
+        resultat = perdu;
+      
+    
+    return resultat;
   }
   static getChoixDuMonstre() {
     const nbChoix = 3;
@@ -290,7 +290,7 @@ export default abstract class Game {
         "ciseaux"
       ];
 
-    let randomNumber = Math.floor(Math.random() * nbChoix);
+    const randomNumber = Math.floor(Math.random() * nbChoix);
     return listeChoix[randomNumber];
   }
 

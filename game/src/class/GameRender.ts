@@ -126,77 +126,77 @@ export default abstract class GameRender {
     const fightContainer = document.createElement("div");
       fightContainer.style.width = this._canvas.width.toString();
       fightContainer.style.height = this._canvas.height.toString();
-      fightContainer.id = "fightContainer"
+      fightContainer.id = "fightContainer";
 
     const fighterImgContainer = document.createElement("div");
     fighterImgContainer.id = "fighterImgContainer";
       const playerImg = document.createElement("img");
-        playerImg.id = "playerImg"
+        playerImg.id = "playerImg";
         playerImg.src = "/static/img/player/playerR.png";
       const monsterImg = document.createElement("img");
-        monsterImg.id = "monsterImg"
-      if(entity.sprites.walking?.left){
+        monsterImg.id = "monsterImg";
+      if(entity.sprites.walking?.left)
         monsterImg.src = "/static/img/" + entity.sprites.walking.left;
-      }else{
+      else
         monsterImg.src = "/static/img/enemies/K_Roi_ssant_gauche.png";
-      }
+      
       
         
     // deux images
 
     const buttonsContainer = document.createElement("div");
-      buttonsContainer.id = "buttonsContainer"
+      buttonsContainer.id = "buttonsContainer";
     // Pierre 
     const imgPierre = document.createElement("img");
-      imgPierre.src = "/static/img/fightImg/pierre.png"
+      imgPierre.src = "/static/img/fightImg/pierre.png";
       imgPierre.addEventListener("click", function() {
-        let result = Game.fight("pierre")
+        const result = Game.fight("pierre");
         if (result)
-        GameRender.doDamage(entity,result)
+        GameRender.doDamage(entity,result);
       });
     // Feuille
     const imgFeuille = document.createElement("img");
-      imgFeuille.src = "/static/img/fightImg/feuille.png"
+      imgFeuille.src = "/static/img/fightImg/feuille.png";
       imgFeuille.addEventListener("click", function() {
-        let result = Game.fight("feuille")
+        const result = Game.fight("feuille");
         if (result)
-        GameRender.doDamage(entity,result)
+        GameRender.doDamage(entity,result);
       });
     // Ciseaux 
     const imgCiseaux = document.createElement("img");
-      imgCiseaux.src = "/static/img/fightImg/ciseaux.png"
+      imgCiseaux.src = "/static/img/fightImg/ciseaux.png";
       imgCiseaux.addEventListener("click", function() {
-        let result = Game.fight("ciseaux")
+        const result = Game.fight("ciseaux");
         if (result)
-        GameRender.doDamage(entity,result)
+        GameRender.doDamage(entity,result);
       });
     // Fuir
     const imgFuir = document.createElement("img");
-      imgFuir.src = "/static/img/fightImg/exit.png"
+      imgFuir.src = "/static/img/fightImg/exit.png";
       imgFuir.addEventListener("click", function() {
         Game.playerEntity.getHurt(10);
-        //let _entity = entity as Entity
+        // let _entity = entity as Entity
         Game.currentRoom.removeEntity(entity);
         GameRender.clearFightInterface();
         Game.endFight();
       });
 
 
-    const resultImgContainer = document.createElement("div")
-      resultImgContainer.id = "resultImgContainer"
+    const resultImgContainer = document.createElement("div");
+      resultImgContainer.id = "resultImgContainer";
       // Images de résultats du combat
     const imgChoixDuMonstre = document.createElement("img");
-      imgChoixDuMonstre.id = "imgChoixDuMonstre"
+      imgChoixDuMonstre.id = "imgChoixDuMonstre";
 
     const imgChoixJoueur = document.createElement("img");
-      imgChoixJoueur.id = "imgChoixJoueur"
+      imgChoixJoueur.id = "imgChoixJoueur";
 
     
-      fighterImgContainer.appendChild(playerImg)
+      fighterImgContainer.appendChild(playerImg);
       fighterImgContainer.appendChild(monsterImg);
     fightContainer.appendChild(fighterImgContainer);
       
-    //buttonsContainer
+    // buttonsContainer
       buttonsContainer.appendChild(imgPierre);
       buttonsContainer.appendChild(imgFeuille);
       buttonsContainer.appendChild(imgCiseaux);
@@ -204,39 +204,39 @@ export default abstract class GameRender {
     fightContainer.appendChild(buttonsContainer);
 
     // Images de résultats du combat
-      resultImgContainer.appendChild(imgChoixJoueur)
-      resultImgContainer.appendChild(imgChoixDuMonstre)
-    fightContainer.appendChild(resultImgContainer)
+      resultImgContainer.appendChild(imgChoixJoueur);
+      resultImgContainer.appendChild(imgChoixDuMonstre);
+    fightContainer.appendChild(resultImgContainer);
     document.body.appendChild(fightContainer);
   }
 
-  static doDamage(_entity:Enemy, result:String){
-    let degats = 10
+  static doDamage(_entity:Enemy, result:string){
+    const degats = 10;
     const index = Game.currentRoom.entities.indexOf(_entity);
     if(index === -1) return;
     const enemy = Game.currentRoom.entities[index] as Enemy ;
     if (result === "victoire" && enemy){
-      enemy.getHurt(degats)
+      enemy.getHurt(degats);
       if (enemy.life <= 0 ){ // Si l'enemie a plus de point de vie, on le supprime et on arrete le combat
         Game.currentRoom.removeEntity(enemy);
         Game.playerEntity.killedMonster++;
         GameRender.clearFightInterface();
         Game.endFight();
       }
-    }else if (result === "perdu"){
-      Game.playerEntity.getHurt(10)
-    }
+    }else if (result === "perdu")
+      Game.playerEntity.getHurt(10);
+    
   }
 
-  static displayChoices(choixJoueur:String,choixDuMonstre:String){
-    let imgChoixJoueur = document.getElementById('imgChoixJoueur') as HTMLImageElement
-    let imgChoixDuMonstre = document.getElementById('imgChoixDuMonstre') as HTMLImageElement
-    if (!imgChoixJoueur || !imgChoixDuMonstre){
-      return
-    }
+  static displayChoices(choixJoueur:string,choixDuMonstre:string){
+    const imgChoixJoueur = document.getElementById("imgChoixJoueur") as HTMLImageElement;
+    const imgChoixDuMonstre = document.getElementById("imgChoixDuMonstre") as HTMLImageElement;
+    if (!imgChoixJoueur || !imgChoixDuMonstre)
+      return;
+    
     else {
-      imgChoixJoueur.src= `/static/img/fightImg/${choixJoueur}.png`
-      imgChoixDuMonstre.src= `/static/img/fightImg/${choixDuMonstre}.png`
+      imgChoixJoueur.src= `/static/img/fightImg/${choixJoueur}.png`;
+      imgChoixDuMonstre.src= `/static/img/fightImg/${choixDuMonstre}.png`;
     }
   }
 

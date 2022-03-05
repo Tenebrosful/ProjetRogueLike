@@ -108,9 +108,9 @@ export default class Room {
             // Jouer le combat
             Logger.log(`Fight !${entity.type}, ${entity.name}`);
             GameRender.displayFightInterface(entity as Enemy);
-            //Game.currentRoom.removeEntity(entity);
+            // Game.currentRoom.removeEntity(entity);
             
-            //Game.endFight();
+            // Game.endFight();
         }else if(entity.type === 3){
           // Item
           const item = entity as Item;
