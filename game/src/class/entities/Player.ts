@@ -59,9 +59,10 @@ export default class Player extends Entity {
   getHurt(damage: number): void {
     this.life -= damage;
     Logger.log(`Points de vie du joueur: ${this.life}`, "GAME");
-    if (!this.isStillALive())
+    if (!this.isStillALive()){
       Game.end();
       GameRender.clearFightInterface(); 
+    }
   }
   isStillALive(): boolean {
     return this.life > 0;
