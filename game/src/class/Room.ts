@@ -12,6 +12,7 @@ import Game from "./Game";
 import GameRender from "./GameRender";
 import Logger from "./Logger";
 import Item from "./entities/items/Item";
+import Enemy from "./entities/enemies/Enemy";
 
 export default class Room {
   coords: Coordinates;
@@ -102,6 +103,14 @@ export default class Room {
       if(entity.checkCollisionsWithHeros()){
         if(entity.type === 2){
           // Monstre
+            Game.startFight();
+            // GameRender -> afficher l'interface de combat
+            // Jouer le combat
+            Logger.log(`Fight !${entity.type}, ${entity.name}`);
+            GameRender.displayFightInterface(entity as Enemy);
+            //Game.currentRoom.removeEntity(entity);
+            
+            //Game.endFight();
         }else if(entity.type === 3){
           // Item
           const item = entity as Item;
@@ -109,7 +118,6 @@ export default class Room {
             Game.playerEntity.inventory.add(item);
             Game.currentRoom.removeEntity(item);
           }
-          // item.use();
         }
         Logger.log(`On a une collision !${entity.type}, ${entity.name}`);
         return;

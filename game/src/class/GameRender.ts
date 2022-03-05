@@ -1,4 +1,5 @@
 import Debug from "./Debug";
+import Enemy from "./entities/enemies/Enemy";
 import Entity from "./entities/Entity";
 import Game from "./Game";
 import Logger from "./Logger";
@@ -115,6 +116,130 @@ export default abstract class GameRender {
     gameContainer.innerHTML = "";
   }
 
+  static clearFightInterface(){
+    const fightContainer = document.getElementById("fightContainer");
+    if (!fightContainer) return;
+    document.body.removeChild(fightContainer);
+  }
+
+  static displayFightInterface(entity : Enemy){
+    const fightContainer = document.createElement("div");
+      fightContainer.style.width = this._canvas.width.toString();
+      fightContainer.style.height = this._canvas.height.toString();
+      fightContainer.id = "fightContainer"
+
+    const fighterImgContainer = document.createElement("div");
+    fighterImgContainer.id = "fighterImgContainer";
+      const playerImg = document.createElement("img");
+        playerImg.id = "playerImg"
+        playerImg.src = "/static/img/player/playerR.png";
+      const monsterImg = document.createElement("img");
+        monsterImg.id = "monsterImg"
+      if(entity.sprites.walking?.left){
+        monsterImg.src = "/static/img/" + entity.sprites.walking.left;
+      }else{
+        monsterImg.src = "/static/img/enemies/K_Roi_ssant_gauche.png";
+      }
+      
+        
+    // deux images
+
+    const buttonsContainer = document.createElement("div");
+      buttonsContainer.id = "buttonsContainer"
+    // Pierre 
+    const imgPierre = document.createElement("img");
+      imgPierre.src = "/static/img/fightImg/pierre.png"
+      imgPierre.addEventListener("click", function() {
+        let result = Game.fight("pierre")
+        if (result)
+        GameRender.doDamage(entity,result)
+      });
+    // Feuille
+    const imgFeuille = document.createElement("img");
+      imgFeuille.src = "/static/img/fightImg/feuille.png"
+      imgFeuille.addEventListener("click", function() {
+        let result = Game.fight("feuille")
+        if (result)
+        GameRender.doDamage(entity,result)
+      });
+    // Ciseaux 
+    const imgCiseaux = document.createElement("img");
+      imgCiseaux.src = "/static/img/fightImg/ciseaux.png"
+      imgCiseaux.addEventListener("click", function() {
+        let result = Game.fight("ciseaux")
+        if (result)
+        GameRender.doDamage(entity,result)
+      });
+    // Fuir
+    const imgFuir = document.createElement("img");
+      imgFuir.src = "/static/img/fightImg/exit.png"
+      imgFuir.addEventListener("click", function() {
+        Game.playerEntity.getHurt(10);
+        //let _entity = entity as Entity
+        Game.currentRoom.removeEntity(entity);
+        GameRender.clearFightInterface();
+        Game.endFight();
+      });
+
+
+    const resultImgContainer = document.createElement("div")
+      resultImgContainer.id = "resultImgContainer"
+      // Images de résultats du combat
+    const imgChoixDuMonstre = document.createElement("img");
+      imgChoixDuMonstre.id = "imgChoixDuMonstre"
+
+    const imgChoixJoueur = document.createElement("img");
+      imgChoixJoueur.id = "imgChoixJoueur"
+
+    
+      fighterImgContainer.appendChild(playerImg)
+      fighterImgContainer.appendChild(monsterImg);
+    fightContainer.appendChild(fighterImgContainer);
+      
+    //buttonsContainer
+      buttonsContainer.appendChild(imgPierre);
+      buttonsContainer.appendChild(imgFeuille);
+      buttonsContainer.appendChild(imgCiseaux);
+      buttonsContainer.appendChild(imgFuir);
+    fightContainer.appendChild(buttonsContainer);
+
+    // Images de résultats du combat
+      resultImgContainer.appendChild(imgChoixJoueur)
+      resultImgContainer.appendChild(imgChoixDuMonstre)
+    fightContainer.appendChild(resultImgContainer)
+    document.body.appendChild(fightContainer);
+  }
+
+  static doDamage(_entity:Enemy, result:String){
+    let degats = 10
+    const index = Game.currentRoom.entities.indexOf(_entity);
+    if(index === -1) return;
+    const enemy = Game.currentRoom.entities[index] as Enemy ;
+    if (result === "victoire" && enemy){
+      enemy.getHurt(degats)
+      if (enemy.life <= 0 ){ // Si l'enemie a plus de point de vie, on le supprime et on arrete le combat
+        Game.currentRoom.removeEntity(enemy);
+        Game.playerEntity.killedMonster++;
+        GameRender.clearFightInterface();
+        Game.endFight();
+      }
+    }else if (result === "perdu"){
+      Game.playerEntity.getHurt(10)
+    }
+  }
+
+  static displayChoices(choixJoueur:String,choixDuMonstre:String){
+    let imgChoixJoueur = document.getElementById('imgChoixJoueur') as HTMLImageElement
+    let imgChoixDuMonstre = document.getElementById('imgChoixDuMonstre') as HTMLImageElement
+    if (!imgChoixJoueur || !imgChoixDuMonstre){
+      return
+    }
+    else {
+      imgChoixJoueur.src= `/static/img/fightImg/${choixJoueur}.png`
+      imgChoixDuMonstre.src= `/static/img/fightImg/${choixDuMonstre}.png`
+    }
+  }
+
   static displayEndGame(){
     const resultContainer = document.createElement("div");
     resultContainer.classList.add("container");
@@ -127,7 +252,7 @@ export default abstract class GameRender {
     replayLink.innerText="Rejouer";   
     
     const resultH1 = document.createElement("h1");
-    resultH1.innerText = "Vous êtes morts";
+    resultH1.innerText = "Vous êtes mort";
     
     const resultUl = document.createElement("ul");
       resultUl.classList.add("list-group");

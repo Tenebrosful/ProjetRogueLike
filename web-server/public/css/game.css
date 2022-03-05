@@ -23,6 +23,7 @@
 #progress-bar {
   position: absolute;
   background-color: rgb(255 0 0);
+  z-index: 999;
   font-size: 2rem;
   margin-top: 1em;
   margin-left: 1em;
@@ -31,3 +32,46 @@
 #progress-bar::-webkit-progress-value {
   background: rgb(255 0 0);
 }
+
+#fightContainer{
+  border: 3px solid black;
+  background-color: #212529;
+  position: absolute;
+  /*top : 274px;
+  left: 424px;*/
+  top:80px;
+  height:  576px;
+  width: 1216px;
+  z-index: 997;
+
+}
+#fighterImgContainer{
+  position: relative;
+  top: 80px;
+
+  margin-top: 16px;
+  margin-bottom: 16px;
+  text-align: center;
+}
+#playerImg{
+  margin-right: 32px;
+}
+#monsterImg{
+  margin-left:32px;
+}
+
+#buttonsContainer{
+  position: relative;
+  top : 143px;
+  left : 428px;
+  width: 360px;
+  height : 90px; 
+}
+#resultImgContainer{
+  position: relative;
+  top : 233px;
+  left : 518px;
+}
+
+
+

@@ -84,7 +84,7 @@ export default abstract class Game {
         this.playerEntity.coords.posX += GameRender.TILE_SIZE;
         break;
     }
-    
+
     this.currentRoom.addPlayer();
 
     GameRender.renderAll();
@@ -99,6 +99,8 @@ export default abstract class Game {
 
   static newStage() {
     this.currentFloor++;
+    Game.playerEntity.coveredStage++;
+
     this.currentStage = Stage.generateRandom({ floor: this.currentFloor }, this.rngStage);
 
     Logger.log(`New Stage !\n${this.currentStage.renderTextStage()}`, "GAME");
@@ -117,7 +119,7 @@ export default abstract class Game {
     Logger.logObject(this.playerEntity, "GAME");
 
     this.currentStage.rooms.flat().filter(room => room !== this.currentStage.spawn)
-      .forEach(room => {this.generateEnemies(room),  this.generateItems(room);});
+      .forEach(room => { this.generateEnemies(room), this.generateItems(room); });
 
     GameRender.renderAll();
   }
@@ -175,36 +177,36 @@ export default abstract class Game {
     const items: Item[] = [];
 
     for (let i = 0; i < nbrItems; i++)
-    items.push(this.createRandomItems(this.rngLoots) as Item);
+      items.push(this.createRandomItems(this.rngLoots) as Item);
 
     const possibleTiles = room.tiles.flat().filter(tile => (tile.canWalkThrough) && !tile.isDoor());
     console.log(items);
     items.forEach(item => {
-    const tiles = possibleTiles.filter(tile => (tile.canWalkThrough));
-    console.log(item);
-    Logger.logObject(tiles, "ENEMY_GENERATION");
+      const tiles = possibleTiles.filter(tile => (tile.canWalkThrough));
+      console.log(item);
+      Logger.logObject(tiles, "ENEMY_GENERATION");
 
-    if (tiles.length === 0) { console.log("pas assez de place pour item"); return; }
+      if (tiles.length === 0) { console.log("pas assez de place pour item"); return; }
 
-    const tileIndex = this.rngLoots.intBetween(0, tiles.length - 1);
+      const tileIndex = this.rngLoots.intBetween(0, tiles.length - 1);
 
-    const tile = tiles[tileIndex] as Tile;
-    item.coords = tile.getPixelCoords();
-    possibleTiles.slice(possibleTiles.findIndex(t => t === tile), 1);
+      const tile = tiles[tileIndex] as Tile;
+      item.coords = tile.getPixelCoords();
+      possibleTiles.slice(possibleTiles.findIndex(t => t === tile), 1);
 
-    room.entities.push(item);
+      room.entities.push(item);
     });
   }
 
   static createRandomItems(rand: RandomSeed) {
-    const itemIndex = rand.intBetween(0,1);
+    const itemIndex = rand.intBetween(0, 1);
 
     const item = ItemDictionary.createByIndex(itemIndex);
 
     return item;
   }
 
-  static postGameData(){
+  static postGameData() {
     sendXHR();
     async function sendXHR() {
       const collectedItems = Game.playerEntity.collectedItems.toString();
@@ -214,22 +216,82 @@ export default abstract class Game {
       const token = localStorage.getItem("token");
 
       const result = await fetch("/end", {
-          body: JSON.stringify({
-            collectedItems,
-            coveredStage,
-            killedMonster,
-            token
-          }),
-          headers: {
-              "Content-Type": "application/json"
-          },
-          method: "POST"
+        body: JSON.stringify({
+          collectedItems,
+          coveredStage,
+          killedMonster,
+          token
+        }),
+        headers: {
+          "Content-Type": "application/json"
+        },
+        method: "POST"
       }).then((res) => res.json());
 
       if (result.status !== "ok")
         alert("erreur de sauvegarde de la partie");
-      
+
     }
+  }
+
+  static startFight() {
+    if (this.gameLoopInterval) clearInterval(this.gameLoopInterval);
+    //Bloquer l'ouverture de l'inventaire
+    //Penser a fermer l'inventaire si un monstre entre en collision avec nous ou stopper la gameloop pendant l'ouverture de l'inventaire
+  }
+  static endFight() {
+    if(this.gameLoopInterval) 
+    clearInterval(this.gameLoopInterval)
+    this.gameLoopInterval = setInterval(Game.gameLoop, 1000 / this._fps);
+  }
+  static fight(choixJoueur: String) {
+    let choixDuMonstre = this.getChoixDuMonstre();
+    Logger.log('Choix du monstre: ' + choixDuMonstre)
+    if (!choixDuMonstre) return
+    GameRender.displayChoices(choixJoueur, choixDuMonstre)
+    let resultat;
+    let nul = "nul"; let perdu = "perdu"; let victoire = "victoire"
+    if (choixDuMonstre === choixJoueur) {
+      resultat = nul
+      return resultat
+    }
+    // Pierre
+    if (choixJoueur === "pierre") {
+      if (choixDuMonstre === "ciseaux") {
+        resultat = victoire;
+      } else if (choixDuMonstre === "feuille") {
+        resultat = perdu;
+      }
+    }
+    // Feuille 
+    if (choixJoueur === "feuille") {
+      if (choixDuMonstre === "pierre") {
+        resultat = victoire
+      } else if (choixDuMonstre === "ciseaux") {
+        resultat = perdu
+      }
+    }
+    // Ciseaux
+    if (choixJoueur === "ciseaux") {
+      if (choixDuMonstre === "feuille") {
+        resultat = victoire
+      } else if (choixDuMonstre === "pierre") {
+        resultat = perdu
+      }
+    }
+    return resultat
+  }
+  static getChoixDuMonstre() {
+    const nbChoix = 3;
+    const listeChoix =
+      [
+        "pierre",
+        "feuille",
+        "ciseaux"
+      ];
+
+    let randomNumber = Math.floor(Math.random() * nbChoix);
+    return listeChoix[randomNumber];
   }
 
   static end() {
