@@ -40,25 +40,38 @@
   /*top : 274px;
   left: 424px;*/
   top:80px;
-
+  height:  576px;
+  width: 1216px;
   z-index: 997;
 
 }
 #fighterImgContainer{
+  position: relative;
+  top: 80px;
+
   margin-top: 16px;
   margin-bottom: 16px;
   text-align: center;
 }
-#buttonsContainer{
-  /*
-  width: 360px;
-  height : 90px;
-  */
-  height:  576px;
-  width: 1216px;
-}
 #playerImg{
   margin-right: 32px;
 }
+#monsterImg{
+  margin-left:32px;
+}
+
+#buttonsContainer{
+  position: relative;
+  top : 143px;
+  left : 428px;
+  width: 360px;
+  height : 90px; 
+}
+#resultImgContainer{
+  position: relative;
+  top : 233px;
+  left : 518px;
+}
+
 
 
