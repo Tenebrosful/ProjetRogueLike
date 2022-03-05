@@ -14,7 +14,6 @@ import Item from "./entities/items/Item";
 import Tile from "./tiles/Tile";
 import ItemDictionary from "../dictionary/ItemDictionary";
 import Inventory from "./Inventory";
-import Entity from "./entities/Entity";
 
 export default abstract class Game {
   private static _fps = 60;
