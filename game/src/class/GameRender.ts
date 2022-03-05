@@ -80,7 +80,7 @@ export default abstract class GameRender {
     if (!Game.debug) return;
 
     this._ctx.fillText(
-      `Seed: ${Game.seed} Étage: ${Game.currentFloor} Salle: [${Game.currentRoom.coords.posX};${Game.currentRoom.coords.posY}]`, 0, 25);
+      `Seed: ${Game.seed} Étage: ${Game.currentFloor} Salle: [${Game.currentRoom.coords.posX};${Game.currentRoom.coords.posY}]`, this._canvasWidth - 200, this._canvasHeight - 10);
 
     this._ctx.fillText(
       `Debug Mod (Pressez ${Debug.debugKeys.help} pour les contrôles)`,
