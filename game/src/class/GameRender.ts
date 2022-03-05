@@ -181,15 +181,32 @@ export default abstract class GameRender {
         Game.endFight();
       });
 
-    fightContainer.appendChild(fighterImgContainer);
+
+    const resultImgContainer = document.createElement("div")
+      resultImgContainer.id = "resultImgContainer"
+      // Images de résultats du combat
+    const imgChoixDuMonstre = document.createElement("img");
+      imgChoixDuMonstre.id = "imgChoixDuMonstre"
+
+    const imgChoixJoueur = document.createElement("img");
+      imgChoixJoueur.id = "imgChoixJoueur"
+
+    
       fighterImgContainer.appendChild(playerImg)
       fighterImgContainer.appendChild(monsterImg);
+    fightContainer.appendChild(fighterImgContainer);
+      
     //buttonsContainer
       buttonsContainer.appendChild(imgPierre);
       buttonsContainer.appendChild(imgFeuille);
       buttonsContainer.appendChild(imgCiseaux);
       buttonsContainer.appendChild(imgFuir);
     fightContainer.appendChild(buttonsContainer);
+
+    // Images de résultats du combat
+      resultImgContainer.appendChild(imgChoixJoueur)
+      resultImgContainer.appendChild(imgChoixDuMonstre)
+    fightContainer.appendChild(resultImgContainer)
     document.body.appendChild(fightContainer);
   }
 
@@ -208,6 +225,18 @@ export default abstract class GameRender {
       }
     }else if (result === "perdu"){
       Game.playerEntity.getHurt(10)
+    }
+  }
+
+  static displayChoices(choixJoueur:String,choixDuMonstre:String){
+    let imgChoixJoueur = document.getElementById('imgChoixJoueur') as HTMLImageElement
+    let imgChoixDuMonstre = document.getElementById('imgChoixDuMonstre') as HTMLImageElement
+    if (!imgChoixJoueur || !imgChoixDuMonstre){
+      return
+    }
+    else {
+      imgChoixJoueur.src= `/static/img/fightImg/${choixJoueur}.png`
+      imgChoixDuMonstre.src= `/static/img/fightImg/${choixDuMonstre}.png`
     }
   }
 
