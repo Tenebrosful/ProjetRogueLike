@@ -217,7 +217,7 @@ export default abstract class GameRender {
     const enemy = Game.currentRoom.entities[index] as Enemy ;
     if (result === "victoire" && enemy){
       enemy.getHurt(degats)
-      if (true){ // Si l'enemie a plus de point de vie, on le supprime et on arrete le combat
+      if (enemy.life <= 0 ){ // Si l'enemie a plus de point de vie, on le supprime et on arrete le combat
         Game.currentRoom.removeEntity(enemy);
         Game.playerEntity.killedMonster++;
         GameRender.clearFightInterface();
