@@ -3,8 +3,6 @@ import { Coordinates } from "../typing/tiles";
 import { Direction, InvertDirection } from "../enum/direction";
 import Logger from "./Logger";
 import Room from "./Room";
-import Game from "./Game";
-import { lookup } from "dns";
 import Floor from "./tiles/Floor";
 
 export default class Stage {
