@@ -73,12 +73,12 @@ export default class Stage {
   private generateNextRoom(coords: Coordinates, oldDirection: Direction | null, depth: number, rand: RandomSeed) {
 
     if (oldDirection !== Direction.NORTH && this.canGenerateMoreRoom()) {
-      Logger.log(`[${coords.posX};${coords.posY}] trying to generate [${coords.posX};${coords.posY + 1}]`, "STAGE");
-      this.generateNextRoomSpeceficDirection({ posX: coords.posX, posY: coords.posY + 1 }, Direction.NORTH, depth, rand);
-    }
-    if (oldDirection !== Direction.SOUTH && this.canGenerateMoreRoom() && coords.posY - 1 > 0) {
       Logger.log(`[${coords.posX};${coords.posY}] trying to generate [${coords.posX};${coords.posY - 1}]`, "STAGE");
-      this.generateNextRoomSpeceficDirection({ posX: coords.posX, posY: coords.posY - 1 }, Direction.SOUTH, depth, rand);
+      this.generateNextRoomSpeceficDirection({ posX: coords.posX, posY: coords.posY - 1 }, Direction.NORTH, depth, rand);
+    }
+    if (oldDirection !== Direction.SOUTH && this.canGenerateMoreRoom() && coords.posY + 1 > 0) {
+      Logger.log(`[${coords.posX};${coords.posY}] trying to generate [${coords.posX};${coords.posY - 1}]`, "STAGE");
+      this.generateNextRoomSpeceficDirection({ posX: coords.posX, posY: coords.posY + 1 }, Direction.SOUTH, depth, rand);
     }
     if (oldDirection !== Direction.WEST && this.canGenerateMoreRoom() && coords.posX - 1 > 0) {
       Logger.log(`[${coords.posX};${coords.posY}] trying to generate [${coords.posX - 1};${coords.posY}]`, "STAGE");
@@ -218,6 +218,7 @@ export default class Stage {
     
     const randomNumber = Math.floor(Math.random() * length);
     this.bossRoom = sallesPotentielles[randomNumber] as Room;
+    console.log("Salle de spawn :" + this.spawn.coords.posX,this.spawn.coords.posY);
     console.log("Salle de boss :" + this.bossRoom.coords.posX,this.bossRoom.coords.posY);
     // Ajouter le portail fermé
     const middleTile = this.bossRoom.getTile(this.bossRoom.middle) as Floor;
