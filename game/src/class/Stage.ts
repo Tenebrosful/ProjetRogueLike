@@ -3,6 +3,9 @@ import { Coordinates } from "../typing/tiles";
 import { Direction, InvertDirection } from "../enum/direction";
 import Logger from "./Logger";
 import Room from "./Room";
+import Game from "./Game";
+import { lookup } from "dns";
+import Floor from "./tiles/Floor";
 
 export default class Stage {
   private static _baseRoomNumber = 8;
@@ -15,8 +18,10 @@ export default class Stage {
   currentRoomNumber = 0;
   floor: number;
   isXL: boolean;
-  rooms: Room[][] = [];
+  rooms: Room[][] = []
+  roomsAsArray : Room[] = [];
   spawn: Room;
+  bossRoom: Room;
 
   constructor(params: { floor: number }, random: RandomSeed) {
 
@@ -137,7 +142,7 @@ export default class Stage {
     Logger.log(`Generate room [${coords.posX};${coords.posY}]`, "STAGE");
 
     // @ts-ignore
-    this.rooms[coords.posY][coords.posX] = Room.generateRandom(rand, { posX: coords.posX, posY: coords.posY });
+    this.roomsAsArray.push(this.rooms[coords.posY][coords.posX] = Room.generateRandom(rand, { posX: coords.posX, posY: coords.posY }));
     this.currentRoomNumber++;
 
     Logger.log(`Salles restantes à générer : ${this._maxRoomNumber - this.currentRoomNumber} / ${this._maxRoomNumber}`, "STAGE");
@@ -163,6 +168,99 @@ export default class Stage {
     });
   }
 
+  getBossRoom(){
+    if(!this.rooms)return
+    if(!this.spawn)return
+    let indexContour = 0;
+    let sallesPotentielles : Room[] = [];
+    
+    let foundNewPotentialRoom = true
+
+    // On va volontairement laisser le fait que le coin soit en doublon pour laisser plus
+    // de chance au fait de générer une salle de bosse le plus loin possibl et dans le coin
+    while (foundNewPotentialRoom === true){
+      let sallesAutour : Room[] = []
+      //Haut
+      let result = this.getContourHaut(indexContour);
+      result.forEach(salle => {
+        sallesAutour.push(salle)
+      });
+      //Bas
+      result = this.getContourBas(indexContour);
+      result.forEach(salle => {
+        sallesAutour.push(salle)
+      });
+      //Droite
+      result = this.getContourDroite(indexContour);
+      result.forEach(salle => {
+        sallesAutour.push(salle)
+      });
+      //Gauche
+      result = this.getContourGauche(indexContour);
+      result.forEach(salle => {
+        sallesAutour.push(salle)
+      });
+      
+      if (sallesAutour.length === 0){
+        foundNewPotentialRoom = false
+      }else{
+        sallesPotentielles = sallesAutour;
+      }
+      indexContour++
+    
+      Logger.log('sallesPotentielles :')
+      Logger.logObject(sallesPotentielles);
+      
+    }
+    //Définir la salle de boss
+    this.defineBossRoom(sallesPotentielles)
+  }
+  private defineBossRoom(sallesPotentielles:Room[]){
+    const length = sallesPotentielles.length;
+    
+    const randomNumber = Math.floor(Math.random() * length);
+    this.bossRoom = sallesPotentielles[randomNumber] as Room;
+    console.log('Salle de boss :' + this.bossRoom.coords.posX,this.bossRoom.coords.posY)
+    //Ajouter le portail fermé
+    const middleTile = this.bossRoom.getTile(this.bossRoom.middle) as Floor;
+    this.bossRoom.replaceTile(middleTile.convertToPortail());
+  }
+  private getContourHaut(index:number): Room[]{
+    let result : Room[] = []
+    this.roomsAsArray.forEach(room => {
+      if (room.coords.posY === this.spawn.coords.posY - index){
+        result.push(room)
+      }
+    });
+    return result
+  }
+  private getContourBas(index:number): Room[]{
+    let result : Room[] = []
+    this.roomsAsArray.forEach(room => {
+      if (room.coords.posY === this.spawn.coords.posY + index){
+        result.push(room)
+      }
+    });
+    return result
+  }
+  private getContourDroite(index:number): Room[]{
+    let result : Room[] = []
+    this.roomsAsArray.forEach(room => {
+      if (room.coords.posX === this.spawn.coords.posX + index){
+        result.push(room)
+      }
+    });
+    return result
+  }
+  private getContourGauche(index:number): Room[]{
+    let result : Room[] = []
+    this.roomsAsArray.forEach(room => {
+      if (room.coords.posX === this.spawn.coords.posX - index){
+        result.push(room)
+      }
+    });
+    return result
+  }
   getRoom(coords: Coordinates) {
     return this.rooms[coords.posY]?.[coords.posX];
   }
