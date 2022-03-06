@@ -31,7 +31,7 @@ export default class Stage {
 
     this.isXL = random.intBetween(1, 100) <= Stage._chanceToXL;
 
-    this._maxRoomNumber = Math.floor(Stage._baseRoomNumber * (Math.max(this.floor / 5, 1)) * (this.isXL ? random.floatBetween(1.5, 1.5 * (this.floor / 5)) : 1));
+    this._maxRoomNumber = Math.floor(Stage._baseRoomNumber * Math.max(this.floor / 5, 1) * (this.isXL ? random.floatBetween(1.5, 1.5 * Math.max(this.floor / 5, 1)) : 1));
 
     Logger.log(`Nombre de salle maximum : ${this._maxRoomNumber}${this.isXL ? " (XL)" : ""}`, "STAGE");
 
