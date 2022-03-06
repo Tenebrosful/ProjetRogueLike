@@ -126,6 +126,7 @@ export default abstract class Controls {
       else if (e.code === "Space")
         if(Inventory.visible){
           const item = Game.playerEntity.inventory.itemList[Inventory.posSelector] as Item;
+          if(Game.playerEntity.inventory.itemList.length === 0)return
           if(Game.playerEntity.inventory.itemList[Inventory.posSelector] !== null)
             if(item.use()){
               let emplacement = Inventory.InventoryImgs[Inventory.posSelector] as HTMLElement;
