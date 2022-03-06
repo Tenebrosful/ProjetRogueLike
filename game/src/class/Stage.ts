@@ -72,23 +72,33 @@ export default class Stage {
 
   private generateNextRoom(coords: Coordinates, oldDirection: Direction | null, depth: number, rand: RandomSeed) {
 
-    if (oldDirection !== Direction.NORTH && this.canGenerateMoreRoom()) {
-      Logger.log(`[${coords.posX};${coords.posY}] trying to generate [${coords.posX};${coords.posY - 1}]`, "STAGE");
-      this.generateNextRoomSpeceficDirection({ posX: coords.posX, posY: coords.posY - 1 }, Direction.NORTH, depth, rand);
-    }
-    if (oldDirection !== Direction.SOUTH && this.canGenerateMoreRoom() && coords.posY + 1 > 0) {
-      Logger.log(`[${coords.posX};${coords.posY}] trying to generate [${coords.posX};${coords.posY - 1}]`, "STAGE");
-      this.generateNextRoomSpeceficDirection({ posX: coords.posX, posY: coords.posY + 1 }, Direction.SOUTH, depth, rand);
-    }
-    if (oldDirection !== Direction.WEST && this.canGenerateMoreRoom() && coords.posX - 1 > 0) {
-      Logger.log(`[${coords.posX};${coords.posY}] trying to generate [${coords.posX - 1};${coords.posY}]`, "STAGE");
-      this.generateNextRoomSpeceficDirection({ posX: coords.posX - 1, posY: coords.posY }, Direction.WEST, depth, rand);
-    }
-    if (oldDirection !== Direction.EST && this.canGenerateMoreRoom()) {
-      Logger.log(`[${coords.posX};${coords.posY}] trying to generate [${coords.posX + 1};${coords.posY}]`, "STAGE");
-      this.generateNextRoomSpeceficDirection({ posX: coords.posX + 1, posY: coords.posY }, Direction.EST, depth, rand);
-    }
+    const directions = [Direction.NORTH, Direction.SOUTH, Direction.EST, Direction.WEST];
+    directions.sort(() => rand.intBetween(-1, 1));
 
+    directions.forEach(direction => {
+      if (oldDirection === direction || !this.canGenerateMoreRoom()) return;
+
+      switch (direction) {
+        case Direction.NORTH:
+          if (coords.posY - 1 < 0) return;
+          Logger.log(`[${coords.posX};${coords.posY}] trying to generate [${coords.posX};${coords.posY - 1}]`, "STAGE");
+          this.generateNextRoomSpeceficDirection({ posX: coords.posX, posY: coords.posY - 1 }, Direction.NORTH, depth, rand);
+          break;
+        case Direction.SOUTH:
+          Logger.log(`[${coords.posX};${coords.posY}] trying to generate [${coords.posX};${coords.posY + 1}]`, "STAGE");
+          this.generateNextRoomSpeceficDirection({ posX: coords.posX, posY: coords.posY + 1 }, Direction.SOUTH, depth, rand);
+          break;
+        case Direction.WEST:
+          if (coords.posX - 1 < 0) return;
+          Logger.log(`[${coords.posX};${coords.posY}] trying to generate [${coords.posX - 1};${coords.posY}]`, "STAGE");
+          this.generateNextRoomSpeceficDirection({ posX: coords.posX - 1, posY: coords.posY }, Direction.WEST, depth, rand);
+          break;
+        case Direction.EST:
+          Logger.log(`[${coords.posX};${coords.posY}] trying to generate [${coords.posX + 1};${coords.posY}]`, "STAGE");
+          this.generateNextRoomSpeceficDirection({ posX: coords.posX + 1, posY: coords.posY }, Direction.WEST, depth, rand);
+          break;
+      }
+    });
   }
 
   private getProximityFactor(coords: Coordinates) {
