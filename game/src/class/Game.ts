@@ -102,7 +102,7 @@ export default abstract class Game {
     this.playerEntity.coveredStage++;
 
     this.currentStage = Stage.generateRandom({ floor: this.currentFloor }, this.rngStage);
-    this.currentStage.getBossRoom()
+    this.currentStage.getBossRoom();
 
     Logger.log(`New Stage !\n${this.currentStage.renderTextStage()}`, "GAME");
     Logger.logObject(this.currentStage, "GAME");

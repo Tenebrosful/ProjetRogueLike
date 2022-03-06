@@ -16,7 +16,7 @@ export default class Stage {
   currentRoomNumber = 0;
   floor: number;
   isXL: boolean;
-  rooms: Room[][] = []
+  rooms: Room[][] = [];
   roomsAsArray : Room[] = [];
   spawn: Room;
   bossRoom: Room;
@@ -167,97 +167,97 @@ export default class Stage {
   }
 
   getBossRoom(){
-    if(!this.rooms)return
-    if(!this.spawn)return
+    if(!this.rooms)return;
+    if(!this.spawn)return;
     let indexContour = 0;
     let sallesPotentielles : Room[] = [];
     
-    let foundNewPotentialRoom = true
+    let foundNewPotentialRoom = true;
 
     // On va volontairement laisser le fait que le coin soit en doublon pour laisser plus
     // de chance au fait de générer une salle de bosse le plus loin possibl et dans le coin
     while (foundNewPotentialRoom === true){
-      let sallesAutour : Room[] = []
-      //Haut
+      const sallesAutour : Room[] = [];
+      // Haut
       let result = this.getContourHaut(indexContour);
       result.forEach(salle => {
-        sallesAutour.push(salle)
+        sallesAutour.push(salle);
       });
-      //Bas
+      // Bas
       result = this.getContourBas(indexContour);
       result.forEach(salle => {
-        sallesAutour.push(salle)
+        sallesAutour.push(salle);
       });
-      //Droite
+      // Droite
       result = this.getContourDroite(indexContour);
       result.forEach(salle => {
-        sallesAutour.push(salle)
+        sallesAutour.push(salle);
       });
-      //Gauche
+      // Gauche
       result = this.getContourGauche(indexContour);
       result.forEach(salle => {
-        sallesAutour.push(salle)
+        sallesAutour.push(salle);
       });
       
-      if (sallesAutour.length === 0){
-        foundNewPotentialRoom = false
-      }else{
+      if (sallesAutour.length === 0)
+        foundNewPotentialRoom = false;
+      else
         sallesPotentielles = sallesAutour;
-      }
-      indexContour++
+      
+      indexContour++;
     
-      Logger.log('sallesPotentielles :')
+      Logger.log("sallesPotentielles :");
       Logger.logObject(sallesPotentielles);
       
     }
-    //Définir la salle de boss
-    this.defineBossRoom(sallesPotentielles)
+    // Définir la salle de boss
+    this.defineBossRoom(sallesPotentielles);
   }
   private defineBossRoom(sallesPotentielles:Room[]){
     const length = sallesPotentielles.length;
     
     const randomNumber = Math.floor(Math.random() * length);
     this.bossRoom = sallesPotentielles[randomNumber] as Room;
-    console.log('Salle de boss :' + this.bossRoom.coords.posX,this.bossRoom.coords.posY)
-    //Ajouter le portail fermé
+    console.log("Salle de boss :" + this.bossRoom.coords.posX,this.bossRoom.coords.posY);
+    // Ajouter le portail fermé
     const middleTile = this.bossRoom.getTile(this.bossRoom.middle) as Floor;
     this.bossRoom.replaceTile(middleTile.convertToPortail());
   }
   private getContourHaut(index:number): Room[]{
-    let result : Room[] = []
+    const result : Room[] = [];
     this.roomsAsArray.forEach(room => {
-      if (room.coords.posY === this.spawn.coords.posY - index){
-        result.push(room)
-      }
+      if (room.coords.posY === this.spawn.coords.posY - index)
+        result.push(room);
+      
     });
-    return result
+    return result;
   }
   private getContourBas(index:number): Room[]{
-    let result : Room[] = []
+    const result : Room[] = [];
     this.roomsAsArray.forEach(room => {
-      if (room.coords.posY === this.spawn.coords.posY + index){
-        result.push(room)
-      }
+      if (room.coords.posY === this.spawn.coords.posY + index)
+        result.push(room);
+      
     });
-    return result
+    return result;
   }
   private getContourDroite(index:number): Room[]{
-    let result : Room[] = []
+    const result : Room[] = [];
     this.roomsAsArray.forEach(room => {
-      if (room.coords.posX === this.spawn.coords.posX + index){
-        result.push(room)
-      }
+      if (room.coords.posX === this.spawn.coords.posX + index)
+        result.push(room);
+      
     });
-    return result
+    return result;
   }
   private getContourGauche(index:number): Room[]{
-    let result : Room[] = []
+    const result : Room[] = [];
     this.roomsAsArray.forEach(room => {
-      if (room.coords.posX === this.spawn.coords.posX - index){
-        result.push(room)
-      }
+      if (room.coords.posX === this.spawn.coords.posX - index)
+        result.push(room);
+      
     });
-    return result
+    return result;
   }
   getRoom(coords: Coordinates) {
     return this.rooms[coords.posY]?.[coords.posX];
