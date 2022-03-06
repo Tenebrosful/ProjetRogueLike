@@ -139,10 +139,6 @@ export default abstract class GameRender {
         monsterImg.src = "/static/img/" + entity.sprites.walking.left;
       else
         monsterImg.src = "/static/img/enemies/K_Roi_ssant_gauche.png";
-      
-      
-        
-    // deux images
 
     const buttonsContainer = document.createElement("div");
       buttonsContainer.id = "buttonsContainer";
