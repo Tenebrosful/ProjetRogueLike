@@ -12,7 +12,7 @@
   "devDependencies": {
     "@types/node": "^17.0.21",
     "@types/random-seed": "^0.3.3",
-    "ts-loader": "^9.2.7",
+    "ts-loader": "^9.2.8",
     "ts-node": "^10.7.0",
     "tslib": "^2.3.1",
     "typescript": "^4.6.2",
