@@ -47,7 +47,7 @@ export default abstract class Game {
 
     this.playerEntity = new Player();
     this.playerEntity.inventory = new Inventory([]);
-
+    this.playerEntity.updateLifeBar();
     this.currentFloor = 0;
 
     this.newStage();
