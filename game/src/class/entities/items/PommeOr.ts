@@ -25,10 +25,12 @@ export default class PommeOr extends Item {
     if (Game.playerEntity.life !== Game.playerEntity.maxLife) 
       if (Game.playerEntity.life <= Game.playerEntity.maxLife- this.healValue) {
         Game.playerEntity.life += this.healValue;
+        Game.playerEntity.updateLifeBar();
         Logger.log("On a mangé une pomme");
         return true;
       }else{
         Game.playerEntity.life = Game.playerEntity.maxLife;
+        Game.playerEntity.updateLifeBar();
         Logger.log("On a mangé une pomme");
         return true;
       }
