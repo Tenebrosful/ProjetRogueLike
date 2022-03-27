@@ -47,7 +47,7 @@ export default abstract class Game {
 
     this.playerEntity = new Player();
     this.playerEntity.inventory = new Inventory([]);
-
+    this.playerEntity.updateLifeBar();
     this.currentFloor = 0;
 
     this.newStage();
@@ -103,6 +103,7 @@ export default abstract class Game {
 
     this.currentStage = Stage.generateRandom({ floor: this.currentFloor }, this.rngStage);
     this.currentStage.getBossRoom();
+    this.currentStage.bossRoom.tiles.forEach(line => line.forEach(tile => { if (tile.isPortail()) tile.open(); }));
 
     Logger.log(`New Stage !\n${this.currentStage.renderTextStage()}`, "GAME");
     Logger.logObject(this.currentStage, "GAME");

@@ -1,4 +1,5 @@
 import { entityType } from "../../enum/entityType";
+import iLifeBar from "../../interface/iLifeBar";
 import { EntitySprites } from "../../typing/entity";
 import { Coordinates } from "../../typing/tiles";
 import Game from "../Game";
@@ -7,7 +8,7 @@ import Inventory from "../Inventory";
 import Logger from "../Logger";
 import Entity from "./Entity";
 
-export default class Player extends Entity {
+export default class Player extends Entity implements iLifeBar {
   static DEFAULT_MOVESPEED = 5;
   static NO_CLIP_MOVESPEED = 15;
 
@@ -50,6 +51,11 @@ export default class Player extends Entity {
   
   date = new Date();
 
+  updateLifeBar(): void {
+    const lifeBar = document.getElementById("progress-bar") as HTMLProgressElement;
+    if(!lifeBar) return;
+    lifeBar.value = Game.playerEntity.life;
+  }
 
   canMoveTo(coordsDeplacementOne: Coordinates): boolean {
     if (Game.debug && Game.debug_player_noclip) return true;
@@ -63,6 +69,7 @@ export default class Player extends Entity {
       Game.end();
       GameRender.clearFightInterface(); 
     }
+    this.updateLifeBar();
   }
   isStillALive(): boolean {
     return this.life > 0;
