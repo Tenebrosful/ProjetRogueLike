@@ -20,7 +20,7 @@
   display: none;
 }
 
-#progress-bar{
+#progress-bar {
   position: absolute;
   z-index: 999;
   font-size: 2rem;
@@ -29,6 +29,7 @@
   background-color: #fff;
   justify-content: flex-start;
 }
+
 #progress-bar::-webkit-progress-value {
   background: white;
   box-shadow: 0 13px 20px -10px black;
