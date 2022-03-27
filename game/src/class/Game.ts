@@ -14,6 +14,7 @@ import Item from "./entities/items/Item";
 import Tile from "./tiles/Tile";
 import ItemDictionary from "../dictionary/ItemDictionary";
 import Inventory from "./Inventory";
+import { tileType } from "../enum/tileType";
 
 export default abstract class Game {
   private static _fps = 60;
@@ -103,6 +104,7 @@ export default abstract class Game {
 
     this.currentStage = Stage.generateRandom({ floor: this.currentFloor }, this.rngStage);
     this.currentStage.getBossRoom();
+    this.currentStage.bossRoom.tiles.forEach(line => line.forEach(tile => { if (tile.isPortail()) tile.open(); }));
 
     Logger.log(`New Stage !\n${this.currentStage.renderTextStage()}`, "GAME");
     Logger.logObject(this.currentStage, "GAME");
