@@ -14,11 +14,13 @@
             <%- include('../partials/navbar.ejs') %>
         </header>
         <main>
-            <form id="signin-form">
-                <label>Nom d'utilisateur <input type="text" placeholder="Username" id="input_username" required></label>
-                <label>Mot de passe <input type="password" placeholder="Password" id="input_password" required></label>
-                <button class="btn btn-secondary" type="submit" value="Submit">Envoyer</button>
-            </form>
+            <div class="container mt-4">
+                <form id="signin-form">
+                    <label>Nom d'utilisateur <input type="text" placeholder="Username" id="input_username" required></label><br>
+                    <label>Mot de passe <input type="password" placeholder="Password" id="input_password" required></label><br>
+                    <button class="btn btn-secondary" type="submit" value="Submit">Envoyer</button>
+                </form>
+            </div>
         </main>
     </body>
 </html>
